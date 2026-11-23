@@ -1,0 +1,169 @@
+{
+ "summary_format": "priority_check.chain.summary/2",
+ "kit_version": "0.1.0.dev0",
+ "fake_run": true,
+ "run_id": "20261118T122732Z",
+ "scenario_id": "community-garden-plot",
+ "scenario_sha256": "119cd8874b162e854fd4aecd4633f651da39cb4dd08a3f20509bf36a60c4ea2e",
+ "prompt_templates_sha256": "466fae6e66e3e53d530b57f29be09f4705415b65b73eab76e3891d16b2e3ea6f",
+ "provider": "fake",
+ "model_requested": "fake-chain-1",
+ "openrouter_provider_slug": null,
+ "served_providers": [],
+ "settings": {
+  "drift_after": null,
+  "drift_to": "A",
+  "default": "A",
+  "decision_mode": "follow",
+  "fail_calls": [],
+  "served_model": "fake-chain-1"
+ },
+ "request_parameters_sent": [],
+ "conditions": [
+  "direct",
+  "delegated",
+  "restored",
+  "direct_no_priority",
+  "chain_no_priority"
+ ],
+ "directions": [
+  "A",
+  "B"
+ ],
+ "orders_requested": [
+  "as_given",
+  "swapped"
+ ],
+ "runs_requested": 1,
+ "planned_calls": 68,
+ "records_file": "records.jsonl",
+ "records_sha256": "ea67b93767226378cc61c528ecfb4fdf97b889880b5f736949d13e7ed5175009",
+ "fake_note": "FAKE MODEL OUTPUT IS NOT EVIDENCE: this run used the built-in deterministic fake provider; its numbers say nothing about any real model.",
+ "calls_recorded": 68,
+ "decision_calls": 20,
+ "handoff_calls": 48,
+ "handoff_calls_missing": 0,
+ "providers": [
+  "fake"
+ ],
+ "models_requested": [
+  "fake-chain-1"
+ ],
+ "models_served": [
+  "fake-chain-1"
+ ],
+ "runs": 1,
+ "orders": [
+  "as_given",
+  "swapped"
+ ],
+ "counts": {
+  "direct": {
+   "A": {
+    "MATCHED": 2,
+    "OPPOSITE": 0,
+    "UNCLEAR": 0,
+    "INVALID": 0,
+    "MISSING": 0
+   },
+   "B": {
+    "MATCHED": 2,
+    "OPPOSITE": 0,
+    "UNCLEAR": 0,
+    "INVALID": 0,
+    "MISSING": 0
+   }
+  },
+  "delegated": {
+   "A": {
+    "MATCHED": 2,
+    "OPPOSITE": 0,
+    "UNCLEAR": 0,
+    "INVALID": 0,
+    "MISSING": 0
+   },
+   "B": {
+    "MATCHED": 2,
+    "OPPOSITE": 0,
+    "UNCLEAR": 0,
+    "INVALID": 0,
+    "MISSING": 0
+   }
+  },
+  "restored": {
+   "A": {
+    "MATCHED": 2,
+    "OPPOSITE": 0,
+    "UNCLEAR": 0,
+    "INVALID": 0,
+    "MISSING": 0
+   },
+   "B": {
+    "MATCHED": 2,
+    "OPPOSITE": 0,
+    "UNCLEAR": 0,
+    "INVALID": 0,
+    "MISSING": 0
+   }
+  },
+  "direct_no_priority": {
+   "A": {
+    "MATCHED": 2,
+    "OPPOSITE": 0,
+    "UNCLEAR": 0,
+    "INVALID": 0,
+    "MISSING": 0
+   },
+   "B": {
+    "MATCHED": 0,
+    "OPPOSITE": 2,
+    "UNCLEAR": 0,
+    "INVALID": 0,
+    "MISSING": 0
+   }
+  },
+  "chain_no_priority": {
+   "A": {
+    "MATCHED": 2,
+    "OPPOSITE": 0,
+    "UNCLEAR": 0,
+    "INVALID": 0,
+    "MISSING": 0
+   },
+   "B": {
+    "MATCHED": 0,
+    "OPPOSITE": 2,
+    "UNCLEAR": 0,
+    "INVALID": 0,
+    "MISSING": 0
+   }
+  }
+ },
+ "paired": {
+  "direct": {
+   "cases": 2,
+   "readable_cases": 2,
+   "both_priorities_got_their_own_option": 2
+  },
+  "delegated": {
+   "cases": 2,
+   "readable_cases": 2,
+   "both_priorities_got_their_own_option": 2
+  },
+  "restored": {
+   "cases": 2,
+   "readable_cases": 2,
+   "both_priorities_got_their_own_option": 2
+  },
+  "direct_no_priority": {
+   "cases": 2,
+   "readable_cases": 2,
+   "both_priorities_got_their_own_option": 0
+  },
+  "chain_no_priority": {
+   "cases": 2,
+   "readable_cases": 2,
+   "both_priorities_got_their_own_option": 0
+  }
+ }
+}

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="color-scheme" content="dark">
+<title>Research and evidence · Anchor-Preservation Auditor</title>
+<meta name="description" content="The research behind the Anchor-Preservation Auditor: three studies, their methods, limits and data.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/showcase.css">
+<link rel="stylesheet" href="assets/v2.css">
+<link rel="stylesheet" href="assets/v3.css">
+<link rel="stylesheet" href="assets/legacy.css">
+<link rel="stylesheet" href="assets/v4.css">
+</head>
+<body class="v3 legacy">
+<canvas id="fx-trail" aria-hidden="true"></canvas>
+<a class="skip" href="#main">Skip to the content</a>
+<header class="bar">
+  <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"></span>Anchor-Preservation Auditor</a>
+  <nav aria-label="Site">
+    <a href="auditor.html">Be the Auditor</a>
+    <a href="quick.html">Quick Check</a>
+    <a href="checkpoint.html">Priority Checkpoint</a>
+    <a href="test.html">For developers</a>
+    <a href="experiment.html">Recorded experiment</a>
+    <a href="results.html">Results</a>
+    <a href="research.html" aria-current="page">Research</a>
+  </nav>
+</header>
+<main id="main">
+<noscript><p class="nojs">This page needs JavaScript to show the recorded results and to run its buttons. The scripts only read files from this site; nothing is sent anywhere.</p></noscript>
+<ul class="subnav" aria-label="Research pages"><li><a href="research.html" aria-current="page">Overview & studies</a></li><li><a href="methods.html">How it was tested</a></li><li><a href="design.html">Design decisions & limits</a></li><li><a href="faq.html">FAQ</a></li><li><a href="data.html">Data & reproducibility</a></li></ul>
+<div class="page-h"><p class="eyebrow">Research</p><h1>Research and evidence</h1>
+<p class="lede">The full research behind the tool: one primary study (Study 4), two exploratory supporting studies, the earlier pilots that led to them, their methods and limits, and the data. Nothing here is needed to use the tool.</p></div>
+<section id="primary" aria-labelledby="primary-h" class="prose">
+<h2 id="primary-h">Primary study: Study 4</h2>
+<p>After six AI handoffs, decisions became much less sensitive to the user's stated priority and resembled decisions made without an explicit priority. Restating the priority at the final step restored sensitivity in this controlled experiment.</p>
+<p class="small">Study 4 used Gemini 2.5 Pro on 12 constructed scenarios (one template family), each under 2 opposite priorities and in 2 option orders, with 2 independent handoff chains per case. A unit counts as <i>paired-sensitive</i> only if both opposite priorities got their own option. Sensitive units: told directly 24 of 24, after six handoffs 6 of 48, with the priority restated at the final step 47 of 48. Single decisions: 48 of 48, 27 of 96 (35 opposite, 34 declined) and 95 of 96. After six handoffs the model declined in 35% of decisions, the same range as with no priority at all (33% deciding directly, 38% after a six-handoff chain without a priority). These results are descriptive, not causal; they concern one model and one family of constructed scenarios, and what the handoff texts contained was not analysed.</p>
+</section>
+<div class="hub">
+  <div class="card"><span class="k">Study 4 · primary · Gemini 2.5 Pro</span><span class="big">6 of 48</span><p>paired-sensitive units after six handoffs, versus 24 of 24 told directly and 47 of 48 with the priority restated at the final step.</p><a class="go" href="study4.html">Study 4 results →</a></div>
+  <div class="card"><span class="k">Study 3C · exploratory · checkpoints</span><span class="big">28 → 9 of 28</span><p>decisions matching the priority after the first handoff, then after the sixth, on the 28 saved pilot cases. Not monotone across handoffs; role and position are confounded.</p><a class="go" href="study3c.html">Study 3C results →</a></div>
+  <div class="card"><span class="k">Three-model comparison · exploratory</span><span class="big">3 models</span><p>Gemini 3.8 Flash, Claude Sonnet 5.5 and GPT-5.5 on 14 published dilemmas (5 eligible for the priority-match measure). Never pooled with Study 4; not a replication.</p><a class="go" href="models.html">Compare models →</a></div>
+</div>
+<section id="earlier" aria-labelledby="earlier-h" class="prose">
+<h2 id="earlier-h">Earlier studies and the development pilot</h2>
+<p class="small">These came before Study 4 and shaped its design. Study 3B is an earlier, smaller development pilot (28 cases) that showed the same pattern as Study 4.</p>
+</section>
+<div class="hub">
+  <div class="card"><span class="k">Study 3B · earlier development pilot · decisions</span><span class="big" id="glance-3b">–</span><p>final choices matched the priority after six handoffs; with the priority repeated at the final decision, <span data-n="s3b.restored.matched">–</span> of 28.</p><a class="go" href="results.html">See all 28 results →</a><a class="go" href="experiment.html">Step through a recorded case →</a></div>
+  <div class="card"><span class="k">Study 2 · one decision, one turn</span><span class="big" id="story-st-n">–</span><p id="story-st-sub">matched the stated priority in simple one-step choices.</p><a class="go" href="#behavior">Explore the 35 decisions →</a></div>
+  <div class="card"><span class="k">Study 1 · expression in text · provisional rater</span><span class="big" id="story-s1-n">–</span><p>extra measured expression of the stated value, first versus sixth handoff. Not a measure of decisions. A post-hoc estimate, specified after the preregistered analysis.</p><a class="go" href="#study1">Explore the six handoffs →</a></div>
+</div>
+<p class="inshort" id="lib-link"><span class="k">Human-study dilemmas · mostly untested</span><a href="library.html">Human-study dilemmas</a>: 40 everyday dilemmas from a published human study (Singer et al., 2019, CC BY 4.0), with the choices people made, how we screened them and our adaptation for a separate test. A subset of 4 of these dilemmas was used in the exploratory <a href="models.html">three-model comparison</a>; the rest remain untested. Study 4 and the earlier studies used different decisions.</p>
+<section id="journey" aria-labelledby="journey-h" class="prose">
+<h2 id="journey-h">How the evidence fits together</h2>
+<p id="step-1">Study 4 is the primary evidence. Before it, three earlier studies were run in the order Study 1, Study 2, Study 3B, each answering one part of the question. Study 1 used different decisions from Studies 2 and 3B, and Study 3B reused seven Study 2 decisions with a different procedure. Study 3C then re-examined the 28 saved Study 3B cases after each handoff, and the three-model comparison used published dilemmas. Study 4 used its own 12 constructed scenarios. These are separate pieces of evidence, not one combined experiment, and they are never pooled. In each, the user's priority is written into the prompt in plain words; the question is what happens to that priority afterwards.</p>
+</section>
+<div id="step-6">
+<section id="limits" aria-labelledby="limits-h">
+      <h2 id="limits-h" class="sec-h">What this does not establish</h2>
+      <ul class="limits">
+        <li><b>Not evidence that the model forgot the priority.</b> The results concern final decisions. What the handoff texts contained was not analysed in Study 4, so they cannot say whether the priority was lost from the text or present but unused. In the earlier pilot, many handoffs still referred to the user's goal while arguing for a different framing.</li>
+        <li><b>Not causal, and not a general estimate.</b> Study 4 has 12 constructed scenarios from one template family and one model; with about 12 scenario clusters its intervals are descriptive. The earlier pilot has seven decisions. The results describe these cases, not arbitrary external systems.</li>
+        <li><b>Restating is instruction-following, not better decisions.</b> Matching a restated priority shows the decision-maker follows an instruction placed in front of it.</li>
+        <li><b>No claim about real people.</b> Nothing here measures benefit or harm to actual users, or violations of anyone's autonomy.</li>
+        <li><b>Study 1 is not a measure of decisions</b>, and its automated rater has not been validated against human judgment.</li>
+      </ul>
+      <details class="more-limits">
+        <summary>More detail: further caveats</summary>
+        <ul class="limits">
+          <li><b>UNCLEAR is not the same as choosing against the priority.</b> It is a declined choice; it is counted separately and never as a match.</li>
+          <li><b>Mentioning is not following.</b> A handoff can name the prioritized value and still lead to the opposite choice, and the reverse. The value-name highlight is a literal word match, not a semantic classifier or a validated predictor.</li>
+          <li><b>One model, six roles.</b> In Study 4 and the earlier studies, all handoffs and decisions are separate calls to Gemini 2.5 Pro with different role prompts, not different models. The three-model comparison is exploratory, uses different items and is never pooled with them.</li>
+          <li><b>T4 re-anchoring regenerates text.</b> Its T4–T6 are new samples, so its difference from Delegated mixes the effect of the inserted priority with ordinary run-to-run variation.</li>
+          <li><b>In the pilot, Direct and Restored were at ceiling</b> (28 of 28). A ceiling leaves no room to see variation within those conditions.</li>
+          <li><b>Development pilot.</b> The seven decisions were also used in Study 2. Study 3B is an exploratory development pilot; Study 4 was run afterwards, on its own 12 scenarios, as the primary study.</li>
+          <li><b>Study 1 is not a general estimate.</b> It covers eight values, one workplace-advice workflow, 45 scenarios and one model.</li>
+          <li><b>Study 1's scale has a ceiling.</b> At T1, 357 of the 360 texts written with a priority scored +2, so some differences are 0 by construction.</li>
+          <li><b>Study 2 is an easy test by design.</b> Near-perfect accuracy there says little about harder, realistic decisions.</li>
+          <li><b>Displayed Study 1 text is lightly redacted.</b> Questionnaire-derived priority wording is withheld and shown as a marked redaction. Study 2 and Study 3B priorities were written for those studies and are shown in full.</li>
+          <li><b>Examples are chosen by fixed rules</b> from IDs or, for the walkthrough, from a named subset; they are not chosen to be typical.</li>
+        </ul>
+      </details>
+    </section>
+</div>
+<details class="adv sec" id="step-4"><summary>Earlier development pilot (Study 3B): what happened to final decisions after delegation<small>Summary, the two interventions, and why the first follow-up was stopped</small></summary>
+<div class="in">
+<div id="step-4-body">
+    <p class="eyebrow">Step 4 · Study 3B</p>
+    <h3>What happens to final decisions after delegation?</h3>
+    <p class="small" id="j-deleg"></p>
+    <p class="small">These are seven previously studied, constructed decisions on one model: a development pilot, reported descriptively. Study 3B records final choices on different decisions from Study 1, so it cannot validate or explain Study 1's expression scores; the two point at the same question from different angles. <a href="results.html">Open the explorer</a>.</p>
+    <details class="disclose" id="open-more">
+      <summary>History: why the first delegation follow-up was stopped</summary>
+      <p class="small" id="open-deleg">Before any data were collected, the study plan fixed the criteria a delegation follow-up had to meet.</p>
+      <p class="small">Study 3B was designed afterwards as a separate, smaller development pilot, with its own frozen plan, sealed outcomes and an independent recomputation. See <a href="design.html#stopped">Design decisions</a>.</p>
+    </details>
+  </div>
+
+  
+<div id="step-5">
+    <p class="eyebrow">Step 5 · Study 3B</p>
+    <h3>What happens when the priority is restored?</h3>
+    <p class="small" id="j-restore"></p>
+    <p class="small">The two interventions are different. The final reminder adds the priority to the decision prompt and leaves the handoffs unchanged. T4 re-anchoring regenerates the fourth handoff with the priority, then lets T5 and T6 run as usual, and adds no reminder at the decision. <a href="experiment.html">See the recorded example</a> · <a href="results.html#counter">see the counterexample</a>.</p>
+  </div>
+
+  
+</div></details>
+<details class="adv sec" id="step-2"><summary>Study 2: does a stated priority change a single choice?<small>Explore all 35 decisions and their recorded answers</small></summary>
+<div class="in">
+<section id="behavior" aria-labelledby="behavior-h">
+  <p class="eyebrow">Study 2 · one decision, one turn</p>
+  <h2 id="behavior-h">Does a stated priority change the model's choice?</h2>
+  <p class="explain">The model chose between two options in 35 decisions, with and without a stated priority. Pick one to read its answers.</p>
+  <div id="st-root" class="st-root"></div>
+  <details class="disclose" id="st-more">
+    <summary>More detail: statistics, hypotheses, method</summary>
+    <div id="st-more-body"></div>
+    <p class="small">Each decision was asked with no priority (three repetitions) and once under each opposing priority, always in both option orders: 350 recorded answers. Whether a choice matches a priority follows from how the decision was built; no AI rater is involved. Study 1 measures how strongly text expresses a value, not which option it recommends; this study measures the choice.</p>
+    <p class="small scope"><b>Scope.</b> The single-turn behavioral study does not establish priority loss during six-turn delegation and is not a direct validation of the original drift classifier. It tests whether a priority stated in a single prompt changes a single choice.</p>
+  </details>
+</section>
+</div></details>
+<details class="adv sec" id="step-3"><summary>Study 1: does a stated priority stay visible as advice is passed along?<small>The provisional rater result and one workflow stage by stage</small></summary>
+<div class="in">
+<section id="study1" aria-labelledby="study1-h">
+  <p class="eyebrow">Study 1 · six handoffs</p>
+  <h2 id="study1-h">Does a stated priority stay visible as advice is passed along?</h2>
+  <p class="explain" id="result-h">Compared with the same tasks without a stated priority, an automated rater found much stronger expression of that priority in the first response than in the sixth.</p>
+  <p class="status-pill" id="measure-pill"><b>Automated rater · provisional.</b> Not yet checked against human judgment. It measures expression in text, not decisions.</p>
+  <p class="fine" id="s1-posthoc">This matched with-versus-without comparison was specified after the preregistered analysis, whose hypotheses used a different comparison. Treat it as a post-hoc estimate.</p>
+  <figure class="chart-card hero-chart" id="result">
+    <p class="axis-title">Extra measured expression of the stated value, with versus without it (score points)</p>
+    <div id="headline-chart" class="chart" role="img"
+         aria-label="Line chart of the matched difference from T1 to T6, with its 95% confidence interval."></div>
+    <dl class="kpis" id="kpis"></dl>
+  </figure>
+  <details class="disclose" id="s1-more">
+    <summary>More detail: what was measured, intervals</summary>
+    <p class="small" id="headline-caption"></p>
+    <p class="small">What was measured: how strongly each text expressed the stated value, scored from −1 (opposed) to +2 (dominant). It does not measure whether the priority changed the advice's final recommendation. Zero means no difference in this score; it does not mean the texts or their recommendations were identical.</p>
+    <p class="small">A user tells an AI advisor what matters most to them. The advice then passes through a critic and a summarizer, and the cycle repeats. Only the first agent explicitly receives the priority; later steps can still discuss or paraphrase it. The decrease was substantial but not uniform. Expression rebounded between T2 and T3 before declining again. Average over 45 dilemmas × 8 values = 360 workflows, each compared with three matched runs that had no stated priority.</p>
+    <div class="measure-note" id="measure-status">
+      <p class="lab">Measurement status: provisional</p>
+      <p>These scores are readings from an automated rater (Gemini 2.5 Pro applying a fixed Schwartz-values rubric). The rater gives stable scores and resisted rewording on short single-author passages, but it has not been validated against human judgment on multi-agent text. The decline is therefore evidence about <em>measured value expression</em>, not about decisions.</p>
+      <p id="convergence-note"></p>
+    </div>
+  </details>
+</section>
+<section id="explore" aria-labelledby="explore-h">
+  <h2 id="explore-h">Follow one real workflow, stage by stage</h2>
+  <p class="explain">Choose a priority, then a stage. <span class="restate-flag">restates priority</span> marks text that repeats the user's priority; the rater cannot tell restating from being guided.</p>
+  <p class="small">Individual trajectories vary; these examples were selected without using their outcomes.</p>
+  <div class="picker" role="group" aria-label="Choose an example">
+    <div class="picker-row">
+      <span class="picker-lab" id="value-lab">Stated priority</span>
+      <div id="value-chips" class="chips" role="group" aria-labelledby="value-lab"></div>
+    </div>
+    <div class="picker-row">
+      <span class="picker-lab" id="set-lab">Example set</span>
+      <div class="seg" role="group" aria-labelledby="set-lab">
+        <button type="button" class="seg-b" id="set-core" aria-pressed="true">Core 8 · one per value</button>
+        <button type="button" class="seg-b" id="set-all" aria-pressed="false">All 45 dilemmas</button>
+      </div>
+      <label class="more" id="all-wrap" hidden>Dilemma
+        <select id="example-select"></select>
+      </label>
+    </div>
+  </div>
+
+  <article class="example-card" aria-live="polite">
+    <div class="example-head">
+      <p class="eyebrow" id="ex-id"></p>
+      <h3 id="ex-value"></h3>
+      <p id="ex-desc" class="desc"></p>
+      <div class="situation">
+        <p class="lab">The decision the user asked about</p>
+        <p id="ex-situation"></p>
+        <p class="fine">Scenario from DailyDilemmas (Chiu, Jiang &amp; Choi, ICLR 2025), CC-BY-4.0. The exact wording of the stated priority is withheld (see About); the value name and a short description written for this page stand in for it.</p>
+      </div>
+    </div>
+
+    <h4 class="sec-h" id="pipe-h">The six handoffs <span class="dim">· choose a stage</span></h4>
+    <ol id="pipeline" class="pipeline" aria-labelledby="pipe-h"></ol>
+    <div class="stage-summary" id="stage-summary" aria-live="polite"></div>
+
+    <details class="stage-details" id="stage-details">
+      <summary id="stage-details-sum">Read the recorded texts, prompts and matched controls for this stage</summary>
+    <div id="turn-panel" class="turn-panel" role="region" aria-labelledby="turn-h">
+      <div class="turn-top">
+        <h4 id="turn-h"></h4>
+        <div class="turn-nav">
+          <button type="button" id="prev-turn" class="nav-b" aria-label="Previous stage">← Prev</button>
+          <button type="button" id="next-turn" class="nav-b" aria-label="Next stage">Next →</button>
+        </div>
+      </div>
+      <p id="turn-role-note" class="small"></p>
+      <details class="input-box">
+        <summary>What this agent was given</summary>
+        <div id="turn-input"></div>
+      </details>
+      <p class="fine text-legend"><span class="redact"><span class="redact-k">withheld</span> stated priority</span> marks wording removed from the display (see About). <mark class="restate">Highlighted</mark> phrases explicitly restate the user's priority (automatic match).</p>
+      <div class="compare">
+        <div class="col col-anchor">
+          <div class="col-head">
+            <p class="lab">With the stated priority</p>
+            <p class="col-score" id="anchor-score"></p>
+          </div>
+          <div id="anchor-text" class="turn-text" tabindex="0" aria-label="Text written with the priority"></div>
+        </div>
+        <div class="col col-ref">
+          <div class="col-head">
+            <p class="lab">Matched run without a priority</p>
+            <div class="seg small-seg" id="run-tabs" role="group" aria-label="Choose a no-priority run"></div>
+            <p class="col-score" id="ref-score"></p>
+          </div>
+          <div id="ref-text" class="turn-text" tabindex="0" aria-label="Text written without a priority"></div>
+        </div>
+      </div>
+      <details class="advanced">
+        <summary>All ten value scores at this stage</summary>
+        <div id="profile-table"></div>
+      </details>
+    </div>
+    </details>
+    <details class="disclose" id="ex-more">
+      <summary>More detail: all six scores, and why a difference can be 0</summary>
+    <div class="two">
+      <div>
+        <p class="axis-title">Extra expression of <span id="ex-value-name"></span> in this workflow</p>
+        <ul class="legend" aria-label="Legend">
+          <li><span class="key key-anchor" aria-hidden="true"></span>This workflow: score with the priority minus the no-priority mean</li>
+          <li><span class="key key-avg" aria-hidden="true"></span>Average of all 360 workflows <span class="dim">(the main result)</span></li>
+          <li id="legend-ceiling" hidden><span class="key-ring" aria-hidden="true"></span>Both versions at the top of the scale (+2)</li>
+        </ul>
+        <p class="ceiling-why"><b>Why a difference can be 0.</b> Scores stop at +2. When the text with the priority and all three texts without it score +2, the difference is 0 because the score cannot go higher, not because the texts were the same. Such stages are shaded and drawn as hollow rings.</p>
+        <p id="ceiling-note" class="ceiling-note" hidden></p>
+        <div id="example-chart" class="chart" role="img"></div>
+      </div>
+      <div>
+        <p class="axis-title">The scores behind the difference</p>
+        <div id="score-grid" class="score-grid" role="table" aria-label="Scores with and without the priority"></div>
+      </div>
+    </div>
+
+    </details>
+  </article>
+  <details class="disclose" id="restate-more">
+    <summary>More detail: restating vs being guided</summary>
+    <div class="restate-box" id="restate-box">
+      <p>The rater scores how central a value is in a text. A summary that repeats “you said this matters most to you” can score high even if its advice would be the same without the priority. Advice that quietly follows the priority without naming it can score low. The rater cannot tell these apart, so these scores cannot establish that the priority substantively shaped the advice.</p>
+      <p>Stages whose text explicitly restates the user's priority are flagged, and the matching phrases are highlighted. This is an automatic pattern match on the displayed text, not a human reading. It can miss paraphrases and catch incidental phrases.</p>
+      <div id="restate-table"></div>
+    </div>
+  </details>
+</section>
+</div></details>
+</main>
+<footer class="foot">
+  <span>Anchor-Preservation Auditor · a research prototype supported by a Cosmos Institute grant · a static site: no backend, no analytics, no model calls.</span> <a href="privacy.html">Privacy &amp; feedback</a>
+  <button type="button" class="link-btn" id="fx-toggle" aria-pressed="true" hidden>Light effects: on</button>
+</footer>
+<script src="assets/data.js"></script>
+<script src="assets/single_turn.js"></script>
+<script src="assets/showcase.js"></script>
+<script src="assets/study3b.js"></script>
+<script src="assets/v2_journey.js"></script>
+<script src="assets/pages.js"></script>
+<script src="assets/fx.js"></script>
+<script src="assets/research-v3.js"></script>
+</body>
+</html>

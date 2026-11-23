@@ -1,0 +1,73 @@
+/* v4 additions, loaded after the r6 stylesheets on every page.
+   Quick Check block (homepage section and quick.html), homepage "idea in four lines" strip, 6-card hub. */
+.qc { padding: 22px 24px; margin: 8px 0 34px; border-color: rgba(103, 232, 249, .38);
+      background: linear-gradient(160deg, rgba(103, 232, 249, .07), rgba(167, 139, 250, .07)), var(--card); scroll-margin-top: 80px; }
+.qc-head h2, .qc-head h1 { font-size: clamp(1.25rem, 2.6vw, 1.6rem); margin: 0 0 6px; }
+.qc-how { color: var(--dim); margin: 0 0 14px; max-width: 70ch; }
+.qc-f { margin-bottom: 12px; }
+.qc .qc-text { font-size: 1.02rem; line-height: 1.5; min-height: 116px; }
+.qc-actions { align-items: center; }
+.qc-edit-hint { color: var(--faint); }
+.qc-notes { list-style: none; padding: 0; margin: 6px 0 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 22px;
+            font-size: .88rem; color: var(--dim); }
+.qc-notes li { padding-left: 14px; position: relative; }
+.qc-notes li::before { content: ""; position: absolute; left: 0; top: .6em; width: 6px; height: 6px; border-radius: 50%; background: var(--violet); }
+.qc-notes strong { color: var(--ink); }
+.qc-page { max-width: 880px; }
+.qc-page .qc { margin-top: 18px; }
+.qc-more p { color: var(--dim); }
+.pitch { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 4px 0 30px; }
+.pitch-i { border-left: 2px solid var(--line); padding: 2px 0 2px 14px; }
+.pitch-i p { margin: 0 0 6px; color: var(--dim); font-size: .95rem; }
+.pitch-i .k { color: var(--cyan); font-weight: 650; text-transform: uppercase; letter-spacing: .08em; font-size: .74rem; }
+.pitch-i .go { font-size: .9rem; }
+.hub.hub3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 900px) { .pitch { grid-template-columns: repeat(2, minmax(0, 1fr)); } .hub.hub3 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) {
+  .qc { padding: 18px 16px; }
+  .qc-notes, .pitch, .hub.hub3 { grid-template-columns: minmax(0, 1fr); }
+  .qc-edit-hint { flex-basis: 100%; }
+}
+
+/* v4 W7: the results grid's two phone columns may shrink below their content, so nothing overflows at 320 px */
+@media (max-width: 860px) {
+  .grid28 { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .grid28 .cell, .grid28 .dn { min-width: 0; overflow-wrap: anywhere; }
+}
+
+/* v4 review fix: ARIA row wrappers in the research score table do not take part in the grid layout */
+.score-grid .srow { display: contents; }
+.score-grid .srow > div { padding: 6px 4px; border-bottom: 1px solid var(--rule); text-align: center; }
+.score-grid .srow > .rowlab { text-align: left; padding-left: 0; }
+@media (max-width: 640px) {
+  .score-grid .srow > div { padding: 5px 1px; }
+  .score-grid .srow > .rowlab { grid-column: 1 / -1; border-bottom: 0; padding: 8px 0 0; }
+  /* kept in the accessibility tree (display:none would shift every column header by one for screen readers) */
+  .score-grid .srow > .rowlab.colhead { display: block; position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; padding: 0; }
+}
+
+/* v4 review fix: visible notice when JavaScript is off */
+.nojs { border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; margin: 14px 0; color: var(--ink); }
+
+/* v4 review round 2: scoped pilot result in the hero, developer kit box, inline Quick Check at the end of the experiment */
+.hero-result { font-size: 1.1rem; line-height: 1.55; color: var(--ink); max-width: 58ch; margin: 0 0 10px; }
+.hero-result strong { color: var(--cyan); white-space: nowrap; }
+.hero-scope { font-size: .9rem; color: var(--dim); max-width: 60ch; margin: 0 0 14px; }
+@media (max-width: 640px) { .hero-result { font-size: 1rem; } }
+.kit-box { margin-top: 22px; }
+.kit-box h2 { margin-top: 0; }
+.kit-box pre, .kit-box code { white-space: pre-wrap; overflow-wrap: anywhere; word-break: break-word; }
+.kit-box { min-width: 0; max-width: 100%; }
+.end-qc { margin: 18px 0; }
+.end-qc .qc-text { width: 100%; }
+.sens-lead { font-size: 1.05rem; color: var(--ink); margin: 0 0 8px; }
+/* narrow phones: the experiment button directly under the headline, so it stays in the first screen */
+@media (max-width: 400px) {
+  .hero-text { display: flex; flex-direction: column; }
+  .hero-text .eyebrow { order: 1; } .hero-text h1 { order: 2; } .hero-text .actions { order: 3; margin-bottom: 14px; }
+  .hero-text .hero-result { order: 4; } .hero-text .hero-scope { order: 5; } .hero-text .trust { order: 6; }
+}
+/* recheck (UX): featured case reads as the main button; small links get a usable tap height */
+.story-link .story-go { color: var(--cyan); font-weight: 600; margin-top: 4px; }
+#go-story { border-color: var(--violet); box-shadow: 0 0 0 1px rgba(167, 139, 250, .25); }
+.bta .aside a, .foot .link-btn, .bta a.go { display: inline-block; min-height: 24px; padding: 3px 0; }

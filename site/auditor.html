@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="color-scheme" content="dark">
+<title>Be the Auditor · Anchor-Preservation Auditor</title>
+<meta name="description" content="Choose what should matter in an everyday decision, then follow a recorded AI run: predict the final choice and compare it with a reminder at the final decision; optionally re-add the priority earlier or flip it. Replayed from our pilot; nothing runs live.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/v3.css">
+<link rel="stylesheet" href="assets/auditor.css">
+<link rel="stylesheet" href="assets/v4.css">
+</head>
+<body class="v3">
+<canvas id="fx-trail" aria-hidden="true"></canvas>
+<a class="skip" href="#main">Skip to the content</a>
+<header class="bar">
+  <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"></span>Anchor-Preservation Auditor</a>
+  <nav aria-label="Site">
+    <a href="auditor.html" aria-current="page">Be the Auditor</a>
+    <a href="quick.html">Quick Check</a>
+    <a href="checkpoint.html">Priority Checkpoint</a>
+    <a href="test.html">For developers</a>
+    <a href="experiment.html">Recorded experiment</a>
+    <a href="results.html">Results</a>
+    <a href="research.html">Research</a>
+  </nav>
+</header>
+
+<main id="main" class="bta">
+<noscript><p class="nojs">This page needs JavaScript to show the recorded results and to run its buttons. The scripts only read files from this site; nothing is sent anywhere.</p></noscript>
+<p class="banner-rec"><b>Recorded</b><span>Saved outputs from our pilot. Nothing runs live; your answers stay in this tab.</span></p>
+<div class="bta-head">
+  <h1 id="bta-h1">Be the Auditor</h1>
+  <ol class="bta-steps" id="bta-steps" aria-label="Progress"></ol>
+</div>
+
+<!-- Entry: choose what matters -->
+<section class="bta-screen" id="s-intro" data-step="0" aria-labelledby="h-intro">
+  <h2 id="h-intro" tabindex="-1" class="bta-q">When AI helps make decisions, whose priorities guide the final choice?</h2>
+  <p class="lede sm">Like the telephone game: a request passed through six AI steps (“handoffs”), each with a job: advise, critique or rewrite the advice. Then a separate step made the decision.</p>
+  <button type="button" class="card pad story-link" id="go-story"><span class="k">Start here · featured case</span><b>The arts festival that became a career question</b><span>Follow one recorded run, predict the final decision, then compare it with a one-line reminder of the priority.</span><span class="go story-go" aria-hidden="true">Start →</span></button>
+  <h3 class="bta-q2" id="topics-q">Or pick another decision: which should matter more?</h3>
+  <div class="topics" id="topics" role="group" aria-labelledby="topics-q"></div>
+  <p class="fine">Every decision here is fictional and was recorded earlier in our pilot (one model, Gemini 2.5 Pro).</p>
+</section>
+
+<section class="bta-screen" id="s-choose" data-step="0" aria-labelledby="h-choose" hidden>
+  <p class="eyebrow">Choose what matters</p>
+  <h2 id="h-choose" tabindex="-1" class="bta-q"></h2>
+  <div class="sit-tabs" id="sit-tabs" role="group" aria-label="Situation"></div>
+  <div class="card pad sit" id="sit"><b id="sit-title"></b><p id="sit-task"></p><ul class="sit-opts" id="sit-opts"></ul></div>
+  <h3 class="bta-q2" id="pick-q">Which should matter more here?</h3>
+  <div class="picks" id="picks" role="group" aria-labelledby="pick-q"></div>
+  <p class="fine">You're choosing which recorded run to open, not instructing an AI: each choice opens a run we recorded earlier, in which the AI's first step was given that priority. Your pick isn't sent anywhere and isn't a measure of your values.</p>
+  <div class="bta-nav"><button type="button" class="btn ghost sm" data-back>Back</button></div>
+</section>
+
+<section class="bta-screen" id="s-story" data-step="0" aria-labelledby="h-story" hidden>
+  <p class="eyebrow">Featured story · Arts festival</p>
+  <h2 id="h-story" tabindex="-1" class="bta-q">They asked about a festival project. By handoffs 4–6, the advice talked about a career.</h2>
+  <div class="contrast" id="intro-cards">
+    <div class="card pad cc-asked"><span class="k">What the person asked <em class="lab">summary</em></span><p id="cc-asked"></p></div>
+    <div class="cc-arrow" aria-hidden="true"><span>6 handoffs</span></div>
+    <div class="card pad cc-later"><span class="k">What handoffs 4–6 talk about <em class="lab">summary</em></span><p id="cc-later"></p><p class="cc-still" id="cc-still"></p></div>
+  </div>
+  <p class="fine">One recorded run, picked by a fixed rule. The six handoffs and the final decision were separate calls to the same model. Exact words are in quotation marks; the full texts are one click away in the challenge.</p>
+  <div class="bta-nav"><button type="button" class="btn ghost sm" data-back>Back</button><button type="button" class="btn primary" id="go-start">Start: predict the decision</button></div>
+</section>
+
+<!-- Move 1: predict -->
+<section class="bta-screen" id="s-m1" data-step="1" aria-labelledby="h-m1" hidden>
+  <p class="eyebrow">Step 1 · Predict</p>
+  <h2 id="h-m1" tabindex="-1" class="bta-q">What do you think the AI chose?</h2>
+  <p class="m1-pri"><span class="k">The priority in this recorded run</span><q id="m1-pri"></q></p>
+  <div class="strip-wrap" id="strip-wrap">
+    <ol class="strip" id="m1-strip" aria-label="The six handoffs"></ol>
+    <details class="adv tl-more" id="tl-more" hidden><summary>Read each step's exact recorded text<small>Six steps, word for word; nothing summarised or selected</small></summary><div class="in" id="tl-list"></div></details>
+    <div class="strip-nav" id="strip-nav"><button type="button" class="btn ghost sm" id="strip-prev" aria-controls="m1-strip">‹ Earlier</button><span class="fine" id="strip-pos" aria-live="polite"></span><button type="button" class="btn ghost sm" id="strip-next" aria-controls="m1-strip">Later ›</button></div>
+    <div class="stage-full" id="stage-full" hidden><div class="sf-h"><b id="sf-title"></b><button type="button" class="link-btn" id="sf-close">Close</button></div><p class="fine" id="sf-where"></p><div class="text-box" id="sf-text"></div></div>
+    <p class="fine strip-cap" id="m1-strip-cap"></p>
+  </div>
+  <div class="guess" role="group" aria-labelledby="h-m1" id="m1-guess"></div>
+  <div class="bta-nav"><button type="button" class="btn ghost sm" data-back>Back</button><button type="button" class="link-btn" id="m1-skip">Skip: just show me</button></div>
+  <details class="more"><summary>What the final step received</summary><p class="fine">The task, the two options and handoff 6. It didn't receive the person's priority as a separate instruction; whatever handoff 6 says about it came through the handoffs. <span id="m1-task"></span></p><p class="fine" id="m1-label"></p></details>
+</section>
+
+<section class="bta-screen" id="s-m1r" data-step="1" aria-labelledby="h-m1r" hidden>
+  <p class="eyebrow">Step 1 · Reveal</p>
+  <h2 id="h-m1r" tabindex="-1" class="bta-q"></h2>
+  <div class="tile big" id="m1r-tile"><span class="k">Recorded final decision · no reminder</span><strong class="ch"></strong><span class="opt"></span><span class="oc"></span></div>
+  <p class="you" id="m1r-you"></p>
+  <details class="more"><summary>The full recorded answer and exact prompt</summary><p class="fine">We read the choice from the answer's fixed first line, not from its explanation.</p><div id="m1r-more"></div></details>
+  <div class="next-pred" id="m1r-next">
+    <h3 class="bta-q2" id="m2-ask">Next: the same handoff 6, plus one line repeating the priority. What will the final step choose?</h3>
+    <div class="guess" role="group" aria-labelledby="m2-ask" id="m2-guess"></div>
+  </div>
+  <div class="bta-nav"><button type="button" class="btn ghost sm" data-back>Back</button><button type="button" class="link-btn" data-next id="m2-skip">Skip: just show me</button></div>
+</section>
+
+<!-- Move 2: test an intervention -->
+<section class="bta-screen" id="s-m2" data-step="2" aria-labelledby="h-m2" hidden>
+  <p class="eyebrow">Optional · Choose a test</p>
+  <h2 id="h-m2" tabindex="-1" class="bta-q">What would you test next?</h2>
+  <p class="lede sm" id="m2-intro"></p>
+  <div class="ivs" id="m2-choices">
+    <button type="button" class="iv" data-iv="restored"><span class="iv-l">A</span><b>Repeat the priority at the final decision</b><span>Same handoff 6, plus one line stating the priority.</span></button>
+    <button type="button" class="iv" data-iv="reanchored"><span class="iv-l">B</span><b>Reintroduce the priority earlier, at handoff 4</b><span>Handoffs 4 to 6 are written anew with the priority added back.</span></button>
+  </div>
+  <div class="bta-nav"><button type="button" class="btn ghost sm" data-back>Back</button><button type="button" class="link-btn" data-skipto="s-m3">Skip to the flip</button></div>
+</section>
+
+<section class="bta-screen" id="s-m2r" data-step="2" aria-labelledby="h-m2r" hidden>
+  <p class="eyebrow" id="m2r-eye">Step 2 · Recorded result</p>
+  <h2 id="h-m2r" tabindex="-1" class="bta-q"></h2>
+  <div class="tiles">
+    <div class="tile" id="m2r-a"><span class="k">No reminder (step 1)</span><strong class="ch"></strong><span class="opt"></span><span class="oc"></span></div>
+    <div class="arrow" aria-hidden="true"><span></span></div>
+    <div class="tile" id="m2r-b"><span class="k"></span><strong class="ch"></strong><span class="opt"></span><span class="oc"></span></div>
+  </div>
+  <p class="you" id="m2r-you"></p>
+  <p class="how-diff" id="m2r-how"></p>
+  <p class="fine">One recorded run: an observed difference, not proof of a reliable effect. Matching the priority doesn't make a choice the better decision.</p>
+  <details class="more" id="m2r-details"><summary>Recorded texts and exact prompt</summary><div id="m2r-more"></div></details>
+  <div class="bta-nav"><button type="button" class="btn ghost sm" data-back>Back</button><button type="button" class="btn primary" data-next>See the takeaway</button></div>
+  <details class="adv explore" id="m2r-explore"><summary>Explore more (optional)<small>Flip the priority, re-add it at handoff 4, or see a counterexample</small></summary><div class="in">
+    <div class="explore-btns"><button type="button" class="btn ghost sm" id="go-flip">Flip the priority: does the decision follow?</button><button type="button" class="btn ghost sm" id="go-tests">Compare both ways of bringing the priority back</button></div>
+    <div class="other-iv" id="m2r-other"></div>
+    <details class="adv" id="m2-counter"><summary>A selected counterexample: matched with the handoff only, chose the other option after the priority was re-added at handoff 4<small>Chosen by a rule fixed before the results were unsealed. Not representative.</small></summary><div class="in" id="m2-counter-in"></div></details>
+  </div></details>
+</section>
+
+<!-- Move 3: flip the priority -->
+<section class="bta-screen" id="s-m3" data-step="3" aria-labelledby="h-m3" hidden>
+  <p class="eyebrow">Optional · Flip the priority</p>
+  <h2 id="h-m3" tabindex="-1" class="bta-q">What if the person cared more about the opposite goal?</h2>
+  <div class="card pad flip"><span class="k">Before</span><p class="was" id="m3-p1"></p><span class="k">Now</span><blockquote class="pri-q" id="m3-p2"></blockquote>
+  <p class="sep-run" id="m3-sep">Its own separately recorded run: the opposite priority went in at handoff 1. We didn't edit the priority inside the earlier run.</p></div>
+  <h3 class="bta-q2" id="m3-ask">Without any reminder, will the final choice change?</h3>
+  <div class="guess" role="group" aria-labelledby="m3-ask" id="m3-guess"></div>
+  <div class="bta-nav"><button type="button" class="btn ghost sm" data-back>Back</button><button type="button" class="link-btn" id="m3-skip">Skip: just show me</button></div>
+</section>
+
+<section class="bta-screen" id="s-m3r" data-step="3" aria-labelledby="h-m3r" hidden>
+  <p class="eyebrow">Optional · Flip · recorded result</p>
+  <h2 id="h-m3r" tabindex="-1" class="bta-q"></h2>
+  <p class="you" id="m3r-you"></p>
+  <div class="legend-opts" id="m3r-legend"></div>
+  <div class="table-wrap"><table class="flipt" id="m3r-table"><caption class="fine">Same options, same order. “Followed both” means each priority got its own corresponding option.</caption></table></div>
+  <div class="card pad pilot" id="m3r-pilot"></div>
+  <details class="more"><summary>Handoff 6 and the final answer from the opposite-priority run</summary><div id="m3r-more"></div></details>
+  <div class="bta-nav"><button type="button" class="btn ghost sm" data-back>Back</button><button type="button" class="btn primary" data-next>See the takeaway</button></div>
+</section>
+
+<!-- Takeaway -->
+<section class="bta-screen" id="s-end" data-step="4" aria-labelledby="h-end" hidden>
+  <p class="eyebrow">Takeaway · Priority Checkpoint, a design recommendation</p>
+  <h2 id="h-end" tabindex="-1" class="bta-q">Keep the person's priority at the final decision</h2>
+  <p class="lede sm checkpoint">Keep the person's stated priorities available when making the final decision. If AI thinks another consideration should guide the choice, make that explicit so the person can evaluate it.</p>
+  <figure class="cp-fig" id="cp-fig" aria-labelledby="cp-cap">
+    <div class="cp-row" data-cp="direct"><span class="cp-k">Told directly</span><span class="cp-box">Task, options and the person's priority</span><span class="cp-ar" aria-hidden="true">→</span><span class="cp-box dec">Final decision</span><span class="cp-n" id="cp-n0"></span></div>
+    <div class="cp-row" data-cp="before"><span class="cp-k">Handoff only</span><span class="cp-box">Previous AI step's output (handoff 6)</span><span class="cp-ar" aria-hidden="true">→</span><span class="cp-box dec">Final decision</span><span class="cp-n" id="cp-n1"></span></div>
+    <div class="cp-row" data-cp="after"><span class="cp-k">Reminder</span><span class="cp-box">The same output</span><span class="cp-plus" aria-hidden="true">+</span><span class="cp-box pri">The person's original priority</span><span class="cp-ar" aria-hidden="true">→</span><span class="cp-box dec">Final decision</span><span class="cp-n" id="cp-n2"></span></div>
+    <p class="cp-pairs" id="cp-pairs"></p>
+    <figcaption class="cp-lim" id="cp-cap"></figcaption>
+  </figure>
+  <section class="qc end-qc card pad" id="end-qc" aria-labelledby="end-qc-h">
+    <p class="eyebrow">Quick Check · for your own AI chats</p>
+    <h3 class="bta-q2" id="end-qc-h">Got a recommendation from an AI? Ask it this before you decide.</h3>
+    <p class="fine">Paste it into the same conversation where you told the AI what matters to you. Nothing is sent from this page.</p>
+    <label class="f qc-f" for="end-qc-text"><span class="vh">The Quick Check question (you can edit it)</span><textarea id="end-qc-text" class="qc-text" rows="4" spellcheck="true"></textarea></label>
+    <div class="actions qc-actions">
+      <button type="button" class="btn primary qc-copy" id="end-qc-copy">Copy the question</button>
+      <button type="button" class="link-btn qc-reset" hidden>Restore the original wording</button>
+    </div>
+    <p class="copied qc-msg" aria-live="polite"></p>
+    <p class="fine" id="end-qc-why">In our recorded pilot (one model, <span data-s3b="n">–</span> cases), a final decision step that received the task, the two options and the previous AI step's output, but not the person's priority, chose the option fitting that priority in <strong data-s3b="del">–</strong> cases. With the priority added back in one line, it did in <strong data-s3b="res">–</strong>. A single chat is different: the AI there may still have your words, and we did not test this question. It asks the AI to show how its recommendation relates to what you said.</p>
+    <p class="fine"><strong>Untested:</strong> a suggested question, not a validated tool. What an AI says about its recommendation is not proof of how it reached it, and new considerations can be good: the aim is to see them openly.</p>
+  </section>
+  <div class="recap card pad" id="end-recap"></div>
+  <p class="score fine" id="end-score"></p>
+  <div class="actions">
+    <a class="btn ghost" href="checkpoint.html" id="end-brief">For a bigger decision: make a Priority Checkpoint brief</a>
+    <button type="button" class="btn ghost" id="card-dl">Download the method card (one page)</button>
+  </div>
+  <p class="copied" id="card-msg" aria-live="polite"></p>
+
+  <details class="adv" id="judge-box"><summary>A question to think about (optional)<small>No right answer; nothing is scored, compared or saved</small></summary><div class="in">
+  <div class="judge" id="judge">
+    <h3 class="bta-q2" id="judge-q">When should an AI question what someone says matters to them?</h3>
+    <div class="jopts" role="group" aria-labelledby="judge-q">
+      <button type="button" class="jbtn" aria-pressed="false">Follow the person's stated priority.</button>
+      <button type="button" class="jbtn" aria-pressed="false">Question the priority, but ask before changing direction.</button>
+      <button type="button" class="jbtn" aria-pressed="false">Questioning the priority can itself be useful advice.</button>
+    </div>
+    <p class="fine" id="judge-note">Challenging a goal can be good advice. What matters is whether the reasons behind the decision stay visible, so the person can question them. No right answer, no score, nothing saved. Optional.</p>
+  </div>
+  </div></details>
+  <h3 class="bta-q2">Try another recorded case</h3>
+  <div class="more-cases" id="end-cases"></div>
+  <h3 class="bta-q2">Three checks for any AI workflow</h3>
+  <ol class="three">
+    <li><b>Check which option the AI actually chose, not just what its explanation mentions.</b></li>
+    <li><b>Compare the final decision with and without explicitly repeating the user's priority.</b></li>
+    <li><b>Reverse the priority and see whether the decision responds appropriately.</b></li>
+  </ol>
+  <details class="adv" id="end-rule-box"><summary>How these example cases were picked<small>A fixed rule, so we couldn't choose the examples by their results</small></summary><div class="in"><p class="fine" id="end-rule"></p></div></details>
+  <details class="adv" id="end-dist"><summary>How all 28 recorded pilot cases came out (Study 3B)<small>These examples are illustrative; their mix isn't the dataset's</small></summary><div class="in" id="end-dist-in"></div></details>
+  <details class="adv" id="end-limits"><summary>What this does and doesn't show</summary><div class="in prose">
+  <p class="fine" id="cp-base"></p>
+  <p class="fine" id="cp-alt"></p>
+<ul>
+    <li>One recorded run per case from a small development pilot: one model (Gemini 2.5 Pro) and seven constructed decisions. It shows what happened here, not how often it happens elsewhere.</li>
+    <li>Only handoff 1 explicitly received the original priority. Later handoffs could still discuss or paraphrase it.</li>
+    <li>The final decision received handoff 6, but not the original priority as a separate instruction. That doesn't mean everything about it was lost.</li>
+    <li>The reminder comparison uses the same handoff 6, plus one line; it doesn't repair the handoffs. Re-adding the priority at handoff 4 generated new handoffs 4–6, so that difference also includes ordinary generation variability.</li>
+    <li>A single changed choice is an observed difference, not proof of a reliable causal effect. We haven't identified why a choice changed, and we don't claim the model meant to override anyone.</li>
+    <li>Matching a stated priority is not the same as making the best decision. Following a reversed priority is an additional check, not proof of general alignment.</li>
+    <li>The Priority Checkpoint is a design recommendation drawn from these runs, not a validated universal rule.</li>
+    <li>Your predictions and your answer to the reflection question aren't measured, stored or used as research data.</li>
+  </ul></div></details>
+  <p class="aside"><a href="test.html">Building AI workflows? Test a decision in your own system →</a> · <a href="results.html">All 28 recorded cases →</a> · <a href="experiment.html">Step through every handoff →</a> · <a href="research.html">The full research →</a></p>
+  <div class="bta-nav"><button type="button" class="btn ghost sm" data-back>Back</button><button type="button" class="btn ghost sm" id="end-again">Start this case again</button><button type="button" class="btn ghost sm" id="end-choose">Choose another decision</button></div>
+</section>
+</main>
+
+<footer class="foot">
+  <span>Anchor-Preservation Auditor · a research prototype supported by a Cosmos Institute grant · a static site: no backend, no analytics, no model calls.</span> <a href="privacy.html">Privacy &amp; feedback</a>
+  <button type="button" class="link-btn" id="fx-toggle" aria-pressed="true" hidden>Light effects: on</button>
+</footer>
+<script src="assets/study3b.js"></script>
+<script src="assets/auditor-excerpts.js"></script>
+<script src="assets/core.js"></script>
+<script src="assets/fx.js"></script>
+<script src="assets/site-config.js"></script>
+<script src="assets/auditor.js"></script>
+<script src="assets/quick.js"></script>
+</body>
+</html>

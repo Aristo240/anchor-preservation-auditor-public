@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="color-scheme" content="dark">
+<title>Inspect and compare · Anchor-Preservation Auditor</title>
+<meta name="description" content="Open a priority_check result, see what was measured and what was not, inspect the recorded handoffs, save it, and compare it with a later run. Runs in your browser; sends nothing.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/showcase.css">
+<link rel="stylesheet" href="assets/v2.css">
+<link rel="stylesheet" href="assets/v3.css">
+<link rel="stylesheet" href="assets/legacy.css">
+<link rel="stylesheet" href="assets/v4.css">
+<link rel="stylesheet" href="assets/map.css">
+<link rel="stylesheet" href="assets/inspect.css">
+</head>
+<body class="v3 legacy">
+<canvas id="fx-trail" aria-hidden="true"></canvas>
+<a class="skip" href="#main">Skip to the content</a>
+<header class="bar">
+  <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"></span>Anchor-Preservation Auditor</a>
+  <nav aria-label="Site">
+    <a href="auditor.html">Be the Auditor</a>
+    <a href="quick.html">Quick Check</a>
+    <a href="checkpoint.html">Priority Checkpoint</a>
+    <a href="test.html" aria-current="page">For developers</a>
+    <a href="experiment.html">Recorded experiment</a>
+    <a href="results.html">Results</a>
+    <a href="research.html">Research</a>
+  </nav>
+</header>
+<main id="main">
+<noscript><p class="nojs">This page needs JavaScript to read result files. The scripts only read files from this site and the files you choose; nothing is sent anywhere.</p></noscript>
+<p class="banner-rec banner-live"><b>Your results</b><span>Files you open stay in this tab. Nothing is uploaded or stored.</span></p>
+<div class="page-h"><p class="eyebrow">For developers · step 3 of 3</p><h1>Inspect and compare a test run</h1></div>
+<div class="legacy-tool">
+<p class="lede">Open a result from <code>priority_check chain</code> or <code>priority_check workflow</code>. The page answers five questions about it, shows what was measured and what wasn't, lets you read every recorded handoff, and compares it with a later run.</p>
+<p class="label-note" id="r-scope"><b>Which workflow was tested:</b> <code>priority_check chain</code> runs <b>our fixed six-handoff reference workflow</b> (advisor → critic → summarizer, twice) on your decision. It does <b>not</b> run your own agents. A result here tells you how that reference workflow behaved with the model you chose. It is not an evaluation of your own multi-agent system. Your Workflow Map is a description of your system's structure, not a test of it. <b><code>priority_check workflow</code></b> is different: it runs <b>your own system</b> through an adapter you write. Each result below says which of the two it came from.</p>
+<ol class="wf-journey" aria-label="The three steps">
+  <li><b>1 · Map</b> where the priority is given: <a href="map.html">Workflow Map</a></li>
+  <li><b>2 · Test</b> your own workflow with <code>priority_check workflow</code> (<a href="test.html#kit-box">adapter guide</a>), or our reference workflow with <code>priority_check chain</code>; <a href="map.html#m-t-h">save a scenario</a> first</li>
+  <li class="on"><b>3 · Inspect and compare</b> the results</li>
+</ol>
+
+<div class="start-box" id="r-start">
+  <p class="lab">Open a result</p>
+  <div class="cta">
+    <label class="btn m-file" for="r-files">Open run files (summary.json and records.jsonl)</label>
+    <input type="file" id="r-files" multiple accept=".json,.jsonl,application/json" class="visually-hidden">
+    <button type="button" class="btn ghost" id="r-example">Example: a fake run</button>
+    <button type="button" class="btn ghost" id="r-wf-example">Illustrative technical example: a LangGraph workflow (fake model)</button>
+    <button type="button" class="btn ghost" id="r-study">Recorded study data: one pilot scenario</button>
+  </div>
+  <p class="fine">Choose both files from the run's output folder, so the records can be checked against the summary (sha256 and counts). You can also open a result you saved here earlier (.json). The examples are actual runs with fake (offline) models: the kit's own fake for the reference workflow, and the LangGraph example's fake for the workflow. They show how the page works; their numbers are not evidence about any model.</p>
+</div>
+<p class="err" id="r-err" role="alert"></p>
+
+<section id="r-out" hidden aria-labelledby="r-out-h">
+  <h2 id="r-out-h">This result</h2>
+  <div id="r-kind"></div>
+  <div id="r-verdict" class="r-verdict" tabindex="-1"></div>
+  <details class="r-tech"><summary>Technical details and provenance</summary><dl class="r-prov" id="r-prov"></dl></details>
+
+  <section class="r-q" aria-labelledby="q1-h">
+    <h3 id="q1-h"><span class="r-qn">1</span> What priority did I specify?</h3>
+    <div id="q1"></div>
+  </section>
+  <section class="r-q" aria-labelledby="q2-h">
+    <h3 id="q2-h"><span class="r-qn">2</span> What decision did the system make?</h3>
+    <div id="q2"></div>
+  </section>
+  <section class="r-q" aria-labelledby="q3-h">
+    <h3 id="q3-h"><span class="r-qn">3</span> How did my priority affect the measured decisions?</h3>
+    <div id="q3"></div>
+  </section>
+  <section class="r-q" aria-labelledby="q4-h">
+    <h3 id="q4-h"><span class="r-qn">4</span> What can I observe in the handoffs?</h3>
+    <div id="q4"></div>
+  </section>
+  <section class="r-q" aria-labelledby="q5-h">
+    <h3 id="q5-h"><span class="r-qn">5</span> What could I change and test again?</h3>
+    <div id="q5"></div>
+  </section>
+  <section class="r-q r-evidence" aria-labelledby="ev-h">
+    <h3 id="ev-h">What this evidence establishes, and what it doesn't</h3>
+    <div id="r-evidence"></div>
+  </section>
+  <div class="no-print wf-actions">
+    <button type="button" class="btn" id="r-save">Save this result (.json)</button>
+    <button type="button" class="btn ghost" id="r-report">Save a readable report (.html)</button>
+  </div>
+  <p class="fine" id="r-save-note">The saved .json holds the run's summary and records unchanged. Open it here later, or pass it to <code>priority_check compare</code>, and the records are checked again.</p>
+</section>
+
+<section id="c-sec" hidden aria-labelledby="c-h">
+  <h2 id="c-h">Compare with another run</h2>
+  <p>The result above is the <b>earlier</b> run (baseline). Open a <b>later</b> run to compare against it. The page applies the same rules as <code>priority_check compare</code>.</p>
+  <div class="cta">
+    <label class="btn m-file" for="c-files">Open the later run's files (or a saved result)</label>
+    <input type="file" id="c-files" multiple accept=".json,.jsonl,application/json" class="visually-hidden">
+    <button type="button" class="btn ghost" id="c-example" hidden>Example: the same fake run with one fake setting changed</button>
+    <button type="button" class="btn ghost" id="c-wf-example" hidden>Illustrative technical example: the same LangGraph workflow after removing the undeclared channel (fake model)</button>
+  </div>
+  <p class="err" id="c-err" role="alert"></p>
+  <div id="c-out" hidden>
+    <div id="c-verdict"></div>
+    <div id="c-detail">
+    <div id="c-diffs"></div>
+    <h3>Repetitions</h3>
+    <div id="c-reps"></div>
+    <h3>Outcomes side by side (descriptive)</h3>
+    <div id="c-counts"></div>
+    <h3>Both priorities got their own option (paired cases)</h3>
+    <div id="c-paired"></div>
+    <h3>Notes</h3>
+    <ul id="c-notes"></ul>
+    <div class="no-print wf-actions">
+      <button type="button" class="btn ghost" id="c-swap">Swap earlier and later</button>
+      <button type="button" class="btn ghost" id="c-save">Save the comparison (.json)</button>
+      <button type="button" class="btn ghost" id="c-report">Save a readable report with this comparison (.html)</button>
+    </div>
+    </div>
+  </div>
+</section>
+</div>
+</main>
+<footer class="foot">
+  <span>Anchor-Preservation Auditor · a research prototype supported by a Cosmos Institute grant · a static site: no backend, no analytics, no model calls.</span> <a href="privacy.html">Privacy &amp; feedback</a>
+  <button type="button" class="link-btn" id="fx-toggle" aria-pressed="true" hidden>Light effects: on</button>
+</footer>
+<script src="assets/study3b.js"></script>
+<script src="assets/example_runs.js"></script>
+<script src="assets/example_workflow.js"></script>
+<script src="assets/runcompare.js"></script>
+<script src="assets/inspect.js"></script>
+<script src="assets/fx.js"></script>
+</body>
+</html>

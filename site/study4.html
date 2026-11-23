@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="color-scheme" content="dark">
+<title>Study 4 results · Anchor-Preservation Auditor</title>
+<meta name="description" content="Study 4 results: every count recomputed in your browser from the recorded decision rows, with provenance and hashes.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/showcase.css">
+<link rel="stylesheet" href="assets/v2.css">
+<link rel="stylesheet" href="assets/v3.css">
+<link rel="stylesheet" href="assets/legacy.css">
+<link rel="stylesheet" href="assets/v4.css">
+<link rel="stylesheet" href="assets/map.css">
+<link rel="stylesheet" href="assets/inspect.css">
+<link rel="stylesheet" href="assets/study4.css">
+</head>
+<body class="v3 legacy">
+<canvas id="fx-trail" aria-hidden="true"></canvas>
+<a class="skip" href="#main">Skip to the content</a>
+<header class="bar">
+  <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"></span>Anchor-Preservation Auditor</a>
+  <nav aria-label="Site">
+    <a href="auditor.html">Be the Auditor</a>
+    <a href="quick.html">Quick Check</a>
+    <a href="checkpoint.html">Priority Checkpoint</a>
+    <a href="test.html">For developers</a>
+    <a href="experiment.html">Recorded experiment</a>
+    <a href="results.html" aria-current="page">Results</a>
+    <a href="research.html">Research</a>
+  </nav>
+</header>
+<main id="main">
+<noscript><p class="nojs">This page needs JavaScript to recompute and show the results. Nothing is sent anywhere.</p></noscript>
+<div class="page-h"><p class="eyebrow">Research · Study 4</p><h1>Study 4: does the final decision still follow the priority after delegation? (Gemini 2.5 Pro)</h1><p class="lede" id="s4-summary"></p></div>
+<div class="legacy-tool">
+<div id="s4-status" role="status"></div>
+<section id="s4-out" hidden aria-labelledby="s4-h">
+  <h2 id="s4-h">What was measured</h2>
+  <p class="small" id="s4-verified"></p>
+  <h3>Outcomes per condition</h3>
+  <p class="small">Each decision is coded MATCHED (chose the option its priority favours), OPPOSITE, UNCLEAR (declined), INVALID (no answer in the required form) or MISSING (no usable response, including a failed earlier handoff). They are never merged. A unit is one scenario, option order and chain: both of its opposing priorities decided.</p>
+  <div class="r-tablewrap"><table class="r-table" id="s4-outcomes"></table></div>
+  <h3>Pair classes per condition</h3>
+  <div class="r-tablewrap"><table class="r-table" id="s4-pairs"></table></div>
+  <h3>Compared with no priority at all</h3>
+  <p class="small">The same scenarios decided with no priority stated. This comparison is descriptive: it shows similar behaviour, not why the decisions changed.</p>
+  <div class="r-tablewrap"><table class="r-table" id="s4-np"></table></div>
+  <h3>Primary estimates (descriptive)</h3>
+  <div id="s4-primary"></div>
+  <h3>Prespecified sensitivity analyses</h3>
+  <div id="s4-sens"></div>
+  <h3>Interpretation limits</h3>
+  <ul class="small">
+    <li>One model (Gemini 2.5 Pro) and 12 constructed scenarios from one template family, written and reviewed by one person with prior knowledge of the hypotheses.</li>
+    <li>About 12 scenario clusters: percentile intervals can undercover and are descriptive; no significance tests.</li>
+    <li>What the handoff texts contained was not analysed, so this is not evidence that the priority was literally forgotten.</li>
+    <li>Restating the priority shows the model follows an instruction placed in front of it, not that its decisions were better.</li>
+    <li>A controlled experiment: it does not say how often this happens in other models, workflows or real use.</li>
+  </ul>
+  <h3>Technical details and provenance</h3>
+  <dl class="r-prov" id="s4-prov"></dl>
+  <div class="no-print wf-actions"><button type="button" class="btn ghost" id="s4-save">Download these results (.json)</button></div>
+  <p class="fine">The downloaded file is the exact file this page shows. <code>release/tools/study4_results.py verify</code> recomputes every number in it, including the bootstrap intervals, from its decision rows and the frozen items.</p>
+</section>
+</div>
+</main>
+<footer class="foot">
+  <span>Anchor-Preservation Auditor · a research prototype supported by a Cosmos Institute grant · a static site: no backend, no analytics, no model calls.</span> <a href="privacy.html">Privacy &amp; feedback</a>
+  <button type="button" class="link-btn" id="fx-toggle" aria-pressed="true" hidden>Light effects: on</button>
+</footer>
+<script src="assets/study4_results.js"></script>
+<script src="assets/runcompare.js"></script>
+<script src="assets/study4.js"></script>
+<script src="assets/fx.js"></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+/* Expanded catalog section of library.html. Only the v3 tokens and the library patterns; no new colours or fonts. */
+.kind-private { color: var(--err); background: rgba(255, 143, 143, .12); border-color: rgba(255, 143, 143, .45); }
+.xsec { border-top: 1px solid var(--line); padding-top: 24px; margin-top: 18px; }
+.xtags { display: flex; flex-wrap: wrap; gap: 4px; margin: 6px 0 0; }
+.xtags .kind { margin: 0; font-size: .66rem; }
+.lib-list .xcard { min-width: 0; overflow-wrap: anywhere; }
+.xscn { white-space: pre-line; overflow-wrap: anywhere; }
+.xq { font-weight: 650; color: var(--ink); margin: 0 0 10px; }
+#xdetail { scroll-margin-top: 16px; }
+#xd-h:focus { outline: none; }
+#xd-private { display: inline-block; margin: 0 0 10px; }
+#xd-private[hidden] { display: none; }
+.xsources { margin-bottom: 14px; }
+.xblk-orig { border-left: 3px solid var(--cyan); }
+.xblk-ours { border-left: 3px solid var(--violet); }
+.xblk-orig blockquote { margin: 4px 0 12px; font-size: 1.02rem; color: var(--ink); }

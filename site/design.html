@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="color-scheme" content="dark">
+<title>Design decisions and limitations · Anchor-Preservation Auditor</title>
+<meta name="description" content="Design decisions and limitations of the Anchor-Preservation Auditor studies.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/v3.css">
+<link rel="stylesheet" href="assets/v4.css">
+</head>
+<body class="v3">
+<canvas id="fx-trail" aria-hidden="true"></canvas>
+<a class="skip" href="#main">Skip to the content</a>
+<header class="bar">
+  <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"></span>Anchor-Preservation Auditor</a>
+  <nav aria-label="Site">
+    <a href="auditor.html">Be the Auditor</a>
+    <a href="quick.html">Quick Check</a>
+    <a href="checkpoint.html">Priority Checkpoint</a>
+    <a href="test.html">For developers</a>
+    <a href="experiment.html">Recorded experiment</a>
+    <a href="results.html">Results</a>
+    <a href="research.html" aria-current="page">Research</a>
+  </nav>
+</header>
+<main id="main">
+<noscript><p class="nojs">This page needs JavaScript to show the recorded results and to run its buttons. The scripts only read files from this site; nothing is sent anywhere.</p></noscript>
+<ul class="subnav" aria-label="Research pages"><li><a href="research.html">Overview & studies</a></li><li><a href="methods.html">How it was tested</a></li><li><a href="design.html" aria-current="page">Design decisions & limits</a></li><li><a href="faq.html">FAQ</a></li><li><a href="data.html">Data & reproducibility</a></li></ul>
+<div class="page-h"><p class="eyebrow">Research</p><h1>Design decisions and limitations</h1></div>
+<div class="inshort"><span class="k">In short</span><p>Why the studies were designed the way they were, and what they cannot show. Each decision is one block; open any to read it.</p></div>
+<nav class="toc" aria-label="On this page"><a href="#expression">1. Why expression scoring was not enough</a><a href="#restatement">2. The restatement problem</a><a href="#stopped">3. Why the first delegation follow-up was stopped</a><a href="#pilot">4. Why Study 3B is a seven-scenario development pilot</a><a href="#unclear">5. Why UNCLEAR is different from choosing against the priority</a><a href="#interventions">6. A final reminder versus T4 regeneration</a><a href="#human">7. Incomplete human validation</a><a href="#deviation">8. A measured deviation is not an unauthorized one</a><a href="#scope">Scope, in one place</a></nav>
+<div class="prose" id="content">
+<p class="lede">A record of what was decided, why, and what it leaves open. Earlier choices are kept here even where later work went another way.</p>
+<details class="adv sec" id="expression"><summary>1. Why expression scoring was not enough</summary>
+<div class="in prose">
+<p>The first study measured how strongly each handoff text <em>expressed</em> the stated value, with an automated rater. A rater-free text-similarity check found that texts written with the priority became more similar to the no-priority texts across the handoffs. That shows the texts converged, which supports a real change in what they carried; it does not measure value expression, so it is not an independent validation that expression of the value declined. Separately, a text can discuss a value without acting on it, and recommend in line with a priority without naming it. A score for expression cannot say which option the advice, or a later decision, would favour. That is why the later studies record choices.</p>
+</div></details>
+<details class="adv sec" id="restatement"><summary>2. The restatement problem</summary>
+<div class="in prose">
+<p>After the third handoff, most of the remaining measured expression sits in texts that explicitly restate the user's priority. The rater cannot tell restating a priority from being guided by it. The same caution applies to Study 3B's value-name highlight: in this pilot, naming the prioritized value in the final handoff did not reliably go with choosing by it (<span data-n="s3b.named.delegated">–</span> of 28 Delegated handoffs named it). Naming a value does not show it influenced the choice, and not naming it does not show it was lost.</p>
+</div></details>
+<details class="adv sec" id="stopped"><summary>3. Why the first delegation follow-up was stopped</summary>
+<div class="in prose">
+<p>Before Study 2 was run, its plan fixed criteria that a delegation follow-up on the same decisions had to meet: the priority had to change single-turn choices reliably, and at least 8 decisions needed both perfect paired sensitivity and a stable no-priority choice, so that a later drift back toward that default could be detected. Only <span data-n="s2.eligible">–</span> qualified, mostly because no-priority answers were UNCLEAR or varied, and single-turn accuracy was at ceiling. The follow-up therefore did not proceed under its own rules. A separately designed Study 3 was frozen and then, by the investigator's decision, not run. Study 3B was designed afterwards as a smaller development pilot with its own frozen plan.</p>
+</div></details>
+<details class="adv sec" id="pilot"><summary>4. Why Study 3B is a seven-scenario development pilot</summary>
+<div class="in prose">
+<p>It was meant to test whether the full delegation design works end to end (chains, branches, parsing, ledger, cost) and to give a first look at choices, within a $15 budget on one model. The seven decisions were previously used in Study 2, so they are not fresh stimuli. It is reported descriptively, with all seven scenarios shown whatever their outcome. Before the results were opened, a written declaration recorded that no confirmatory study is planned or authorized and that any future one would be frozen independently of these results.</p>
+</div></details>
+<details class="adv sec" id="unclear"><summary>5. Why UNCLEAR is different from choosing against the priority</summary>
+<div class="in prose">
+<p>An UNCLEAR answer declines to choose. Many recorded UNCLEAR answers say the advice they received was a framework rather than a recommendation, or that the decision depends on preferences they were not told. Choosing the opposite option is a different outcome: a choice was made, and it went the other way. The site always shows the two separately and never counts UNCLEAR as a match. Whether UNCLEAR is appropriate in a given case is a judgment this study does not make.</p>
+</div></details>
+<details class="adv sec" id="interventions"><summary>6. A final reminder versus T4 regeneration</summary>
+<div class="in prose">
+<p>Both bring the priority back, in different places. The <b>final reminder</b> (Restored) adds one line to the decision prompt and keeps the handoff text byte-identical, so the two prompts differ only by that line. In these recorded runs it shows whether supplying the original priority again at the final decision, over the identical handoff 6, was followed by a different choice. With one sampled answer per condition, it cannot show that a difference is reliable, or why it occurred. It does not repair or rewrite the chain. <b>T4 re-anchoring</b> regenerates the fourth handoff from the same saved first three, with the priority inserted, and lets the rest of the chain run; the decision gets no reminder. Its T4–T6 are new samples, so its difference from Delegated mixes the inserted priority with ordinary run-to-run variation. In this pilot the reminder gave <span data-n="s3b.restored.matched">–</span> of 28 matches and re-anchoring <span data-n="s3b.reanchored.matched">–</span>; some cases that matched without re-anchoring did not match after it (see the <a href="results.html#counter">counterexample</a>).</p>
+</div></details>
+<details class="adv sec" id="human"><summary>7. Incomplete human validation</summary>
+<div class="in prose">
+<p>A human-rating study of the expression measure was designed and its materials built, but no ratings have been collected. As designed, it could not test the six-handoff decline directly: it had no first-handoff items and rated the stated value only. Until a human comparison is run, Study 1's scores remain readings from an automated instrument, labelled provisional.</p>
+</div></details>
+<details class="adv sec" id="deviation"><summary>8. A measured deviation is not an unauthorized one</summary>
+<div class="in prose">
+<p>The Auditor records observations: a final choice that differs from the option built to match a stated priority, or a value that is expressed less. Whether such a departure is a problem depends on context the Auditor does not have: the user may have changed their mind, the advice may have raised something they would endorse, or the priority may not fit the decision. An earlier drift classifier was never validated and is not used to claim violations. In the <a href="trace.html">audit tool</a>, the visitor, not the software, decides whether a departure needs review.</p>
+</div></details>
+<details class="adv sec" id="scope"><summary>Scope, in one place</summary>
+<div class="in prose">
+<ul>
+  <li>One model (Gemini 2.5 Pro), one workflow shape, English text.</li>
+  <li>Constructed decisions with stipulated priorities; no real users.</li>
+  <li>Study 1 and Study 3B use different scenarios and are not one causal experiment.</li>
+  <li>No claim about model intentions, memory, misalignment, or benefits and harms to people.</li>
+</ul>
+</div></details>
+</div>
+</main>
+<footer class="foot">
+  <span>Anchor-Preservation Auditor · a research prototype supported by a Cosmos Institute grant · a static site: no backend, no analytics, no model calls.</span> <a href="privacy.html">Privacy &amp; feedback</a>
+  <button type="button" class="link-btn" id="fx-toggle" aria-pressed="true" hidden>Light effects: on</button>
+</footer>
+<script src="assets/data.js"></script>
+<script src="assets/single_turn.js"></script>
+<script src="assets/study3b.js"></script>
+<script src="assets/pages.js"></script>
+<script src="assets/fx.js"></script>
+<script src="assets/research-v3.js"></script>
+</body>
+</html>

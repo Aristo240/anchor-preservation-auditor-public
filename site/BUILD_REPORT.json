@@ -1,0 +1,106 @@
+{
+ "what_this_is": "build report of the v4 public candidate",
+ "source_dir": "showcase_v4/",
+ "source_commit": "0982cd6f3234d0a84412566f299cc148339d6176",
+ "source_had_uncommitted_changes": false,
+ "files_copied": 203,
+ "copy_only_changes": {
+  "assets/library-expanded-data.js": {
+   "public_view": "rights-blocked texts withheld (build_site_library.public_view)"
+  },
+  "auditor.html": {
+   "stale_header_removed": 0,
+   "local_footer_removed": 1
+  },
+  "checkpoint.html": {
+   "stale_header_removed": 0,
+   "local_footer_removed": 1
+  },
+  "data.html": {
+   "stale_header_removed": 1,
+   "local_footer_removed": 1
+  },
+  "data/library_expanded.json": {
+   "public_view": "rights-blocked texts withheld (build_site_library.public_view)"
+  },
+  "design.html": {
+   "stale_header_removed": 1,
+   "local_footer_removed": 1
+  },
+  "experiment.html": {
+   "stale_header_removed": 0,
+   "local_footer_removed": 1
+  },
+  "faq.html": {
+   "stale_header_removed": 1,
+   "local_footer_removed": 1
+  },
+  "index.html": {
+   "stale_header_removed": 0,
+   "local_footer_removed": 1
+  },
+  "inspect.html": {
+   "stale_header_removed": 0,
+   "local_footer_removed": 1
+  },
+  "library.html": {
+   "stale_header_removed": 0,
+   "local_footer_removed": 1
+  },
+  "map.html": {
+   "stale_header_removed": 0,
+   "local_footer_removed": 1
+  },
+  "methods.html": {
+   "stale_header_removed": 1,
+   "local_footer_removed": 1
+  },
+  "models.html": {
+   "stale_header_removed": 0,
+   "local_footer_removed": 1
+  },
+  "plan.html": {
+   "stale_header_removed": 1,
+   "local_footer_removed": 1
+  },
+  "privacy.html": {
+   "stale_header_removed": 0,
+   "local_footer_removed": 1
+  },
+  "quick.html": {
+   "stale_header_removed": 0,
+   "local_footer_removed": 1
+  },
+  "research.html": {
+   "stale_header_removed": 1,
+   "local_footer_removed": 1
+  },
+  "results.html": {
+   "stale_header_removed": 0,
+   "local_footer_removed": 1
+  },
+  "study3c.html": {
+   "stale_header_removed": 0,
+   "local_footer_removed": 1
+  },
+  "study4.html": {
+   "stale_header_removed": 0,
+   "local_footer_removed": 1
+  },
+  "test.html": {
+   "stale_header_removed": 0,
+   "local_footer_removed": 1
+  },
+  "trace.html": {
+   "stale_header_removed": 1,
+   "local_footer_removed": 1
+  }
+ },
+ "excluded_unreferenced_source_files": [
+  "data/diagnostics.json",
+  "data/examples_index.json",
+  "data/provenance.json",
+  "data/templates.json"
+ ],
+ "not_included": "no research code, no raw records, no private data; site files only"
+}

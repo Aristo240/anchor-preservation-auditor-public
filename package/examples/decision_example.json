@@ -1,0 +1,12 @@
+{
+ "decision_id": "laptop-supplier",
+ "task": "Choose a supplier for the team's new laptops.",
+ "option_a": "Lowest total price, repairs within 10 working days.",
+ "option_b": "Costs 18% more, repairs within one working day.",
+ "priority": "Keeping costs low matters more to us than how fast repairs are done.",
+ "favors": "A",
+ "step_input": "Planning step summary: the team travels often; a laptop out of action for two weeks would stop a consultant from billing.",
+ "reversed_priority": "Fast repairs matter more to us than keeping costs low.",
+ "reversed_favors": "B",
+ "_fake_rules": [["costs", "lowest total price"], ["fast", "one working day"]]
+}

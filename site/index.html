@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- No network access of any kind: scripts and styles load only from this
+     folder, and connect-src 'none' blocks fetch/XHR/WebSocket outright. -->
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="color-scheme" content="dark">
+<title>Anchor-Preservation Auditor</title>
+<meta name="description" content="You told the AI what matters. Does it still matter six steps later? Explore recorded AI decisions, and copy one question to check an AI's recommendation against your own priorities. Runs no AI; nothing is stored.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/v3.css">
+<link rel="stylesheet" href="assets/auditor.css">
+<link rel="stylesheet" href="assets/v4.css">
+<link rel="stylesheet" href="assets/map.css">
+<script src="assets/redirects.js"></script>
+</head>
+<body class="v3">
+<canvas id="fx-trail" aria-hidden="true"></canvas>
+<a class="skip" href="#main">Skip to the content</a>
+<header class="bar">
+  <a class="brand" href="index.html" aria-current="page"><span class="brand-mark" aria-hidden="true"></span>Anchor-Preservation Auditor</a>
+  <nav aria-label="Site">
+    <a href="auditor.html">Be the Auditor</a>
+    <a href="quick.html">Quick Check</a>
+    <a href="checkpoint.html">Priority Checkpoint</a>
+    <a href="test.html">For developers</a>
+    <a href="experiment.html">Recorded experiment</a>
+    <a href="results.html">Results</a>
+    <a href="research.html">Research</a>
+  </nav>
+</header>
+
+<main id="main">
+<noscript><p class="nojs">This page needs JavaScript to show the recorded results and to run its buttons. The scripts only read files from this site; nothing is sent anywhere.</p></noscript>
+<section class="hero" aria-labelledby="home-h">
+  <div class="hero-text">
+    <p class="eyebrow">Anchor-Preservation Auditor · a research prototype supported by a Cosmos Institute grant</p>
+    <h1 id="home-h">When AI agents make decisions on your behalf, does what matters to you survive the handoffs?</h1>
+    <p class="hero-result" id="hero-result">In our main study (Study 4), each decision was made twice, as a <b>priority pair</b>: once for a person who said A matters more than B, once for a person who said the reverse. A pair passes only if each person gets their own option. Told the priority directly, the final AI decision passed <strong data-h="dir">24 of 24</strong> pairs. After six AI handoffs: <strong data-h="del">6 of 48</strong>. With the priority restated at the final step: <strong data-h="res">47 of 48</strong>.</p>
+    <p class="hero-scope" id="hero-scope">In short: after six AI handoffs, decisions became much less sensitive to the user's stated priority and resembled decisions made without one; restating it at the final step restored sensitivity. One model (Gemini 2.5 Pro), 12 constructed scenarios, 1,320 recorded calls: a controlled experiment, not a measure of how often this happens in your system.</p>
+    <div class="actions">
+      <a class="btn primary" href="auditor.html#start" id="go-bta">Try the Auditor: predict what the AI decides · 2 min</a>
+      <a class="btn ghost" href="test.html#quickstart" id="go-map">Audit your workflow</a>
+      <a class="btn ghost" href="research.html" id="go-research">Research and evidence</a>
+    </div>
+    <p class="hero-sub" id="go-map-sub">New here? Start with the two-minute walkthrough of one real recorded decision. Building multi-agent systems? Map your workflow, run it with opposite priorities, see what each agent received, change it and retest. <a href="study4.html">See the evidence</a>.</p>
+    <p class="trust">Recorded runs, replayed: this site runs no AI · sends nothing anywhere · stores nothing</p>
+  </div>
+  <figure class="flow" aria-labelledby="flow-cap">
+    <svg viewBox="0 0 640 250" role="img" aria-labelledby="flow-title flow-desc" class="flow-svg flow-8">
+      <title id="flow-title">The pilot workflow: six handoffs, then a separate final-decision call</title>
+      <desc id="flow-desc">The user's priority goes to handoff 1 (advisor). Handoffs 2 to 6 (critic, summarizer, advisor, critic, summarizer) each see only the previous handoff. A separate final-decision call receives handoff 6. The test adds one line repeating the priority at the final decision.</desc>
+      <defs>
+        <radialGradient id="g-node" cx="50%" cy="40%" r="60%"><stop offset="0" stop-color="#1e2a4a"/><stop offset="1" stop-color="#121a33"/></radialGradient>
+        <linearGradient id="g-rem" x1="0" x2="1"><stop offset="0" stop-color="#a78bfa" stop-opacity=".2"/><stop offset="1" stop-color="#a78bfa"/></linearGradient>
+      </defs>
+      <path class="rail" d="M40 150 H470"/>
+      <path class="rail sep" d="M470 150 H590"/>
+      <path class="rem" d="M40 150 C 170 30, 470 30, 590 150"/>
+      <path class="rem-draw" pathLength="100" d="M40 150 C 170 30, 470 30, 590 150"/>
+      <g class="nodes">
+        <g class="node user"><circle cx="40" cy="150" r="20"/><text x="40" y="192">User</text></g>
+        <g class="node"><circle cx="120" cy="150" r="15"/><text x="120" y="155" class="in">1</text><text x="120" y="192" class="role">advisor</text></g>
+        <g class="node"><circle cx="190" cy="150" r="15"/><text x="190" y="155" class="in">2</text><text x="190" y="192" class="role">critic</text></g>
+        <g class="node"><circle cx="260" cy="150" r="15"/><text x="260" y="155" class="in">3</text><text x="260" y="192" class="role">summarizer</text></g>
+        <g class="node"><circle cx="330" cy="150" r="15"/><text x="330" y="155" class="in">4</text><text x="330" y="192" class="role">advisor</text></g>
+        <g class="node"><circle cx="400" cy="150" r="15"/><text x="400" y="155" class="in">5</text><text x="400" y="192" class="role">critic</text></g>
+        <g class="node"><circle cx="470" cy="150" r="15"/><text x="470" y="155" class="in">6</text><text x="470" y="192" class="role">summarizer</text></g>
+        <g class="node final"><circle cx="590" cy="150" r="22"/><text x="590" y="192">Final</text><text x="590" y="208">decision</text></g>
+      </g>
+      <text class="lab-mid" x="295" y="222">six handoffs · then a separate final-decision call</text>
+      <circle class="token" cx="40" cy="150" r="7"/>
+      <circle class="token t2" cx="40" cy="150" r="5"/>
+      <text class="lab-pri" x="58" y="128">priority</text>
+      <text class="lab-rem" x="315" y="50">the test: one line repeating the priority</text>
+    </svg>
+    <figcaption id="flow-cap">The workflow in our studies: six handoffs (advisor, critic, summarizer, twice), then a separate final-decision call, all to the same model. Only handoff 1 received the priority explicitly; later handoffs could still discuss or paraphrase it. The test restates the priority in one line at the final decision, over the same handoff 6.</figcaption>
+  </figure>
+</section>
+<nav class="paths-quiet" aria-labelledby="paths-h">
+  <h2 id="paths-h" class="visually-hidden">More ways in</h2>
+  <ul>
+    <li><a href="research.html" id="path-research">Explore the research</a></li>
+    <li><a href="models.html" id="path-models">Compare models <span>(three models, 14 published dilemmas; exploratory)</span></a></li>
+    <li><a href="test.html" id="path-dev">For developers</a></li>
+  </ul>
+</nav>
+<section class="pitch" aria-label="The story in four steps">
+  <div class="pitch-i"><p class="k">1 · You state a priority</p><p>"For this choice, helping others matters more to me than my own goal."</p></div>
+  <div class="pitch-i"><p class="k">2 · Agents pass the task on</p><p>An advisor, a critic and a summarizer each rewrite the request for the next one.</p></div>
+  <div class="pitch-i"><p class="k">3 · The decision may stop responding</p><p>In our study, the final decision often no longer changed when the priority did.</p><a class="go" href="study4.html">The evidence →</a></div>
+  <div class="pitch-i"><p class="k">4 · Check your own workflow</p><p>See what each agent actually received, test the decision, change the workflow, retest.</p><a class="go" href="map.html">Workflow Map →</a></div>
+</section>
+<section class="how" aria-labelledby="why-h">
+  <div class="sec-h"><h2 id="why-h">What we found (Study 4, verified)</h2><a href="study4.html">Full Study 4 results →</a></div>
+  <div class="grid2">
+    <div class="card pad why-nums">
+      <p class="k">Did each of two opposite priorities get its own option?</p>
+      <div class="num"><strong id="h-n-dir">–</strong><span>decision pairs when the final decision was told the priority directly</span></div>
+      <div class="num"><strong id="h-n-del">–</strong><span>after six handoffs, priority given only at the start</span></div>
+      <div class="num"><strong id="h-n-res">–</strong><span>after the same six handoffs, with the priority restated at the final step</span></div>
+      <p class="fine" id="h-lim"></p>
+    </div>
+    <div class="card pad">
+      <p class="k">Single decisions, and the no-priority comparison</p>
+      <p id="h-pairs"></p>
+      <p id="h-base"></p>
+      <p class="fine" id="h-alt"></p>
+    </div>
+  </div>
+  <div class="card pad">
+    <p class="k">Supporting evidence (exploratory)</p>
+    <ul class="small">
+      <li><a href="study3c.html">Study 3C</a>: deciding after each handoff of 28 saved chains, single decisions matched the priority after the first handoff (28 of 28) and much less often by handoffs 4–6 (7–9 of 28). Not a smooth decline; role and position are confounded.</li>
+      <li><a href="models.html">Three other models</a> on 14 published dilemmas (5 eligible for the priority-match measure): nearly all single decisions matched the priority when told directly (19–20 of 20) or restated (18–19 of 20), and after delegation the models chose much as they did without a priority. GPT-5.5 mostly declined, often writing "UNCLEAR." with a period, which the strict format counts as invalid; Claude Sonnet 5.5 picked the same option whichever priority was given.</li>
+      <li><b>A different workflow</b> (exploratory): coordinator → two analysts → decider, on another model (Gemini 3.8 Flash), 7 constructed dilemmas. The coordinator usually passed the priority on, and decisions stayed sensitive to it in every dilemma (28 of 28 pairs; 6 decisions lost to a network outage). Model, number of handoffs and roles all differ from Study 4, so this shows that results can differ across workflows, not why. That is why the Auditor tests individual systems.</li>
+      <li><a href="results.html">The earlier pilot</a> (28 cases) showed the same pattern.</li>
+    </ul>
+  </div>
+</section>
+<section aria-labelledby="dev-h">
+  <div class="sec-h"><h2 id="dev-h">For developers: test, change, retest</h2><a href="test.html">All developer tools →</a></div>
+  <div class="hub hub3">
+    <a class="card hubl" href="map.html"><span class="k">Step 1</span><h3>Map the workflow you declared and the one that ran</h3><p>List your agents and what each should receive, load a recorded run's trace, and see where they differ.</p><span class="go">Workflow Map →</span></a>
+    <a class="card hubl" href="test.html"><span class="k">Step 2</span><h3>Test whether the decision follows the priority</h3><p>Ask your workflow's final decision with each of two opposite priorities, with and without the priority restated.</p><span class="go">Test a decision →</span></a>
+    <a class="card hubl" href="inspect.html"><span class="k">Step 3</span><h3>See what each agent received; change, retest, compare</h3><p>Open a run of <code>priority_check workflow</code> to see every agent's actual input and the decision under each priority. Change the workflow, run again, and compare the two runs side by side.</p><span class="go">Inspect and compare →</span></a>
+  </div>
+  <p class="fine">The built-in examples are runs with fake (offline) models, labelled FAKE on every page: they show how the tools work and are not evidence about any model. Our own example workflows do not establish how the Auditor performs on other developers' systems.</p>
+</section>
+<section class="qc card" id="quick-check" aria-labelledby="qc-h">
+  <div class="qc-head">
+    <p class="eyebrow">Quick Check · for your own AI chats</p>
+    <h2 id="qc-h">Got a recommendation from an AI? Ask it this before you decide.</h2>
+    <p class="qc-how">Paste it into the same conversation where you told the AI what matters to you. No sign-up, no key, nothing sent from this page.</p>
+  </div>
+  <label class="f qc-f" for="qc-text"><span class="vh">The Quick Check question (you can edit it)</span><textarea id="qc-text" class="qc-text" rows="4" spellcheck="true">Before I decide, compare your recommendation with the priorities and constraints I originally gave you. Identify any new considerations you've introduced. If you think something else deserves more weight, explain why rather than silently replacing my criteria. If you can't find my original priorities, tell me.</textarea></label>
+  <div class="actions qc-actions">
+    <button type="button" class="btn primary qc-copy" id="qc-copy">Copy the question</button>
+    <button type="button" class="link-btn qc-reset" id="qc-reset" hidden>Restore the original wording</button>
+    <span class="fine qc-edit-hint">You can edit it first.</span>
+  </div>
+  <p class="copied qc-msg" id="qc-msg" aria-live="polite"></p>
+  <ul class="qc-notes">
+    <li><strong>Untested.</strong> A suggested question, not a validated tool or detector. Our studies did not test this wording.</li>
+    <li><strong>The reply isn't proof.</strong> What an AI says about its recommendation is not evidence of how it actually reached it.</li>
+    <li><strong>New considerations can be good.</strong> The aim is to see them openly, not to reject them.</li>
+    <li><strong>You decide.</strong> Judging the recommendation stays with you.</li>
+  </ul>
+</section>
+<section aria-labelledby="more-h">
+  <div class="sec-h"><h2 id="more-h">Go deeper</h2></div>
+  <div class="hub hub3">
+    <a class="card hubl" href="auditor.html"><span class="k">Interactive · 2 min</span><h3>Be the Auditor</h3><p>Choose what matters, predict the final decision, then compare it with and without a one-line reminder of the priority.</p><span class="go">Start →</span></a>
+    <a class="card hubl" href="checkpoint.html"><span class="k">For your own decisions</span><h3>Priority Checkpoint</h3><p>Write a short brief of what matters to you before you ask an AI, then record what it recommended in a Priority Receipt.</p><span class="go">Make a brief →</span></a>
+    <a class="card hubl" href="results.html"><span class="k">All results</span><h3>Results</h3><p>Study 4, Study 3C, the three-model comparison, and the earlier 28-case pilot.</p><span class="go">Explore the results →</span></a>
+    <a class="card hubl" href="experiment.html"><span class="k">Recorded, replayed</span><h3>Follow a recorded experiment</h3><p>Step through six saved handoffs and two saved final decisions for any recorded case.</p><span class="go">Open the walkthrough →</span></a>
+    <a class="card hubl" href="test.html"><span class="k">For developers</span><h3>Check your workflow's final step</h3><p>By hand: two prompts, identical except one line repeating the user's priority, run through your own final decision step. Or test your whole workflow with the <code>priority_check</code> package (not yet publicly released) and its adapter guide.</p><span class="go">Start a check →</span></a>
+    <a class="card hubl" href="research.html"><span class="k">Evidence</span><h3>Research and methods</h3><p>The studies behind this prototype, what they show, and what they don't.</p><span class="go">Read the research →</span></a>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <span>Anchor-Preservation Auditor · a research prototype supported by a Cosmos Institute grant · a static site: no backend, no analytics, no model calls.</span> <a href="privacy.html">Privacy &amp; feedback</a>
+  <button type="button" class="link-btn" id="fx-toggle" aria-pressed="true" hidden>Light effects: on</button>
+</footer>
+<script src="assets/study4_results.js"></script>
+<script src="assets/fx.js"></script>
+<script src="assets/home.js"></script>
+<script src="assets/quick.js"></script>
+</body>
+</html>

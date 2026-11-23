@@ -1,0 +1,61 @@
+/* Inspect and compare page. Status is always given in words, never by colour alone. */
+.r-kind { border: 2px solid var(--rule); border-radius: 12px; padding: 10px 14px; margin: 10px 0; display: grid; gap: 4px; }
+.r-kind b { font-size: 1rem; letter-spacing: .02em; }
+.r-kind-fake { border-color: var(--err); border-style: dashed; }
+.r-kind-real { border-color: var(--accent); }
+.r-kind-study { border-color: var(--ok); }
+.r-prov { display: grid; grid-template-columns: minmax(140px, 220px) 1fr; gap: 4px 14px; font-size: .88rem; margin: 10px 0 18px; }
+.r-prov dt { color: var(--dim); }
+.r-prov dd { margin: 0; overflow-wrap: anywhere; }
+.r-q { border-top: 1px solid var(--rule); padding-top: 10px; margin-top: 18px; }
+.r-q h3 { display: flex; gap: 10px; align-items: baseline; }
+.r-qn { display: inline-grid; place-items: center; min-width: 1.6em; height: 1.6em; border: 1px solid var(--accent); border-radius: 999px; font-size: .85rem; }
+.r-pri { border: 1px solid var(--rule); border-radius: 10px; padding: 8px 12px; margin: 8px 0; background: var(--card); }
+.r-pri p { margin: 4px 0; }
+.r-quote { font-style: italic; overflow-wrap: anywhere; }
+.r-tablewrap { overflow-x: auto; max-width: 100%; }
+.r-table { border-collapse: collapse; font-size: .86rem; width: 100%; }
+.r-table th, .r-table td { border-bottom: 1px solid var(--rule); padding: 6px 10px 6px 0; text-align: left; vertical-align: top; }
+.r-table thead th { color: var(--dim); font-weight: 600; }
+.r-cnote { display: block; font-weight: 400; color: var(--faint); font-size: .8rem; margin-top: 2px; }
+.r-nm { color: var(--faint); font-style: italic; }
+.r-val { font-family: ui-monospace, Menlo, monospace; font-size: .78rem; overflow-wrap: anywhere; max-width: 260px; }
+.r-reps { font-size: .9rem; margin-top: 10px; }
+.r-warn { border-left: 4px solid var(--err); padding: 6px 10px; margin: 10px 0; font-weight: 600; }
+.r-sel { font-weight: 600; margin-right: 6px; }
+#r-case { max-width: 100%; margin: 4px 0 10px; }
+.r-steps { padding-left: 1.2em; }
+.r-steps li, .r-decs li { margin: 10px 0; }
+.r-decs { list-style: none; padding: 0; }
+.r-text { white-space: pre-wrap; overflow-wrap: anywhere; background: var(--bg); border: 1px solid var(--rule); border-radius: 8px; padding: 8px 10px; font-size: .82rem; max-height: 320px; overflow-y: auto; margin: 6px 0; }
+.r-evidence { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+.r-evidence h3 { grid-column: 1 / -1; }
+#r-evidence { display: contents; }
+.r-yes, .r-no { border: 1px solid var(--rule); border-radius: 10px; padding: 8px 12px; }
+.r-yes { border-left: 5px solid var(--ok); }
+.r-no { border-left: 5px solid var(--err); }
+.r-verdict { border: 2px solid var(--rule); border-radius: 12px; padding: 10px 14px; display: grid; gap: 4px; margin: 10px 0; }
+.r-verdict b { font-size: 1rem; }
+.r-verdict.v-same_configuration { border-color: var(--ok); }
+.r-verdict.v-configuration_change { border-color: var(--opp); }
+.r-verdict.v-not_valid { border-color: var(--err); border-style: dashed; }
+#c-sec { margin-top: 30px; border-top: 2px solid var(--rule); padding-top: 12px; }
+#c-sec .cta { display: flex; flex-wrap: wrap; gap: 10px; margin: 10px 0; }
+@media (max-width: 560px) {
+  .r-prov { grid-template-columns: 1fr; }
+  .r-prov dt { margin-top: 6px; }
+  #c-sec .cta .btn, #r-start .cta .btn { flex: 1 1 100%; text-align: center; }
+}
+.r-fakeline { font-weight: 700; font-size: .85rem; }
+.r-outlab { font-size: .82rem; color: var(--dim); margin: 6px 0 0; }
+.err.r-ok { color: var(--ok); }
+.r-kind-unverified { border-color: var(--err); border-style: dotted; }
+/* 2026-11-23: the main finding first (agent usability tests) */
+.r-verdict { border: 2px solid var(--accent); border-radius: 12px; padding: 12px 16px; margin: 12px 0; }
+.r-verdict h3 { margin: 0 0 8px; }
+.r-vlist { display: grid; grid-template-columns: minmax(150px, 260px) 1fr; gap: 6px 14px; margin: 0 0 8px; }
+.r-vlist dt { font-weight: 650; }
+.r-vlist dd { margin: 0; overflow-wrap: anywhere; }
+@media (max-width: 600px) { .r-vlist { grid-template-columns: minmax(0, 1fr); } .r-vlist dd { margin-bottom: 6px; } }
+.r-tech { margin: 6px 0 14px; }
+.r-tech summary { cursor: pointer; color: var(--dim); }

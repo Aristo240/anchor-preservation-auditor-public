@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="color-scheme" content="dark">
+<title>Review a workflow trace · Anchor-Preservation Auditor</title>
+<meta name="description" content="Review a recorded workflow of your own: decision, priority, up to six handoffs and the final choice, side by side. Runs no AI.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/showcase.css">
+<link rel="stylesheet" href="assets/v2.css">
+<link rel="stylesheet" href="assets/v3.css">
+<link rel="stylesheet" href="assets/legacy.css">
+<link rel="stylesheet" href="assets/v4.css">
+<link rel="stylesheet" href="assets/map.css">
+</head>
+<body class="v3 legacy">
+<canvas id="fx-trail" aria-hidden="true"></canvas>
+<a class="skip" href="#main">Skip to the content</a>
+<header class="bar">
+  <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"></span>Anchor-Preservation Auditor</a>
+  <nav aria-label="Site">
+    <a href="auditor.html">Be the Auditor</a>
+    <a href="quick.html">Quick Check</a>
+    <a href="checkpoint.html">Priority Checkpoint</a>
+    <a href="test.html" aria-current="page">For developers</a>
+    <a href="experiment.html">Recorded experiment</a>
+    <a href="results.html">Results</a>
+    <a href="research.html">Research</a>
+  </nav>
+</header>
+<main id="main">
+<noscript><p class="nojs">This page needs JavaScript to show the recorded results and to run its buttons. The scripts only read files from this site; nothing is sent anywhere.</p></noscript>
+<p class="banner-rec banner-live"><b>Your trace</b><span>Everything you paste stays in this tab. This page runs no AI and doesn't judge your text.</span></p>
+<div class="page-h"><p class="eyebrow">Tools</p><h1>Review a workflow trace</h1></div>
+<div class="legacy-tool">
+<p class="lede">Check a recorded workflow of your own in four steps: the decision, the priority, the handoffs and the final choice. Everything stays in this browser tab.</p>
+<p class="label-note"><b>What this does:</b> shows your handoffs side by side, highlights words you choose (literal matching only), and compares the final choice with the option you say matches the priority. <b>What it does not do:</b> run any AI model, extract values, classify text, or judge whether a departure is a problem. One pasted run supports inspection; it is not a controlled experiment, because nothing was varied. To test whether a decision changes with the priority, see <a href="map.html#m-t-h">the test step</a>. Nothing is uploaded, stored or kept after you close or reload the page, unless you export it.</p>
+<div class="start-box" id="a-start">
+  <p class="lab">Review a workflow you already ran: start with</p>
+  <div class="cta">
+    <button type="button" class="btn" id="a-demo">A fictional example</button>
+    <button type="button" class="btn ghost" id="a-load">A recorded study case</button>
+    <button type="button" class="btn ghost" id="a-own">My own workflow</button>
+    <label class="btn ghost m-file" for="a-map-file">A Workflow Map file (.json)</label>
+    <input type="file" id="a-map-file" accept="application/json,.json" class="visually-hidden">
+  </div>
+  <p class="fine">The fictional example was written for this page to show how the tool works; it is not a recorded AI output. The recorded case is real output from the study. A map file from <a href="map.html">Map your workflow</a> fills in the decision, the priority and one empty handoff per agent, for you to paste what each agent actually wrote.</p>
+  </div>
+<div id="a-main">
+<ol class="steps audit-steps" id="a-steps" aria-label="Audit steps">
+  <li><button type="button" data-goto="1"><span class="n">Step 1</span>Decision &amp; priority</button></li>
+  <li><button type="button" data-goto="2"><span class="n">Step 2</span>Add the handoffs</button></li>
+  <li><button type="button" data-goto="3"><span class="n">Step 3</span>The final choice</button></li>
+  <li><button type="button" data-goto="4"><span class="n">Step 4</span>Review &amp; export</button></li>
+</ol>
+<form id="audit-form" class="form-grid" autocomplete="off" novalidate>
+  <section class="a-step" data-step="1" aria-labelledby="a-s1">
+    <h2 id="a-s1" tabindex="-1">1. Define the decision and the user's priority</h2>
+    <label for="a-task">The decision<span class="hint">What had to be decided.</span><textarea id="a-task" maxlength="4000" required></textarea></label>
+    <label for="a-opt-a">Option A<input type="text" id="a-opt-a" maxlength="600" required></label>
+    <label for="a-opt-b">Option B<input type="text" id="a-opt-b" maxlength="600" required></label>
+    <label for="a-priority">The user's stated priority<span class="hint">In the user's words.</span><textarea id="a-priority" maxlength="2000" required></textarea></label>
+    <fieldset id="a-target"><legend>Which option corresponds to that priority?</legend>
+      <label><input type="radio" name="target" value="A"> Option A</label>
+      <label><input type="radio" name="target" value="B"> Option B</label>
+      <label><input type="radio" name="target" value="uncertain"> Uncertain</label>
+    </fieldset>
+  </section>
+  <section class="a-step" data-step="2" aria-labelledby="a-s2" hidden>
+    <h2 id="a-s2" tabindex="-1">2. Add the existing handoffs</h2>
+    <p class="small">Paste each agent's output in order, up to six. A role label is optional.</p>
+    <div id="a-handoffs"></div>
+    <div class="no-print"><button type="button" class="btn ghost" id="a-add">Add a handoff</button> <span class="hint" id="a-add-hint"></span></div>
+  </section>
+  <section class="a-step" data-step="3" aria-labelledby="a-s3" hidden>
+    <h2 id="a-s3" tabindex="-1">3. Identify the final choice</h2>
+    <label for="a-final">The final recorded answer (optional)<textarea id="a-final" maxlength="20000"></textarea></label>
+    <fieldset id="a-choice"><legend>Which option did the final answer choose?</legend>
+      <label><input type="radio" name="choice" value="A"> Option A</label>
+      <label><input type="radio" name="choice" value="B"> Option B</label>
+      <label><input type="radio" name="choice" value="none"> Neither / unclear</label>
+    </fieldset>
+  </section>
+  <section class="a-step" data-step="4" aria-labelledby="a-s4" hidden>
+    <h2 id="a-s4" tabindex="-1">4. Review and export</h2>
+    <label for="a-terms">Priority terms to highlight (optional)<span class="hint">Comma-separated words or phrases. Matching is literal and case-insensitive; it finds these exact strings, not their meaning.</span><input type="text" id="a-terms" maxlength="500"></label>
+    <div class="no-print"><button type="button" class="btn" id="a-run">Show the audit</button></div>
+  </section>
+  <div class="step-nav no-print">
+    <button type="button" class="btn ghost" id="a-back">← Back</button>
+    <button type="button" class="btn" id="a-next">Next →</button>
+    <span class="spacer"></span>
+    <button type="button" class="btn ghost" id="a-clear">Clear everything</button>
+  </div>
+  <p class="err" id="a-err" role="alert"></p>
+</form>
+<section class="audit-out" id="a-out" aria-live="polite" hidden></section>
+</div>
+</div>
+<p class="aside">To map where the priority is given in your workflow, use <a href="map.html">Map your workflow</a>. To test whether repeating the priority changes a final decision, use <a href="test.html">For developers</a>.</p>
+</main>
+<footer class="foot">
+  <span>Anchor-Preservation Auditor · a research prototype supported by a Cosmos Institute grant · a static site: no backend, no analytics, no model calls.</span> <a href="privacy.html">Privacy &amp; feedback</a>
+  <button type="button" class="link-btn" id="fx-toggle" aria-pressed="true" hidden>Light effects: on</button>
+</footer>
+<script src="assets/study3b.js"></script>
+<script src="assets/wfmap.js"></script>
+<script src="assets/audit.js"></script>
+<script src="assets/fx.js"></script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="color-scheme" content="dark">
+<title>Data and reproducibility · Anchor-Preservation Auditor</title>
+<meta name="description" content="Downloads, recomputation and reproducibility materials for the Anchor-Preservation Auditor.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/v3.css">
+<link rel="stylesheet" href="assets/v4.css">
+</head>
+<body class="v3">
+<canvas id="fx-trail" aria-hidden="true"></canvas>
+<a class="skip" href="#main">Skip to the content</a>
+<header class="bar">
+  <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"></span>Anchor-Preservation Auditor</a>
+  <nav aria-label="Site">
+    <a href="auditor.html">Be the Auditor</a>
+    <a href="quick.html">Quick Check</a>
+    <a href="checkpoint.html">Priority Checkpoint</a>
+    <a href="test.html">For developers</a>
+    <a href="experiment.html">Recorded experiment</a>
+    <a href="results.html">Results</a>
+    <a href="research.html" aria-current="page">Research</a>
+  </nav>
+</header>
+<main id="main">
+<noscript><p class="nojs">This page needs JavaScript to show the recorded results and to run its buttons. The scripts only read files from this site; nothing is sent anywhere.</p></noscript>
+<ul class="subnav" aria-label="Research pages"><li><a href="research.html">Overview & studies</a></li><li><a href="methods.html">How it was tested</a></li><li><a href="design.html">Design decisions & limits</a></li><li><a href="faq.html">FAQ</a></li><li><a href="data.html" aria-current="page">Data & reproducibility</a></li></ul>
+<div class="page-h"><p class="eyebrow">Research</p><h1>Data and reproducibility</h1></div>
+<div class="inshort"><span class="k">In short</span><p>Every file behind the numbers on this site, what you can recompute from them, and what needs the private records.</p></div>
+<nav class="toc" aria-label="On this page"><a href="#downloads">Downloads</a><a href="#recompute">What you can recompute, and what you cannot</a><a href="#code">Code and reproducibility materials</a><a href="#rights">Rights and terms</a></nav>
+<div class="prose" id="content">
+<p class="lede">Everything the site shows, as files you can download and check. All files are served from this site; nothing is fetched from elsewhere.</p>
+<details class="adv sec" id="downloads" open><summary>Downloads</summary>
+<div class="in prose">
+<table class="dl-table">
+<thead><tr><th scope="col">File</th><th scope="col">What it contains</th></tr></thead>
+<tbody>
+<tr><td><a href="data/study3b/study3b_decisions.csv" download>study3b_decisions.csv</a></td><td>Study 3B: one row per case and condition, plus the no-priority baseline: scenario, value pair, priority direction, option order, condition, target option, parsed choice, outcome.</td></tr>
+<tr><td><a href="data/study3b/study3b_texts.json" download>study3b_texts.json</a></td><td>Study 3B visible texts: every handoff, re-anchored branch, final answer and prompt (previous-stage text as a placeholder; each complete prompt is reconstructible exactly from the recorded texts). Visible answers only.</td></tr>
+<tr><td><a href="data/study3b/study3b_summary.json" download>study3b_summary.json</a></td><td>Study 3B counts, sensitivity, contrasts, selection rules and record hashes.</td></tr>
+<tr><td><a href="data/study3b/CODEBOOK.md" download>CODEBOOK.md</a></td><td>Column definitions, conditions, and what can and cannot be recomputed.</td></tr>
+<tr><td><a href="data/study3b/SHA256SUMS" download>SHA256SUMS</a></td><td>Checksums of the Study 3B files.</td></tr>
+<tr><td><a href="data/single_turn.json" download>single_turn.json</a></td><td>Study 2: every recorded single-turn answer, parsed, with the frozen analysis.</td></tr>
+<tr><td><a href="data/study1_scores.csv" download>study1_scores.csv</a></td><td>Study 1: every automated score, by workflow and handoff (scores only; no text).</td></tr>
+<tr><td><a href="data/headline.json" download>headline.json</a></td><td>Study 1: the matched T1–T6 estimate with intervals (a post-hoc estimate, not the preregistered analysis).</td></tr>
+</tbody></table>
+</div></details>
+<details class="adv sec" id="recompute"><summary>What you can recompute, and what you cannot</summary>
+<div class="in prose">
+<dl>
+<dt>From the public files</dt>
+<dd>Every Study 3B count, outcome classification and paired sensitivity on this site; the re-parsing of every final choice from its visible first line; the value-name indicator; that Delegated and Restored received the identical T6 and that T4 re-anchored shares T1–T3; Study 2's tallies; Study 1's matched estimate from the scores.</dd>
+<dt>Only with the private records</dt>
+<dd><b>Study 3B and Study 2:</b> that each text is byte-for-byte what the API returned, and the hash-chained ledger that orders every call. These records include the model's thinking summaries and request metadata, so they are not published. Study 3B's record hashes are in <code>study3b_summary.json</code> under <code>provenance</code>, so a future audit of the private records can be checked against them.</dd>
+<dd><b>Study 1:</b> that the displayed texts match the saved corpus they were exported from (the corpus contains the withheld priority wording, so it is not published). The SHA-256 of each corpus file is recorded with the site's build. Study 1 was not run with a call-by-call ledger.</dd>
+<dt>Not available at all</dt>
+<dd>The questionnaire-derived priority wording used in Study 1 (withheld until its reuse is cleared), and any model thinking text.</dd>
+</dl>
+</div></details>
+<details class="adv sec" id="code"><summary>Code and reproducibility materials</summary>
+<div class="in prose">
+<p>The analysis and build code (study protocols, frozen analyses, the independent recomputation, the site builders and the acceptance tests) is prepared for an open-source release, together with a reproduction script for the Study 1 estimate. It will be linked here once the public repository is created.</p>
+<p class="small">Study 3B record hashes: plan <code data-n="s3b.prov.plan">–</code>, ledger head <code data-n="s3b.prov.ledger">–</code>, raw-record manifest <code data-n="s3b.prov.manifest">–</code>.</p>
+</div></details>
+<details class="adv sec" id="rights"><summary>Rights and terms</summary>
+<div class="in prose">
+<p class="small">Study 1 scenarios come from DailyDilemmas (Chiu, Jiang &amp; Choi, ICLR 2025), CC-BY-4.0. Model outputs were generated with Google's Gemini API; the licence for the code and data, and the terms for redistributing model outputs, are still to be confirmed before publication.</p>
+</div></details>
+</div>
+</main>
+<footer class="foot">
+  <span>Anchor-Preservation Auditor · a research prototype supported by a Cosmos Institute grant · a static site: no backend, no analytics, no model calls.</span> <a href="privacy.html">Privacy &amp; feedback</a>
+  <button type="button" class="link-btn" id="fx-toggle" aria-pressed="true" hidden>Light effects: on</button>
+</footer>
+<script src="assets/data.js"></script>
+<script src="assets/single_turn.js"></script>
+<script src="assets/study3b.js"></script>
+<script src="assets/pages.js"></script>
+<script src="assets/fx.js"></script>
+<script src="assets/research-v3.js"></script>
+</body>
+</html>

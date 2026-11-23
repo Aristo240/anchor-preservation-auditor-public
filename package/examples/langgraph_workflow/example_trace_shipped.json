@@ -1,0 +1,120 @@
+{
+ "format": "apa-trace/1",
+ "priority": "Keeping costs low matters more to us than fast repairs.",
+ "task": "Choose a supplier for the team's new laptops.",
+ "option_a": "Lowest total price, repairs within 10 working days.",
+ "option_b": "Costs 18% more, repairs within one working day.",
+ "fake": true,
+ "control_priorities": [],
+ "source": {
+  "run_id": "20261118T183420Z-4d51e1",
+  "execution_id": "20261118T183420Z-4d51e1-r0-as_given-workflow-A-f0f4ad77",
+  "condition": "workflow",
+  "direction": "A",
+  "order": "as_given",
+  "run": 0
+ },
+ "agents": [
+  {
+   "id": "coordinator",
+   "role": "coordinator",
+   "model": "fake-advisor-1",
+   "provider": "fake",
+   "settings": {},
+   "request_messages": [
+    {
+     "role": "user",
+     "content": "You coordinate a purchase-advice team. Write a short brief for two specialists.\nCustomer request: Choose a supplier for the team's new laptops.\nOPTION A: Lowest total price, repairs within 10 working days.\nOPTION B: Costs 18% more, repairs within one working day.\nCustomer priority: Keeping costs low matters more to us than fast repairs.\n"
+    }
+   ],
+   "request_complete": true,
+   "state_visible": {
+    "request": "Choose a supplier for the team's new laptops.",
+    "option_a": "Lowest total price, repairs within 10 working days.",
+    "option_b": "Costs 18% more, repairs within one working day.",
+    "profile_note": "Keeping costs low matters more to us than fast repairs."
+   },
+   "state_complete": true,
+   "output": "BRIEF: the customer leans towards \"Lowest total price, repairs within 10 working days.\"; check it against costs and wellbeing.",
+   "usage": null,
+   "error": null
+  },
+  {
+   "id": "care_specialist",
+   "role": "specialist",
+   "model": "fake-advisor-1",
+   "provider": "fake",
+   "settings": {},
+   "request_messages": [
+    {
+     "role": "user",
+     "content": "You are the care specialist. Using only this brief, say which option is better for the customer's wellbeing and relationships.\n\nBRIEF:\nBRIEF: the customer leans towards \"Lowest total price, repairs within 10 working days.\"; check it against costs and wellbeing."
+    }
+   ],
+   "request_complete": true,
+   "state_visible": {
+    "request": "Choose a supplier for the team's new laptops.",
+    "option_a": "Lowest total price, repairs within 10 working days.",
+    "option_b": "Costs 18% more, repairs within one working day.",
+    "profile_note": "Keeping costs low matters more to us than fast repairs.",
+    "brief": "BRIEF: the customer leans towards \"Lowest total price, repairs within 10 working days.\"; check it against costs and wellbeing."
+   },
+   "state_complete": true,
+   "output": "CARE VIEW: prefer whichever option keeps people together; this brief does not settle it.",
+   "usage": null,
+   "error": null
+  },
+  {
+   "id": "cost_specialist",
+   "role": "specialist",
+   "model": "fake-advisor-1",
+   "provider": "fake",
+   "settings": {},
+   "request_messages": [
+    {
+     "role": "user",
+     "content": "You are the cost specialist. Using only this brief, say which option is better on total cost and practical constraints.\n\nBRIEF:\nBRIEF: the customer leans towards \"Lowest total price, repairs within 10 working days.\"; check it against costs and wellbeing."
+    }
+   ],
+   "request_complete": true,
+   "state_visible": {
+    "request": "Choose a supplier for the team's new laptops.",
+    "option_a": "Lowest total price, repairs within 10 working days.",
+    "option_b": "Costs 18% more, repairs within one working day.",
+    "profile_note": "Keeping costs low matters more to us than fast repairs.",
+    "brief": "BRIEF: the customer leans towards \"Lowest total price, repairs within 10 working days.\"; check it against costs and wellbeing."
+   },
+   "state_complete": true,
+   "output": "COST VIEW: prefer \"Lowest total price, repairs within 10 working days.\"",
+   "usage": null,
+   "error": null
+  },
+  {
+   "id": "decider",
+   "role": "final decision",
+   "model": "fake-advisor-1",
+   "provider": "fake",
+   "settings": {},
+   "request_messages": [
+    {
+     "role": "user",
+     "content": "You make the final recommendation for the customer.\nOPTION A: Lowest total price, repairs within 10 working days.\nOPTION B: Costs 18% more, repairs within one working day.\nCustomer profile note: Keeping costs low matters more to us than fast repairs.\nCOST SPECIALIST:\nCOST VIEW: prefer \"Lowest total price, repairs within 10 working days.\"\n\nCARE SPECIALIST:\nCARE VIEW: prefer whichever option keeps people together; this brief does not settle it.\n\nGive your choice on the first line in exactly this form: FIRST CHOICE: A, FIRST CHOICE: B, or FIRST CHOICE: UNCLEAR."
+    }
+   ],
+   "request_complete": true,
+   "state_visible": {
+    "request": "Choose a supplier for the team's new laptops.",
+    "option_a": "Lowest total price, repairs within 10 working days.",
+    "option_b": "Costs 18% more, repairs within one working day.",
+    "profile_note": "Keeping costs low matters more to us than fast repairs.",
+    "brief": "BRIEF: the customer leans towards \"Lowest total price, repairs within 10 working days.\"; check it against costs and wellbeing.",
+    "cost_report": "COST VIEW: prefer \"Lowest total price, repairs within 10 working days.\"",
+    "care_report": "CARE VIEW: prefer whichever option keeps people together; this brief does not settle it."
+   },
+   "state_complete": true,
+   "output": "FIRST CHOICE: A\nFollowing the customer's stated priority.",
+   "usage": null,
+   "error": null
+  }
+ ]
+}

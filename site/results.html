@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="color-scheme" content="dark">
+<title>Results · Anchor-Preservation Auditor</title>
+<meta name="description" content="Results: Study 4 (primary, Gemini 2.5 Pro, 12 scenarios) first, then links to the exploratory studies, then all 28 recorded cases of the earlier Study 3B development pilot.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/v3.css">
+<link rel="stylesheet" href="assets/v4.css">
+</head>
+<body class="v3">
+<canvas id="fx-trail" aria-hidden="true"></canvas>
+<a class="skip" href="#main">Skip to the content</a>
+<header class="bar">
+  <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"></span>Anchor-Preservation Auditor</a>
+  <nav aria-label="Site">
+    <a href="auditor.html">Be the Auditor</a>
+    <a href="quick.html">Quick Check</a>
+    <a href="checkpoint.html">Priority Checkpoint</a>
+    <a href="test.html">For developers</a>
+    <a href="experiment.html">Recorded experiment</a>
+    <a href="results.html" aria-current="page">Results</a>
+    <a href="research.html">Research</a>
+  </nav>
+</header>
+
+<main id="main">
+<noscript><p class="nojs">This page needs JavaScript to show the recorded results and to run its buttons. The scripts only read files from this site; nothing is sent anywhere.</p></noscript>
+<p class="banner-rec"><b>Recorded</b><span>Results from saved, verified outputs, counted from the data files. Nothing here runs live.</span></p>
+<div class="page-h">
+  <p class="eyebrow">Results · Study 4 first</p>
+  <h1>What the studies found</h1>
+  <p class="lede">After six AI handoffs, decisions became much less sensitive to the user's stated priority and resembled decisions made without an explicit priority. Restating the priority at the final step restored sensitivity in this controlled experiment.</p>
+</div>
+
+<section class="card pad" aria-labelledby="live-h">
+  <div class="sec-h"><h2 id="live-h" class="small">Study 4 (primary): Gemini 2.5 Pro, 12 constructed scenarios</h2></div>
+  <p class="small">Each scenario under 2 opposite priorities, in 2 option orders, with 2 independent handoff chains. A unit is <i>paired-sensitive</i> only if both opposite priorities got their own option.</p>
+  <div class="table-wrap"><table class="dt">
+    <caption class="fine">Study 4 final decisions by condition</caption>
+    <thead><tr><th scope="col">Condition</th><th scope="col">Paired-sensitive units</th><th scope="col">Single decisions matching the priority</th></tr></thead>
+    <tbody>
+      <tr><td>Told directly (Direct)</td><td>24 of 24</td><td>48 of 48</td></tr>
+      <tr><td>After six handoffs (Delegated)</td><td>6 of 48</td><td>27 of 96 (35 opposite, 34 declined)</td></tr>
+      <tr><td>Priority restated at the final step (Restored)</td><td>47 of 48</td><td>95 of 96</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">With no priority at all, the model declined in 33% of direct decisions and 38% of decisions after a six-handoff chain; after six handoffs with a priority given at the start, it declined in 35%. With the priority stated, it never declined. This is a descriptive comparison, not a causal one; it concerns one model and one family of constructed scenarios, and matching a restated priority shows instruction-following, not better decisions.</p>
+  <ul class="small">
+    <li><a href="study4.html">Study 4 results in full: primary estimates, no-priority baselines and limits</a></li>
+    <li><a href="study3c.html">Study 3C (exploratory): decisions after each handoff, on the 28 saved pilot cases</a></li>
+    <li><a href="models.html">Three-model comparison (exploratory): Gemini 3.8 Flash, Claude Sonnet 5.5 and GPT-5.5 on 14 published dilemmas; never pooled with Study 4</a></li>
+    <li>Coordinator workflow (exploratory): coordinator → two analysts → decider, Gemini 3.8 Flash, 7 constructed dilemmas. Workflow decisions stayed sensitive to the priority: 56 of 56 single decisions matched, 28 of 28 pairs. Direct and restated: 54 of 56 matched, with 2 missing each after a network outage. The coordinator usually relayed the priority's exact wording, which the analysts then received. Two dilemmas were completed in a documented technical-recovery run approved after the first five dilemmas' results were known, so it is not an uninterrupted preregistered run. Model, handoff count and roles differ from Study 4: results can differ across workflows.</li>
+  </ul>
+</section>
+
+<section aria-labelledby="pilot-h">
+  <div class="sec-h"><h2 id="pilot-h">Earlier development pilot (Study 3B, 28 cases)</h2></div>
+  <p class="muted small">An earlier, smaller pilot that showed the same pattern. 7 constructed decisions, each under 2 opposing priorities and in 2 option orders, each decided four ways: told directly, and three ways after six handoffs. Everything below this point is the pilot.</p>
+</section>
+
+<section class="card pad" aria-labelledby="ov-h">
+  <div class="sec-h"><h2 id="ov-h" class="small">Pilot: final decisions by condition</h2><span class="legend"><span><span class="oc-dot bg-matched"></span>Matched the priority</span><span><span class="oc-dot bg-opposite"></span>Chose the other option</span><span><span class="oc-dot bg-unclear"></span>Declined to choose (UNCLEAR)</span></span></div>
+  <div class="bars" id="bars"></div>
+  <p class="fine">A small development pilot: one model, one run per case, described rather than tested statistically. It shows what happened in these cases, not how often it happens elsewhere.</p>
+</section>
+
+<section class="card pad" aria-labelledby="sens-h">
+  <div class="sec-h"><h2 id="sens-h" class="small">Pilot, the stricter test: did the choice follow the priority both ways?</h2></div>
+  <p class="sens-lead" id="sens-lead"></p>
+  <p class="muted small">One choice can match a priority by coincidence. For each decision and option order, a condition counts only if both opposing priorities produced their own matching option.</p>
+  <div class="sens" id="sens"></div>
+  <p class="fine" id="np-line"></p>
+</section>
+
+<section aria-labelledby="ch-h">
+  <div class="sec-h"><h2 id="ch-h">Pilot: did repeating the priority change the final decision?</h2></div>
+  <p class="muted small">Each card is one recorded case: the final decision with handoff 6 only, then with the same handoff 6 and the priority repeated. The reminder does not rewrite or repair the handoffs. Select a card to step through that case.</p>
+  <div class="chipbar" id="filters" role="group" aria-label="Show cases"></div>
+  <div class="grid28" id="grid"></div>
+  <p class="count-line fine" id="count" aria-live="polite"></p>
+</section>
+
+
+<details class="adv" id="counter"><summary>Exploratory: re-adding the priority at handoff 4<small>A separate condition with newly generated handoffs 4–6, and the prespecified counterexample. It does not isolate a causal effect</small></summary><div class="in" id="counter-in"></div></details>
+<details class="adv" id="stats"><summary>Differences between conditions, with intervals<small>Paired bootstrap over the 7 decisions; descriptive only</small></summary><div class="in" id="stats-in"></div></details>
+<details class="adv" id="names"><summary>Does naming the value in handoff 6 go with following it?<small>An exploratory literal word match</small></summary><div class="in" id="names-in"></div></details>
+<details class="adv" id="table"><summary>All 28 cases in one table, with filters<small>Every condition, including the no-priority baseline</small></summary><div class="in" id="table-in"></div></details>
+<details class="adv" id="dl"><summary>Data files and how these numbers were produced</summary><div class="in prose">
+  <p>Every number on this page is counted in your browser from <code>assets/study3b.js</code>, built from the verified records. The same data are downloadable:</p>
+  <ul>
+    <li><a href="data/study3b/study3b_decisions.csv">study3b_decisions.csv</a>: one row per case and condition</li>
+    <li><a href="data/study3b/study3b_texts.json">study3b_texts.json</a>: every visible handoff, answer and prompt</li>
+    <li><a href="data/study3b/study3b_summary.json">study3b_summary.json</a>: counts, sensitivity, intervals and provenance hashes</li>
+    <li><a href="data/study3b/CODEBOOK.md">CODEBOOK.md</a> · <a href="data/study3b/SHA256SUMS">SHA256SUMS</a></li>
+  </ul>
+  <p id="sel-rules" class="fine"></p>
+  <p><a href="methods.html#study3b">How Study 3B was run</a> · <a href="data.html">Data &amp; reproducibility</a> · <a href="design.html#interventions">Why the two interventions differ</a></p>
+</div></details>
+</main>
+
+<footer class="foot">
+  <span>Anchor-Preservation Auditor · a research prototype supported by a Cosmos Institute grant · a static site: no backend, no analytics, no model calls.</span> <a href="privacy.html">Privacy &amp; feedback</a>
+  <button type="button" class="link-btn" id="fx-toggle" aria-pressed="true" hidden>Light effects: on</button>
+</footer>
+<script src="assets/study3b.js"></script>
+<script src="assets/fx.js"></script>
+<script src="assets/results.js"></script>
+</body>
+</html>

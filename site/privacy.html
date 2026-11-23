@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="color-scheme" content="dark">
+<title>Privacy and feedback · Anchor-Preservation Auditor</title>
+<meta name="description" content="What this site does with your data (nothing leaves your browser) and how to send feedback.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/v3.css">
+<link rel="stylesheet" href="assets/v4.css">
+</head>
+<body class="v3">
+<canvas id="fx-trail" aria-hidden="true"></canvas>
+<a class="skip" href="#main">Skip to the content</a>
+<header class="bar">
+  <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"></span>Anchor-Preservation Auditor</a>
+  <nav aria-label="Site">
+    <a href="auditor.html">Be the Auditor</a>
+    <a href="quick.html">Quick Check</a>
+    <a href="checkpoint.html">Priority Checkpoint</a>
+    <a href="test.html">For developers</a>
+    <a href="experiment.html">Recorded experiment</a>
+    <a href="results.html">Results</a>
+    <a href="research.html">Research</a>
+  </nav>
+</header>
+<main id="main">
+<div class="page-h"><p class="eyebrow">About this site</p><h1>Privacy and feedback</h1></div>
+<div class="inshort"><span class="k">In short</span><p>This site is a set of static files. It runs no AI, has no backend and no analytics, and sends nothing you type or open anywhere.</p></div>
+<div class="prose" id="content">
+<h2 id="privacy">Privacy</h2>
+<p><b>What the site does.</b> Every page is a static file. The pages load their scripts, styles and data only from this site, and every page's
+Content-Security-Policy forbids connections to any other address (<code>connect-src 'none'</code>), so the browser itself
+blocks a page from sending data anywhere.</p>
+<p><b>What you type or open.</b> Text you type (your workflow map, priorities, options) and files you open on the Workflow
+Map, Inspect and trace pages (a run's <code>summary.json</code>, <code>records.jsonl</code>, a trace) are read by your browser
+on your device. They are not uploaded and are gone when you close or reload the page. When you save a file (a scenario,
+a map), your browser writes it to your own device.</p>
+<p><b>What is stored.</b> The site sets no cookies and uses no browser storage.</p>
+<p><b>Checked how.</b> Before release we recorded every network request the browser made while going through the visitor
+journey (Be the Auditor) and the developer journey (Map, Test, Inspect with your own run files, Compare): every request
+went to this site's own address, and opening files caused no request. This describes the site's code; the hosting
+service that serves these files may keep its own standard access logs (for example IP address and browser type), as
+almost every web server does.</p>
+<p><b>The Python package</b> (<code>priority_check</code>) runs on your computer. It makes no network calls of its own. Your
+adapter calls whatever your workflow calls; the optional real-model providers call the provider you choose with the key
+you supply. Its results are written only to the folder you name.</p>
+<h2 id="licences">Licences</h2>
+<p>The site's code and the <code>priority_check</code> package: MIT. The site's original text, figures, constructed scenarios and coded outcome data: CC BY 4.0 (attribute as "Anchor-Preservation Auditor, Naama Rozen (2026)"). Third-party texts keep their own licences: the Singer et al. (2019) dilemmas are © 2019 Singer et al., CC BY 4.0. Recorded model outputs are research records under each provider's terms and are not licensed by this project. The source repository's LICENSING.md has the details.</p>
+<h2 id="feedback">Feedback</h2>
+<p>We would like to hear what worked, what was confusing and what you would need. <b>Please do not paste traces,
+prompts, keys or anything confidential</b>: describe the problem instead, and say which page or command you used.</p>
+<p><a class="btn primary" id="fb-link" href="#feedback" hidden rel="noopener">Send feedback</a>
+<span id="fb-pending">The feedback form opens when the site is launched.</span></p>
+</div>
+</main>
+<footer class="foot">
+  <span>Anchor-Preservation Auditor · a research prototype supported by a Cosmos Institute grant · a static site: no backend, no analytics, no model calls.</span> <a href="privacy.html">Privacy &amp; feedback</a>
+  <button type="button" class="link-btn" id="fx-toggle" aria-pressed="true" hidden>Light effects: on</button>
+</footer>
+<script src="assets/site-config.js"></script>
+<script src="assets/privacy.js"></script>
+<script src="assets/fx.js"></script>
+</body>
+</html>

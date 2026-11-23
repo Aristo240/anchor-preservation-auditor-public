@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- No network access of any kind: scripts and styles load only from this
+     folder, and connect-src 'none' blocks fetch/XHR/WebSocket outright. -->
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="color-scheme" content="dark">
+<title>Quick Check · Anchor-Preservation Auditor</title>
+<meta name="description" content="One question to paste into your own AI chat before you act on its recommendation: does it still follow the priorities you gave? No sign-up; nothing is stored or sent.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/v3.css">
+<link rel="stylesheet" href="assets/auditor.css">
+<link rel="stylesheet" href="assets/v4.css">
+<script src="assets/redirects.js"></script>
+</head>
+<body class="v3">
+<canvas id="fx-trail" aria-hidden="true"></canvas>
+<a class="skip" href="#main">Skip to the content</a>
+<header class="bar">
+  <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"></span>Anchor-Preservation Auditor</a>
+  <nav aria-label="Site">
+    <a href="auditor.html">Be the Auditor</a>
+    <a href="quick.html" aria-current="page">Quick Check</a>
+    <a href="checkpoint.html">Priority Checkpoint</a>
+    <a href="test.html">For developers</a>
+    <a href="experiment.html">Recorded experiment</a>
+    <a href="results.html">Results</a>
+    <a href="research.html">Research</a>
+  </nav>
+</header>
+
+<main id="main" class="qc-page">
+<noscript><p class="nojs">This page needs JavaScript to show the recorded results and to run its buttons. The scripts only read files from this site; nothing is sent anywhere.</p></noscript>
+<section class="qc card" id="quick-check" aria-labelledby="qc-h">
+  <div class="qc-head">
+    <p class="eyebrow">Quick Check · for your own AI chats</p>
+    <h1 id="qc-h">Got a recommendation from an AI? Ask it this before you decide.</h1>
+    <p class="qc-how">Paste it into the same conversation where you told the AI what matters to you. No sign-up, no key, nothing sent from this page.</p>
+  </div>
+  <label class="f qc-f" for="qc-text"><span class="vh">The Quick Check question (you can edit it)</span><textarea id="qc-text" class="qc-text" rows="4" spellcheck="true">Before I decide, compare your recommendation with the priorities and constraints I originally gave you. Identify any new considerations you've introduced. If you think something else deserves more weight, explain why rather than silently replacing my criteria. If you can't find my original priorities, tell me.</textarea></label>
+  <div class="actions qc-actions">
+    <button type="button" class="btn primary qc-copy" id="qc-copy">Copy the question</button>
+    <button type="button" class="link-btn qc-reset" id="qc-reset" hidden>Restore the original wording</button>
+    <span class="fine qc-edit-hint">You can edit it first.</span>
+  </div>
+  <p class="copied qc-msg" id="qc-msg" aria-live="polite"></p>
+  <ul class="qc-notes">
+    <li><strong>Untested.</strong> A suggested question, not a validated tool or detector. Our studies did not test this wording.</li>
+    <li><strong>The reply isn't proof.</strong> What an AI says about its recommendation is not evidence of how it actually reached it.</li>
+    <li><strong>New considerations can be good.</strong> The aim is to see them openly, not to reject them.</li>
+    <li><strong>You decide.</strong> Judging the recommendation stays with you.</li>
+  </ul>
+</section>
+
+<section class="qc-more card pad" aria-labelledby="qc-why">
+  <h2 id="qc-why" class="bta-q2">Why ask?</h2>
+  <p>In our recorded pilot (one model, <span data-s3b="n">–</span> cases), a final decision step that received the task, the two options and the previous AI step's output, but not the person's priority, chose the option fitting that priority in <strong data-s3b="del">–</strong> cases. With the priority added back in one line, it did in <strong data-s3b="res">–</strong>. A single chat is different: the AI there may still have your words, and we did not test this question. It asks the AI to show how its recommendation relates to what you said. <a href="auditor.html">See a recorded case →</a></p>
+  <h2 class="bta-q2">For a bigger decision</h2>
+  <p>Write down what matters before you ask, and keep a record of what the AI recommended: <a href="checkpoint.html">Priority Checkpoint →</a></p>
+</section>
+</main>
+
+<footer class="foot">
+  <span>Anchor-Preservation Auditor · a research prototype supported by a Cosmos Institute grant · a static site: no backend, no analytics, no model calls.</span> <a href="privacy.html">Privacy &amp; feedback</a>
+  <button type="button" class="link-btn" id="fx-toggle" aria-pressed="true" hidden>Light effects: on</button>
+</footer>
+<script src="assets/fx.js"></script>
+<script src="assets/study3b.js"></script>
+<script src="assets/quick.js"></script>
+</body>
+</html>

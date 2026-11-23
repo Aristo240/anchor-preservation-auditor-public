@@ -1,0 +1,9 @@
+{
+ "scenario_id": "community-garden-plot",
+ "question": "A neighbourhood association must decide how to use a small empty lot for the next two years.",
+ "context": "The budget is the same for both options. Volunteers are available on weekends.",
+ "option_a": "Turn the lot into shared vegetable beds that residents tend together.",
+ "option_b": "Turn the lot into a quiet seating area with trees and benches.",
+ "priority_A": "Growing food together with neighbours matters more to us than having a calm place to sit.",
+ "priority_B": "Having a calm place to sit matters more to us than growing food together with neighbours."
+}

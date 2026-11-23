@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="color-scheme" content="dark">
+<title>Human-study dilemmas · Anchor-Preservation Auditor</title>
+<meta name="description" content="Forty everyday dilemmas from a published human study (Singer et al., 2019, CC BY 4.0), how they were screened, our adaptation for a planned test, and the AI result status per model. No AI model has been run on them.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/v3.css">
+<link rel="stylesheet" href="assets/v4.css">
+<link rel="stylesheet" href="assets/library.css">
+<link rel="stylesheet" href="assets/library-expanded.css">
+</head>
+<body class="v3">
+<canvas id="fx-trail" aria-hidden="true"></canvas>
+<a class="skip" href="#main">Skip to the content</a>
+<header class="bar">
+  <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"></span>Anchor-Preservation Auditor</a>
+  <nav aria-label="Site">
+    <a href="auditor.html">Be the Auditor</a>
+    <a href="quick.html">Quick Check</a>
+    <a href="checkpoint.html">Priority Checkpoint</a>
+    <a href="test.html">For developers</a>
+    <a href="experiment.html">Recorded experiment</a>
+    <a href="results.html">Results</a>
+    <a href="research.html">Research</a>
+  </nav>
+</header>
+
+<main id="main">
+<noscript><p class="nojs">This page needs JavaScript to show the dilemma library. The scripts only read files from this site; nothing is sent anywhere.</p></noscript>
+<p class="banner-rec banner-plan"><b>Not yet tested</b><span>Dilemmas from a published human study, prepared for a planned test. No AI model has been run on any of them.</span></p>
+<div class="page-h">
+  <p class="eyebrow">Human-study dilemmas · planned, not run</p>
+  <h1>Everyday dilemmas written for a human study</h1>
+  <p class="lede">Forty published dilemmas in which helping someone else costs you something. Read each one with the choices people made, see how we screened and adapted it, and see which AI comparisons have been recorded so far.</p>
+</div>
+
+<ol class="steps lib-route" aria-label="How to use this page">
+  <li id="r1" aria-current="step">Explore the human-study dilemmas</li>
+  <li id="r2">Choose a scenario</li>
+  <li id="r3">Compare recorded AI models</li>
+  <li id="r4">Inspect handoffs and final choices</li>
+</ol>
+
+<section class="card pad" aria-labelledby="key-h">
+  <h2 id="key-h" class="small">What each label on this page means</h2>
+  <ul class="kinds">
+    <li><span class="kind kind-orig">Original</span> Published by Singer et al. (2019): the scenario, its two options and the human data.</li>
+    <li><span class="kind kind-ours">Our adaptation</span> Changes we made for the planned test, kept separate from the original.</li>
+    <li><span class="kind kind-rec">Recorded</span> An AI result saved in a run ledger. There are none yet.</li>
+    <li><span class="kind kind-none">Not yet tested</span> No AI model has been run on this cell.</li>
+    <li><span class="kind kind-stress">Stress test only</span> Unsuitable for the matched-priority outcome (for example honesty, legal or injury items).</li>
+  </ul>
+  <p class="fine" id="pilot-line">Separate from this library: the Gemini 2.5 Pro results elsewhere on this site come from <a href="results.html">a different, earlier pilot on constructed decisions</a>.</p>
+</section>
+
+<section aria-labelledby="list-h">
+  <div class="sec-h"><h2 id="list-h">1 · Explore the dilemmas</h2><span class="fine" id="count" aria-live="polite"></span></div>
+  <div class="card pad lib-filters">
+    <div class="chipbar" id="status-chips" role="group" aria-label="Screening status"></div>
+    <div class="lib-fields">
+      <label class="lib-f"><span>Topic</span><select id="topic"></select></label>
+      <label class="lib-f"><span>Search the text</span><input type="search" id="q" placeholder="e.g. bus, ticket, promise" autocomplete="off"></label>
+    </div>
+  </div>
+  <div class="dcards lib-list" id="list"></div>
+  <p class="fine" id="empty" hidden>No dilemma matches these filters.</p>
+</section>
+
+<section id="detail" aria-labelledby="d-h" hidden>
+  <div class="sec-h"><h2 id="d-h" tabindex="-1">2 · The scenario</h2><span class="fine" id="d-meta"></span></div>
+
+  <article class="card pad blk blk-orig" aria-labelledby="o-h">
+    <p class="kind kind-orig">Original</p>
+    <h3 id="o-h">As published</h3>
+    <blockquote id="o-scn"></blockquote>
+    <div class="opts" id="o-opts"></div>
+    <p class="fine" id="o-attr"></p>
+    <p class="fine lang-caveat" id="o-lang"></p>
+  </article>
+
+  <article class="card pad blk blk-orig" aria-labelledby="h-h">
+    <p class="kind kind-orig">Original · published human data</p>
+    <h3 id="h-h">What people chose</h3>
+    <p class="warn" id="h-ctx"></p>
+    <div id="h-bars"></div>
+    <dl class="lib-dl" id="h-more"></dl>
+  </article>
+
+  <article class="card pad blk" aria-labelledby="s-h">
+    <p class="kind" id="s-kind"></p>
+    <h3 id="s-h">Screening and eligibility for our test</h3>
+    <dl class="lib-dl" id="s-dl"></dl>
+  </article>
+
+  <article class="card pad blk blk-ours" aria-labelledby="a-h">
+    <p class="kind kind-ours">Our adaptation, not part of the original</p>
+    <h3 id="a-h">How it would be put to an AI</h3>
+    <div id="a-body"></div>
+  </article>
+
+  <article class="card pad blk" aria-labelledby="c-h">
+    <h3 id="c-h">Planned conditions</h3>
+    <p class="small muted">Every priority condition runs under both priorities and in both option orders. The controls have no priority, so they run once per option order.</p>
+    <div class="cond-grid" id="conds"></div>
+    <p class="fine" id="design-status"></p>
+  </article>
+
+  <section class="blk" aria-labelledby="m-h">
+    <div class="sec-h"><h2 id="m-h">3 · Compare recorded AI models</h2></div>
+    <p class="small muted" id="m-note"></p>
+    <div class="lib-models" id="models"></div>
+  </section>
+
+  <section class="card pad blk" aria-labelledby="x-h">
+    <h2 id="x-h">4 · Inspect handoffs and final choices</h2>
+    <div class="lib-fields">
+      <label class="lib-f"><span>Model</span><select id="x-model"></select></label>
+      <label class="lib-f"><span>Workflow</span><select id="x-cond"></select></label>
+      <label class="lib-f"><span>Priority and option order</span><select id="x-cell"></select></label>
+    </div>
+    <div id="x-out" aria-live="polite"></div>
+  </section>
+</section>
+
+<section class="xsec" id="xsec" aria-labelledby="x-list-h">
+  <div class="sec-h"><h2 id="x-list-h">Expanded catalog: dilemmas from other published studies</h2><span class="fine" id="xcount" aria-live="polite"></span></div>
+  <p class="banner-rec banner-plan"><b>Not yet tested</b><span>Exploratory and private. Drawn from the expanded catalog; no AI model has been run on any of these dilemmas.</span></p>
+  <p class="small muted" id="x-intro"></p>
+  <div class="grid2 xsources" id="xsources"></div>
+  <div class="card pad lib-filters">
+    <div class="lib-fields">
+      <label class="lib-f"><span>Source</span><select id="xsrc"></select></label>
+      <label class="lib-f"><span>Class</span><select id="xclass"></select></label>
+      <label class="lib-f"><span>Experiment set</span><select id="xsub"></select></label>
+      <label class="lib-f"><span>Search the catalog</span><input type="search" id="xq" placeholder="e.g. flood, vaccine, trolley" autocomplete="off"></label>
+    </div>
+  </div>
+  <p class="fine">Singer items open in the section above. Catalog-only items are described and cited, never reproduced.</p>
+  <div class="dcards lib-list" id="xlist"></div>
+  <p class="fine" id="xempty" hidden>No catalog dilemma matches these filters.</p>
+
+  <section id="xdetail" aria-labelledby="xd-h" hidden>
+    <div class="sec-h"><h2 id="xd-h" tabindex="-1">The dilemma</h2><span class="fine" id="xd-meta"></span></div>
+    <p class="kind kind-private" id="xd-private" hidden></p>
+    <article class="card pad blk xblk-orig" id="xd-orig"></article>
+    <article class="card pad blk xblk-orig" aria-labelledby="xd-hh">
+      <p class="kind kind-orig">Original · published human data</p>
+      <h3 id="xd-hh">What people chose</h3>
+      <p class="warn" id="xd-hctx"></p>
+      <p class="small" id="xd-human"></p>
+    </article>
+    <article class="card pad blk" aria-labelledby="xd-ch">
+      <p class="kind" id="xd-ckind"></p>
+      <h3 id="xd-ch">Class and experiment set</h3>
+      <dl class="lib-dl" id="xd-class"></dl>
+    </article>
+    <article class="card pad blk xblk-ours" aria-labelledby="xd-dh">
+      <p class="kind kind-ours">Our adaptation, not part of the original</p>
+      <h3 id="xd-dh">Priority statements</h3>
+      <div id="xd-draft"></div>
+    </article>
+    <article class="card pad blk" aria-labelledby="xd-ah">
+      <h3 id="xd-ah">AI results</h3>
+      <div id="xd-ai"></div>
+    </article>
+  </section>
+</section>
+
+<section aria-labelledby="src-h">
+  <div class="sec-h"><h2 id="src-h">Other candidate sources</h2></div>
+  <p class="small muted">The source audit made for the Singer test, before any adaptation (kept as it was). It lists no stimulus text. The expanded catalog above supersedes it for Hanselmann &amp; Tanner, whose text is shown privately: CC BY is not established for that 2008 article.</p>
+  <div class="grid2" id="sources"></div>
+</section>
+
+<details class="adv" id="dl"><summary>Data file and how this page was built<small>One generated file; nothing on this page is typed by hand</small></summary><div class="in prose">
+  <p>Everything above is drawn in your browser from <code>assets/library-data.js</code>, generated together with <a href="data/library.json">data/library.json</a> by <code>Cosmos_HumanDilemmas_Singer/build_library.py</code> from the verified inventory, the screening file, our adaptation files and the source audit. The SHA-256 of each input is recorded in the file.</p>
+  <p id="rule-intro">Screening rule, stated before it was applied:</p>
+  <ol id="rule" class="small"></ol>
+  <p class="fine" id="topic-note"></p>
+  <p>The expanded catalog section is drawn from <code>assets/library-expanded-data.js</code>, generated together with <a href="data/library_expanded.json">data/library_expanded.json</a> by <code>Cosmos_HumanDilemmas_Expanded/build_site_library.py</code> from the catalog, experiment set v1.1, the priority statements and the mapping-screen result. The Singer data file above is unchanged.</p>
+</div></details>
+</main>
+
+<footer class="foot">
+  <span>Anchor-Preservation Auditor · a research prototype supported by a Cosmos Institute grant · a static site: no backend, no analytics, no model calls.</span> <a href="privacy.html">Privacy &amp; feedback</a>
+  <button type="button" class="link-btn" id="fx-toggle" aria-pressed="true" hidden>Light effects: on</button>
+</footer>
+<script src="assets/library-data.js"></script>
+<script src="assets/fx.js"></script>
+<script src="assets/library.js"></script>
+<script src="assets/library-expanded-data.js"></script>
+<script src="assets/library-expanded.js"></script>
+</body>
+</html>

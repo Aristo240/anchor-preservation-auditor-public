@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "priority-check"
+version = "0.1.0b1"
+description = "A paired final-decision test for your own AI decision step: with and without the user's stated priority, reversed, and with the options swapped."
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = []
+license = {text = "MIT"}
+classifiers = ["License :: OSI Approved :: MIT License", "Programming Language :: Python :: 3"]
+
+[tool.setuptools]
+packages = ["priority_check"]

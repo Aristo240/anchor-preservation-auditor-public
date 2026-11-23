@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="color-scheme" content="dark">
+<title>Study 3C results · Anchor-Preservation Auditor</title>
+<meta name="description" content="Study 3C: checkpoint decision probes (Gemini 2.5 Pro): results from verified private runs (numbers only).">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/showcase.css">
+<link rel="stylesheet" href="assets/v2.css">
+<link rel="stylesheet" href="assets/v3.css">
+<link rel="stylesheet" href="assets/legacy.css">
+<link rel="stylesheet" href="assets/v4.css">
+<link rel="stylesheet" href="assets/map.css">
+<link rel="stylesheet" href="assets/inspect.css">
+<link rel="stylesheet" href="assets/study4.css">
+</head>
+<body class="v3 legacy" data-page="study3c">
+<canvas id="fx-trail" aria-hidden="true"></canvas>
+<a class="skip" href="#main">Skip to the content</a>
+<header class="bar">
+  <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"></span>Anchor-Preservation Auditor</a>
+  <nav aria-label="Site">
+    <a href="auditor.html">Be the Auditor</a>
+    <a href="quick.html">Quick Check</a>
+    <a href="checkpoint.html">Priority Checkpoint</a>
+    <a href="test.html">For developers</a>
+    <a href="experiment.html">Recorded experiment</a>
+    <a href="results.html" aria-current="page">Results</a>
+    <a href="research.html">Research</a>
+  </nav>
+</header>
+<main id="main">
+<noscript><p class="nojs">This page needs JavaScript to show the results. Nothing is sent anywhere.</p></noscript>
+<div class="page-h"><p class="eyebrow">Research · Study 3C (exploratory)</p><h1>Study 3C: checkpoint decision probes (Gemini 2.5 Pro)</h1></div>
+<div class="legacy-tool">
+<div id="x-status" role="status"></div>
+<section id="x-out" hidden>
+  <h2>Decision at each checkpoint</h2>
+  <p class="small">For each of the 28 saved Study 3B cases, the final decision-maker was asked to decide after handoff T1 to T5; T6 is the recorded Study 3B delegated decision. This measures checkpoint decision sensitivity, not the point at which a priority was forgotten.</p>
+  <div class="r-tablewrap"><table class="r-table" id="x-check"></table></div>
+  <h3>Adjacent contrasts</h3>
+  <div class="r-tablewrap"><table class="r-table" id="x-contrast"></table></div>
+  <h3>T6 replicate</h3><p class="small" id="x-t6"></p>
+  <h3>Trajectories</h3><p class="small" id="x-traj-legend"></p>
+  <div class="r-tablewrap"><table class="r-table" id="x-traj"></table></div>
+  <h3>Interpretation limits</h3><ul class="small" id="x-limits"></ul>
+  <h3>Provenance</h3><p class="fine x-hash" id="x-prov"></p>
+</section>
+</div>
+</main>
+<footer class="foot">
+  <span>Anchor-Preservation Auditor · a research prototype supported by a Cosmos Institute grant · a static site: no backend, no analytics, no model calls.</span> <a href="privacy.html">Privacy &amp; feedback</a>
+  <button type="button" class="link-btn" id="fx-toggle" aria-pressed="true" hidden>Light effects: on</button>
+</footer>
+<script src="assets/extra_results.js"></script>
+<script src="assets/extra-results-page.js"></script>
+<script src="assets/fx.js"></script>
+</body>
+</html>

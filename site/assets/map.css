@@ -1,0 +1,72 @@
+/* Workflow Map page. Exposure is always shown as text plus a symbol, never by colour alone. */
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.m-file { cursor: pointer; }
+.m-file:focus-within { outline: 2px solid var(--accent); outline-offset: 2px; }
+.wf-journey { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: 14px 0; }
+.wf-journey li { border: 1px solid var(--rule); border-radius: 10px; padding: 8px 12px; flex: 1 1 200px; font-size: .9rem; color: var(--dim); }
+.wf-journey li.on { border-color: var(--accent); color: var(--ink); }
+#map-form section, .wf-out, .wf-test { margin-top: 22px; }
+.wf-agent { border: 1px solid var(--rule); border-radius: 12px; padding: 12px 14px; margin: 0 0 14px; background: var(--card); display: grid; gap: 10px; min-width: 0; }
+.wf-agent > legend { font-weight: 700; padding: 0 6px; }
+.wf-agent-top { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; }
+.wf-agent-top label { display: flex; flex-direction: column; gap: 4px; font-weight: 600; font-size: .9rem; }
+.wf-q { border: 0; padding: 0; margin: 0; min-width: 0; }
+.wf-q legend { font-weight: 600; font-size: .9rem; padding: 0; margin-bottom: 4px; }
+.form-grid .wf-q label { margin-right: 14px; }
+.wf-sources { margin-top: 6px; padding-left: 10px; border-left: 2px solid var(--rule); }
+.wf-sources label, .form-grid .wf-sources label { display: flex; margin: 2px 0; }
+.wf-note { margin-top: 6px; }
+.wf-legend { list-style: none; padding: 0; display: grid; gap: 4px; font-size: .88rem; color: var(--dim); }
+.wf-badge { display: inline-block; border-radius: 999px; padding: 1px 10px; font-size: .82rem; font-weight: 600; margin: 0 6px 0 0; border: 1px solid var(--rule); color: var(--ink); }
+.wf-badge.x-explicit { border-color: var(--ok); }
+.wf-badge.x-via { border-color: var(--opp); }
+.wf-badge.x-none { border-color: var(--err); }
+.wf-badge.x-unknown { border-style: dashed; }
+.wf-flow { list-style: none; padding: 0; margin: 12px 0; display: grid; gap: 0; }
+.wf-node { border: 1px solid var(--rule); border-radius: 12px; padding: 10px 14px; background: var(--card); position: relative; min-width: 0; overflow-wrap: anywhere; }
+.wf-node + .wf-node { margin-top: 26px; }
+.wf-node + .wf-node::before { content: "↓"; position: absolute; top: -24px; left: 22px; color: var(--faint); font-size: 1.1rem; }
+.wf-node.x-explicit { border-left: 5px solid var(--ok); }
+.wf-node.x-via { border-left: 5px solid var(--opp); }
+.wf-node.x-none { border-left: 5px solid var(--err); }
+.wf-node.x-unknown { border-left: 5px dashed var(--faint); }
+.wf-node p { margin: 2px 0; }
+.wf-n { font-weight: 700; }
+.wf-pri, .wf-gets { font-size: .9rem; }
+.wf-why { font-size: .84rem; color: var(--dim); }
+.wf-final, .wf-contrib { font-size: .75rem; font-weight: 600; border: 1px solid var(--accent); border-radius: 999px; padding: 0 8px; margin-left: 8px; }
+.wf-contrib { border-color: var(--rule); color: var(--dim); }
+.wf-findings li, .wf-questions li { margin: 6px 0; }
+.wf-findings li[data-kind="action"] { font-weight: 600; }
+.wf-rec { border-collapse: collapse; font-size: .88rem; display: block; overflow-x: auto; }
+.wf-rec th, .wf-rec td { border-bottom: 1px solid var(--rule); padding: 4px 10px 4px 0; text-align: left; vertical-align: top; }
+.wf-actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 12px 0 6px; }
+.wf-cmd { white-space: pre-wrap; overflow-wrap: anywhere; background: var(--bg); border: 1px solid var(--rule); border-radius: 8px; padding: 10px 12px; font-size: .85rem; }
+@media (max-width: 560px) {
+  .wf-actions .btn { flex: 1 1 100%; text-align: center; }
+  .form-grid .wf-q label { display: flex; margin: 4px 0; }
+}
+/* Home page: the five starting paths */
+.paths ul { list-style: none; padding: 0; margin: 18px 0 8px; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; }
+.paths a { display: flex; flex-direction: column; gap: 4px; height: 100%; box-sizing: border-box; border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; background: var(--card); color: var(--ink); text-decoration: none; }
+.paths a:hover, .paths a:focus-visible { border-color: var(--cyan); }
+.paths b { font-size: 1rem; }
+.paths span { font-size: .85rem; color: var(--dim); }
+#path-models span { font-style: italic; }
+/* stack every label above its field inside an agent card (legacy.css lays labels out in a row) */
+.legacy-tool .wf-agent > label, .legacy-tool .wf-agent-top label, .legacy-tool .wf-note { display: flex; flex-direction: column; align-items: stretch; gap: 4px; font-weight: 600; font-size: .9rem; }
+.legacy-tool .wf-agent .hint { font-weight: 400; color: var(--faint); font-size: .82rem; }
+.legacy-tool .wf-agent textarea { min-height: 70px; width: 100%; box-sizing: border-box; }
+/* Home page: one primary action, quieter secondary links */
+.hero-sub { font-size: .92rem; color: var(--dim); margin: 8px 0 0; max-width: 46ch; }
+.hero .actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.paths-quiet ul { list-style: none; padding: 0; margin: 14px 0 6px; display: flex; flex-wrap: wrap; gap: 6px 22px; font-size: .92rem; }
+.paths-quiet a { color: var(--dim); text-decoration: underline; text-underline-offset: 3px; }
+.paths-quiet a:hover, .paths-quiet a:focus-visible { color: var(--ink); }
+.paths-quiet span { font-style: italic; color: var(--faint); }
+@media (max-width: 560px) { .hero .actions .btn { flex: 1 1 100%; text-align: center; } }
+.hero-text .hero-sub { order: 3; }
+.err.r-ok { color: var(--ok); }
+.act-tag { display: inline-block; font-size: .7rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; border: 1px solid var(--rule); border-radius: 999px; padding: 1px 8px; margin-right: 8px; vertical-align: middle; color: var(--dim); }
+.wf-obs { margin-top: 26px; }
+#m-obs-disc li { margin: 6px 0; }

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="color-scheme" content="dark">
+<title>Full testing plan · Anchor-Preservation Auditor</title>
+<meta name="description" content="Three questions about your AI workflow and one of your decisions, turned into a testing plan you can save. Built from your answers; runs no AI.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/showcase.css">
+<link rel="stylesheet" href="assets/v2.css">
+<link rel="stylesheet" href="assets/check.css">
+<link rel="stylesheet" href="assets/v3.css">
+<link rel="stylesheet" href="assets/legacy.css">
+<link rel="stylesheet" href="assets/v4.css">
+</head>
+<body class="v3 legacy">
+<canvas id="fx-trail" aria-hidden="true"></canvas>
+<a class="skip" href="#main">Skip to the content</a>
+<header class="bar">
+  <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"></span>Anchor-Preservation Auditor</a>
+  <nav aria-label="Site">
+    <a href="auditor.html">Be the Auditor</a>
+    <a href="quick.html">Quick Check</a>
+    <a href="checkpoint.html">Priority Checkpoint</a>
+    <a href="test.html" aria-current="page">For developers</a>
+    <a href="experiment.html">Recorded experiment</a>
+    <a href="results.html">Results</a>
+    <a href="research.html">Research</a>
+  </nav>
+</header>
+<main id="main">
+<noscript><p class="nojs">This page needs JavaScript to show the recorded results and to run its buttons. The scripts only read files from this site; nothing is sent anywhere.</p></noscript>
+<p class="banner-rec banner-live"><b>Your plan</b><span>Built from your own answers. This page can't see your system, runs no AI and sends nothing anywhere.</span></p>
+<p class="aside">The quickest way to test one decision is <a href="test.html">For developers</a>. This optional plan covers a whole workflow.</p>
+<ol class="ck-steps" id="ck-steps" aria-label="Progress">
+  <li data-step="1">1 · Your workflow</li>
+  <li data-step="2">2 · How you'll test</li>
+  <li data-step="3">3 · One decision</li>
+  <li data-step="4">4 · Your plan</li>
+</ol>
+
+<!-- STEP 1 -->
+<section class="ck-step" id="step-1" data-step="1">
+  <h1 tabindex="-1">Three questions about your workflow</h1>
+  <p class="ck-intro">Answer for the step that makes, or recommends, the final choice. "Not sure" is a useful answer: it becomes something to find out. Your plan is built from these answers; this page can't see your system.</p>
+
+  <fieldset class="ck-q" id="q1">
+    <legend><span class="qn">1 of 3</span>When the final choice is made, does that step receive the user's own statement of what matters to them?</legend>
+    <p class="hint">For example, "keeping the cost low matters more to me than speed", in the user's words or a faithful copy, not only a summary written by an earlier AI step.</p>
+    <label class="ck-opt"><input type="radio" name="q1" value="yes"><span>Yes, the user's own statement reaches the final step</span></label>
+    <label class="ck-opt"><input type="radio" name="q1" value="no"><span>No, the final step receives only the previous step's output</span></label>
+    <label class="ck-opt"><input type="radio" name="q1" value="unsure"><span>Not sure</span></label>
+  </fieldset>
+
+  <fieldset class="ck-q" id="q2">
+    <legend><span class="qn">2 of 3</span>Do you record which option the final step actually chooses?</legend>
+    <p class="hint">Not just whether its answer mentions the user's priority, but which option it picks.</p>
+    <label class="ck-opt"><input type="radio" name="q2" value="yes"><span>Yes, we record the chosen option</span></label>
+    <label class="ck-opt"><input type="radio" name="q2" value="no"><span>No, or we only check that the priority is mentioned</span></label>
+    <label class="ck-opt"><input type="radio" name="q2" value="unsure"><span>Not sure</span></label>
+  </fieldset>
+
+  <fieldset class="ck-q" id="q3">
+    <legend><span class="qn">3 of 3</span>Have you tested whether the choice switches when the user's priority is reversed?</legend>
+    <p class="hint">For example, "speed matters more to me than cost" instead of "cost matters more than speed".</p>
+    <label class="ck-opt"><input type="radio" name="q3" value="yes"><span>Yes, we've tested the opposite priority</span></label>
+    <label class="ck-opt"><input type="radio" name="q3" value="no"><span>No</span></label>
+    <label class="ck-opt"><input type="radio" name="q3" value="unsure"><span>Not sure</span></label>
+  </fieldset>
+  <div class="ck-nav"><button type="button" class="btn" data-next="2">Next: how you'll test →</button><span class="ck-err" id="err-1" role="alert"></span></div>
+</section>
+
+<!-- STEP 2 -->
+<section class="ck-step" id="step-2" data-step="2" hidden>
+  <h1 tabindex="-1">How will you run the tests?</h1>
+  <p class="ck-intro">The tests only tell you about your workflow if you run them through your own final step. Running the prompts in a general chat assistant shows how the method works, but says nothing about a different system.</p>
+  <div class="ck-paths" role="radiogroup" aria-label="How you'll test">
+    <label class="ck-path"><input type="radio" name="path" value="real">
+      <b>On my own workflow</b>
+      <span>I can send an input of my choice to the step that makes the final choice, for example by calling it in code or replaying an input from our logs.</span></label>
+    <label class="ck-path"><input type="radio" name="path" value="demo">
+      <b>Show me how it works first</b>
+      <span>Use a made-up example. You can try its prompts in any AI assistant to see the method. The result won't tell you anything about your own workflow.</span></label>
+  </div>
+  <div class="ck-nav"><button type="button" class="btn ghost" data-next="1">← Back</button><button type="button" class="btn" data-next="3">Next: one decision →</button><span class="ck-err" id="err-2" role="alert"></span></div>
+</section>
+
+<!-- STEP 3 -->
+<section class="ck-step" id="step-3" data-step="3" hidden>
+  <h1 tabindex="-1">Describe one decision your workflow makes</h1>
+  <div class="ck-banner info" id="d-banner" hidden></div>
+  <p class="ck-intro" id="d-intro">Pick one real choice between two options. Your tests will use this wording. It stays in this tab.</p>
+  <label class="ck-field" for="d-task">What is being decided?<small>One sentence, as your workflow would describe it.</small><input type="text" id="d-task" autocomplete="off"></label>
+  <div class="ck-grid2">
+    <label class="ck-field" for="d-a">Option A<input type="text" id="d-a" autocomplete="off"></label>
+    <label class="ck-field" for="d-b">Option B<input type="text" id="d-b" autocomplete="off"></label>
+  </div>
+  <div class="ck-pair">
+    <h3>The user's priority</h3>
+    <label class="ck-field" for="d-p1">In the user's words<input type="text" id="d-p1" autocomplete="off"></label>
+    <fieldset class="ck-field"><legend>Which option fits this priority? <small>Your judgment. If it's genuinely unclear, say so.</small></legend>
+      <div class="ck-fit"><label><input type="radio" name="fit1" value="A">Option A</label><label><input type="radio" name="fit1" value="B">Option B</label><label><input type="radio" name="fit1" value="unsure">Not sure</label></div></fieldset>
+  </div>
+  <div class="ck-pair">
+    <h3>The opposite priority <small class="fine">(recommended, for the reversal test)</small></h3>
+    <label class="ck-field" for="d-p2">The same trade-off, reversed<input type="text" id="d-p2" autocomplete="off"></label>
+    <fieldset class="ck-field"><legend>Which option fits this one? <small>Don't assume it's simply the other option. Check.</small></legend>
+      <div class="ck-fit"><label><input type="radio" name="fit2" value="A">Option A</label><label><input type="radio" name="fit2" value="B">Option B</label><label><input type="radio" name="fit2" value="unsure">Not sure</label></div></fieldset>
+    <p class="ck-warn" id="d-fitwarn" hidden></p>
+  </div>
+  <label class="ck-field" for="d-input"><span id="d-input-lab">One input your final step received</span><small id="d-input-hint">Optional. Paste one input from your logs (for example, the previous step's output). Leave it empty and the tests will show a placeholder you fill in later.</small><textarea id="d-input"></textarea></label>
+  <div class="ck-nav"><button type="button" class="btn ghost" data-next="2">← Back</button><button type="button" class="btn" data-next="4">Show my test plan →</button><span class="ck-err" id="err-3" role="alert"></span></div>
+</section>
+
+<!-- STEP 4 -->
+<section class="ck-step pl" id="step-4" data-step="4" hidden>
+  <div class="pl-head">
+    <h1 tabindex="-1">Your priority test plan</h1>
+    <p class="pl-basis" id="pl-basis"></p>
+    <div class="pl-actions">
+      <button type="button" class="btn" id="pl-md">Download plan (.md)</button>
+      <button type="button" class="btn ghost" id="pl-html">Download plan (.html)</button>
+      <button type="button" class="btn ghost" id="pl-copy">Copy as Markdown</button>
+      <button type="button" class="btn ghost" data-next="1">Change my answers</button>
+    </div>
+    <p class="ck-copied" id="pl-copied" aria-live="polite"></p>
+  </div>
+  <div id="pl-body"></div>
+</section>
+
+<p class="ck-live" id="ck-live" aria-live="polite"></p>
+</main>
+<footer class="foot">
+  <span>Anchor-Preservation Auditor · a research prototype supported by a Cosmos Institute grant · a static site: no backend, no analytics, no model calls.</span> <a href="privacy.html">Privacy &amp; feedback</a>
+  <button type="button" class="link-btn" id="fx-toggle" aria-pressed="true" hidden>Light effects: on</button>
+</footer>
+<script src="assets/study3b.js"></script>
+<script src="assets/check.js"></script>
+<script src="assets/fx.js"></script>
+</body>
+</html>

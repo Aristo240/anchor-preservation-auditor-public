@@ -1,0 +1,6 @@
+include README.md
+include LICENSE
+include docs/WORKFLOW_ADAPTER.md
+graft examples
+graft tests
+global-exclude __pycache__ *.pyc .DS_Store

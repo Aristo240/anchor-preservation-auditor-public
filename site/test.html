@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="color-scheme" content="dark">
+<title>For developers: test a decision · Anchor-Preservation Auditor</title>
+<meta name="description" content="Two prompts, with and without a one-line priority reminder, to run through your own final-decision step. Paste the answers back for a one-screen result you can save. Runs no AI.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/v3.css">
+<link rel="stylesheet" href="assets/v4.css">
+</head>
+<body class="v3">
+<canvas id="fx-trail" aria-hidden="true"></canvas>
+<a class="skip" href="#main">Skip to the content</a>
+<header class="bar">
+  <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"></span>Anchor-Preservation Auditor</a>
+  <nav aria-label="Site">
+    <a href="auditor.html">Be the Auditor</a>
+    <a href="quick.html">Quick Check</a>
+    <a href="checkpoint.html">Priority Checkpoint</a>
+    <a href="test.html" aria-current="page">For developers</a>
+    <a href="experiment.html">Recorded experiment</a>
+    <a href="results.html">Results</a>
+    <a href="research.html">Research</a>
+  </nav>
+</header>
+
+<main id="main">
+<noscript><p class="nojs">This page needs JavaScript to show the recorded results and to run its buttons. The scripts only read files from this site; nothing is sent anywhere.</p></noscript>
+<p class="banner-rec banner-live"><b>Your test</b><span>This page runs no AI. You run the prompts yourself; the page reads the first line of each answer you paste. Nothing leaves this tab.</span></p>
+
+<!-- ======================= INPUT ======================= -->
+<section class="view" id="v-test" data-view="/" aria-labelledby="test-h">
+  <ol class="steps" aria-label="Progress"><li aria-current="step">1 · Your decision</li><li>2 · Run the prompts</li><li>3 · Result</li></ol>
+  <p class="eyebrow dev-intro" id="dev-intro">For developers · step 2 of 3 · test one decision by hand below, or <a href="#kit-box">automate it with the <code>priority_check</code> package ↓</a></p>
+  <h1 id="test-h" tabindex="-1">Your decision</h1>
+  <div class="note rev" id="t-rev" hidden></div>
+  <p class="sub">One choice your workflow makes. <button type="button" class="link-btn" id="t-example">Fill in a made-up example</button> · <a href="#/example">See a recorded example result</a></p>
+  <div class="form card">
+    <label class="f" for="t-task"><span>What's being decided</span><input id="t-task" type="text" autocomplete="off" placeholder="e.g. Choose a supplier for the team's laptops"></label>
+    <div class="two">
+      <label class="f" for="t-a"><span>Option A</span><input id="t-a" type="text" autocomplete="off"></label>
+      <label class="f" for="t-b"><span>Option B</span><input id="t-b" type="text" autocomplete="off"></label>
+    </div>
+    <label class="f" for="t-p"><span>The user's priority, in their words</span><input id="t-p" type="text" autocomplete="off" placeholder="e.g. Keeping costs low matters more to us than repair speed."></label>
+    <fieldset class="f seg" id="t-fit"><legend>Which option should it favor?</legend>
+      <label><input type="radio" name="t-fit" value="A"><span>Option A</span></label>
+      <label><input type="radio" name="t-fit" value="B"><span>Option B</span></label>
+      <label><input type="radio" name="t-fit" value="uncertain"><span>Not sure</span></label>
+    </fieldset>
+    <label class="f" for="t-in"><span>One input your final step received</span><small>Paste it from your logs, for example the previous step's output. It stays in this tab.</small><textarea id="t-in" rows="5"></textarea></label>
+    <fieldset class="f seg" id="t-where"><legend>Where will you run the two prompts?</legend>
+      <label><input type="radio" name="t-where" value="own"><span>My workflow's final step</span></label>
+      <label><input type="radio" name="t-where" value="chat"><span>A general chat assistant, to try the method</span></label>
+    </fieldset>
+    <p class="src" id="t-where-note"></p>
+    <p class="src" id="t-src" hidden></p>
+    <div class="row"><button type="button" class="btn primary" id="t-go">Get the two prompts</button><span class="err" id="t-err" role="alert"></span></div>
+  </div>
+  <p class="aside">Testing a whole workflow? <a href="map.html">Map where your priority reaches each agent</a> · <a href="plan.html">Build a full testing plan (3 questions)</a> · <a href="trace.html">Review a workflow trace</a> · <a href="inspect.html">Inspect and compare a test run</a></p>
+  <aside class="card pad kit-box" id="kit-box" aria-labelledby="kit-h">
+    <h2 id="kit-h" class="bta-q2">Test your whole workflow: the <code>priority_check</code> Python package</h2>
+    <p><strong>What it is.</strong> The Auditor's Python package (Python 3.9+, standard library only). <code>priority_check workflow</code> runs <b>your own</b> multi-agent workflow through a small adapter, with each of two opposite priorities, without a priority, and with the priority given directly or restated to the decision step, in both option orders, in fresh executions. It records what every agent received and decided, and checks the runs' integrity. <code>priority_check compare</code> compares two runs after you change something. (<code>priority_check chain</code> runs our fixed six-handoff reference workflow instead, if you have no adapter yet.)</p>
+    <p class="fine" id="kit-avail"><b>Status:</b> public beta 0.1.0b1. Python 3.9+, no dependencies. Download it here (it is not on a package index): <a href="downloads/priority_check-0.1.0b1.tar.gz" download>source archive with examples and tests (.tar.gz)</a> · <a href="downloads/priority_check-0.1.0b1-py3-none-any.whl" download>wheel (.whl, package only)</a>. Licence: MIT (the archive's LICENSE file). Offline? Install the wheel (<code>pip install priority_check-0.1.0b1-py3-none-any.whl</code>) and run the quickstart from the extracted source archive, which holds the examples; <code>pip install .</code> fetches setuptools.</p>
+    <h3 id="quickstart">Quickstart: run the example workflow (offline, no API key, about 5 minutes)</h3>
+    <pre class="small">tar xzf priority_check-0.1.0b1.tar.gz && cd priority_check-0.1.0b1
+python3 -m venv .venv && . .venv/bin/activate && pip install .
+PYTHONPATH=examples/minimal_workflow python -m priority_check workflow --scenario examples/chain_scenario.example.json \
+    --adapter my_adapter:MyAdapter --runs 2 --orders both --out results_v1
+PYTHONPATH=examples/minimal_workflow python -m priority_check workflow --scenario examples/chain_scenario.example.json \
+    --adapter my_adapter:MyAdapter --runs 2 --orders both --config '{"forward_priority": true}' --out results_v2
+python -m priority_check compare --baseline results_v1 --candidate results_v2</pre>
+    <p class="fine">The example has a deliberate flaw (the researcher's prompt is built from the intake brief with the priority cut off), so the first run shows <b>workflow 0 of 4</b> pairs and the fixed run <b>4 of 4</b>; compare reports <b>CONFIGURATION CHANGE</b> (exit code 3; 0 means the same configuration, 5 not a valid comparison). It uses a deterministic fake model: this shows the tool working, not anything about a real model. Open each run's <code>summary.json</code> and <code>records.jsonl</code> on <a href="inspect.html">Inspect</a> to see what every agent received (read in your browser, not uploaded); <code>report.md</code> has the counts. The archive's README walks through each step.</p>
+    <h3>The loop</h3>
+    <ol class="small">
+      <li><b>Map</b> what each agent should receive, and save the scenario file: <a href="map.html">Workflow Map</a>.</li>
+      <li><b>Connect</b> your workflow with an adapter (contract below; a complete example is in the package at <code>examples/minimal_workflow/my_adapter.py</code>).</li>
+      <li><b>Run</b> it: <code>python3 -m priority_check workflow --scenario my.scenario.json --adapter my_adapter:MyAdapter --runs 2 --orders both --out results_v1</code></li>
+      <li><b>Inspect</b> the result: open <code>summary.json</code> and <code>records.jsonl</code> in <a href="inspect.html">Inspect and compare</a> to see the verdict and what each agent received.</li>
+      <li><b>Change</b> your workflow (or pass <code>--config '{"...": ...}'</code>), run again into <code>results_v2</code>, and <b>compare</b>: <code>python3 -m priority_check compare --baseline results_v1 --candidate results_v2</code>, or open both on the Inspect page.</li>
+    </ol>
+    <p class="fine">With a real model, every call is billed to your own key: the run then requires <code>--i-accept-costs</code> and <code>--max-executions</code> equal to the planned number. The example uses an offline fake model; its output is not evidence about any model.</p>
+    <h3>The adapter contract</h3>
+    <ul class="small">
+      <li><code>describe()</code> returns <code>name</code>, <code>version</code>, <code>fake</code> (true/false), <code>provider</code>, <code>models</code> (exact pinned model ids), <code>settings</code>, <code>agents</code>, <code>priority_entry</code>, and <code>supports</code>: <code>{"direct": bool, "restored": bool}</code>.</li>
+      <li><code>run(request)</code> runs the <b>whole workflow once, in a fresh context</b>. <code>request</code> has <code>task</code>, <code>option_a</code>, <code>option_b</code>, <code>priority</code> (null in the no-priority control), <code>execution_id</code>, <code>config</code>. Return <code>final_text</code> (first line <code>FIRST CHOICE: A</code>, <code>B</code> or <code>UNCLEAR</code>; anything else counts as INVALID), <code>trace</code>, <code>models_served</code>, and <code>decision_input</code> (what the decision step received, needed for the restated check).</li>
+      <li>Optional: <code>decide_direct(request)</code>, the decision step alone given the priority; <code>decide_restored(request, decision_input)</code>, the same upstream input plus the priority restated.</li>
+    </ul>
+    <h3>The trace format (<code>apa-trace/1</code>)</h3>
+    <p class="small">One entry per agent call, with the exact messages sent to the model. The Map page can also open a trace saved from Inspect.</p>
+    <pre class="wf-cmd">{"format": "apa-trace/1",
+ "agents": [
+  {"id": "researcher", "role": "research", "model": "your-pinned-model-id",
+   "request_messages": [{"role": "user", "content": "the exact text sent"}],
+   "request_complete": true,
+   "state_visible": null, "state_complete": true,
+   "output": "what it returned"}]}</pre>
+    <p class="fine"><b>Steps that call no model</b> (a filter, a compressor, a tool): record them too, with their input as one message, for example <code>"request_messages": [{"role": "input", "content": "the exact text it received"}]</code>, <code>"model": null</code> and their <code>output</code>. Otherwise their input is reported as "not captured", and text they drop or pass on can't be followed.</p>
+    <p class="fine">Other trace formats (for example LangSmith or OpenTelemetry exports) are not imported yet: convert them to this shape.</p>
+  </aside>
+</section>
+
+<!-- ======================= RUN ======================= -->
+<section class="view" id="v-run" data-view="/run" hidden aria-labelledby="run-h">
+  <ol class="steps" aria-label="Progress"><li>1 · Your decision</li><li aria-current="step">2 · Run the prompts</li><li>3 · Result</li></ol>
+  <h1 id="run-h" tabindex="-1">Run both prompts</h1>
+  <p class="note rev" id="r-note" hidden></p>
+  <p class="sub" id="r-where"></p>
+  <div class="prompts">
+    <div class="card pr" data-k="a">
+      <div class="pr-h"><span class="pr-t">Without reminder</span><button type="button" class="btn sm ghost" data-copy="a">Copy</button></div>
+      <pre class="pr-body" id="r-pa" tabindex="0"></pre>
+      <label class="f" for="r-ra"><span>Paste the answer</span><textarea id="r-ra" rows="3" placeholder="FIRST CHOICE: …"></textarea></label>
+    </div>
+    <div class="card pr" data-k="b">
+      <div class="pr-h"><span class="pr-t">With reminder <em>+1 line</em></span><button type="button" class="btn sm ghost" data-copy="b">Copy</button></div>
+      <pre class="pr-body" id="r-pb" tabindex="0"></pre>
+      <label class="f" for="r-rb"><span>Paste the answer</span><textarea id="r-rb" rows="3" placeholder="FIRST CHOICE: …"></textarea></label>
+    </div>
+  </div>
+  <details class="more"><summary>My final step uses its own prompt format</summary>
+    <p>Keep your format. Send its usual input twice: unchanged, and with this line added where your step reads the user's request:</p>
+    <pre class="pr-line" id="r-line"></pre>
+    <p>If your step doesn't state its choice in a fixed form, add this to both:</p>
+    <pre class="pr-line" id="r-choice"></pre>
+  </details>
+  <p class="src" id="r-demo" hidden>Made-up example: <button type="button" class="link-btn" id="r-fill">fill in made-up answers</button> to see how a result looks.</p>
+  <p class="copied" id="r-copied" aria-live="polite"></p>
+  <div class="row"><button type="button" class="btn ghost" id="r-back">← Edit the decision</button><button type="button" class="btn primary" id="r-go">Compare the answers</button><span class="err" id="r-err" role="alert"></span></div>
+</section>
+
+<!-- ======================= RESULT ======================= -->
+<section class="view" id="v-result" data-view="/result" hidden aria-labelledby="res-h">
+  <ol class="steps" aria-label="Progress" id="res-steps"><li>1 · Your decision</li><li>2 · Run the prompts</li><li aria-current="step">3 · Result</li></ol>
+  <p class="src-banner" id="res-src"></p>
+  <h1 id="res-h" tabindex="-1"></h1>
+  <div class="res card" id="res-card" aria-live="polite">
+    <div class="res-pri"><span class="k" id="res-kind">Priority</span><q id="res-p"></q><span class="fav" id="res-fav"></span></div>
+    <div class="tiles">
+      <div class="tile" id="tile-a"><span class="k">Without reminder</span><strong class="ch"></strong><span class="opt"></span><span class="oc"></span></div>
+      <div class="arrow" aria-hidden="true"><span></span></div>
+      <div class="tile" id="tile-b"><span class="k">With reminder</span><strong class="ch"></strong><span class="opt"></span><span class="oc"></span></div>
+    </div>
+    <div class="res-cols">
+      <div><p class="k">This comparison shows</p><p id="res-shows"></p></div>
+      <div><p class="k">It doesn't show</p><ul id="res-not"></ul></div>
+    </div>
+    <div class="next" id="res-next"></div>
+    <div class="row export">
+      <button type="button" class="btn primary sm" id="x-md">Save result (.md)</button>
+      <button type="button" class="btn ghost sm" id="x-html">Save as .html</button>
+      <button type="button" class="btn ghost sm" id="x-copy">Copy</button>
+      <span class="copied" id="x-msg" aria-live="polite"></span>
+    </div>
+  </div>
+
+  <section id="follow" aria-labelledby="follow-h">
+    <div class="sec-h"><h2 id="follow-h">Optional follow-up tests</h2></div>
+    <p class="muted small" id="follow-note">Each answers a different question. Only the first comparison keeps everything the same except one added line at the final step; even so, a single pair of answers can't show that a difference is reliable.</p>
+    <div class="grid3" id="follow-cards"></div>
+    <details class="adv" id="attempts"><summary>All attempts this session<small id="attempts-n"></small></summary><div class="in" id="attempts-body"></div></details>
+    <p class="fine">Why not test re-adding the priority midway through the workflow? That changes every later handoff, so it isn't a final-step comparison. In our pilot it was a separate condition with newly generated handoffs: <a href="results.html#counter">see the results</a>.</p>
+  </section>
+
+  <details class="adv" id="res-readings"><summary>Check how each answer was read<small>The strict first-line reading, which you can correct</small></summary><div class="in" id="res-read"></div></details>
+  <details class="adv"><summary>Show both prompts</summary><div class="in"><pre class="pr-body" id="res-pa"></pre><pre class="pr-body" id="res-pb"></pre></div></details>
+  <details class="adv" id="res-input-d"><summary>Show the final step's input</summary><div class="in"><pre class="pr-body" id="res-in"></pre></div></details>
+</section>
+</main>
+
+<footer class="foot">
+  <span>Anchor-Preservation Auditor · a research prototype supported by a Cosmos Institute grant · a static site: no backend, no analytics, no model calls.</span> <a href="privacy.html">Privacy &amp; feedback</a>
+  <button type="button" class="link-btn" id="fx-toggle" aria-pressed="true" hidden>Light effects: on</button>
+</footer>
+<script src="assets/study3b.js"></script>
+<script src="assets/core.js"></script>
+<script src="assets/fx.js"></script>
+<script src="assets/test.js"></script>
+</body>
+</html>

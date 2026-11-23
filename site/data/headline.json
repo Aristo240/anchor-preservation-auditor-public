@@ -1,0 +1,64 @@
+{
+ "source": "auditor/paper_delta_results.json",
+ "source_sha256": "9dd3bcfb0949a9217323100235de3225c94b71df5dc1f702dfdd7a8b75290504",
+ "task": "H",
+ "seed": 208742713,
+ "bootstrap_replicates": 10000,
+ "ci_method": "95% percentile bootstrap (2.5th / 97.5th)",
+ "resampling_unit": "scenario (block); all 8 anchors, 3 no-anchor replicates and all turns carried together",
+ "n_scenarios": 45,
+ "n_anchored_values": 8,
+ "n_noanchor_replicates": 3,
+ "delta_by_turn": [
+  {
+   "turn": 1,
+   "point": 1.2027777777777777,
+   "lo": 1.163888888888889,
+   "hi": 1.2425925925925925
+  },
+  {
+   "turn": 2,
+   "point": 0.4629629629629629,
+   "lo": 0.3648148148148148,
+   "hi": 0.5638888888888889
+  },
+  {
+   "turn": 3,
+   "point": 0.862962962962963,
+   "lo": 0.7722222222222223,
+   "hi": 0.95
+  },
+  {
+   "turn": 4,
+   "point": 0.21388888888888888,
+   "lo": 0.11201388888888889,
+   "hi": 0.31666666666666665
+  },
+  {
+   "turn": 5,
+   "point": -0.028703703703703697,
+   "lo": -0.11944444444444442,
+   "hi": 0.06481481481481483
+  },
+  {
+   "turn": 6,
+   "point": 0.03796296296296297,
+   "lo": -0.05277777777777777,
+   "hi": 0.1287037037037037
+  }
+ ],
+ "end_minus_start": {
+  "point": -1.1648148148148147,
+  "lo": -1.2675925925925926,
+  "hi": -1.0638888888888889
+ },
+ "rebound_t2_t3": {
+  "point": 0.40000000000000013,
+  "lo": 0.29999999999999993,
+  "hi": 0.5028009259259256
+ },
+ "rebound_supported": true,
+ "primary_supported": true,
+ "residual_t6_supported": false,
+ "status": "post-hoc matched estimand (Task H); not the preregistered H1/H2"
+}

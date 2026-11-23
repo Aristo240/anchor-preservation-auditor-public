@@ -1,0 +1,8 @@
+{
+ "scenario_id": "laptop-supplier",
+ "question": "Choose a supplier for the team's new laptops.",
+ "option_a": "Lowest total price, repairs within 10 working days.",
+ "option_b": "Costs 18% more, repairs within one working day.",
+ "priority_A": "Keeping costs low matters more to us than fast repairs.",
+ "priority_B": "Fast repairs matter more to us than keeping costs low."
+}

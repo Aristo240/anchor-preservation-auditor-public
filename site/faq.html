@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="color-scheme" content="dark">
+<title>Frequently asked questions · Anchor-Preservation Auditor</title>
+<meta name="description" content="Frequently asked questions about the Anchor-Preservation Auditor.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/v3.css">
+<link rel="stylesheet" href="assets/v4.css">
+</head>
+<body class="v3">
+<canvas id="fx-trail" aria-hidden="true"></canvas>
+<a class="skip" href="#main">Skip to the content</a>
+<header class="bar">
+  <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"></span>Anchor-Preservation Auditor</a>
+  <nav aria-label="Site">
+    <a href="auditor.html">Be the Auditor</a>
+    <a href="quick.html">Quick Check</a>
+    <a href="checkpoint.html">Priority Checkpoint</a>
+    <a href="test.html">For developers</a>
+    <a href="experiment.html">Recorded experiment</a>
+    <a href="results.html">Results</a>
+    <a href="research.html" aria-current="page">Research</a>
+  </nav>
+</header>
+<main id="main">
+<noscript><p class="nojs">This page needs JavaScript to show the recorded results and to run its buttons. The scripts only read files from this site; nothing is sent anywhere.</p></noscript>
+<ul class="subnav" aria-label="Research pages"><li><a href="research.html">Overview & studies</a></li><li><a href="methods.html">How it was tested</a></li><li><a href="design.html">Design decisions & limits</a></li><li><a href="faq.html" aria-current="page">FAQ</a></li><li><a href="data.html">Data & reproducibility</a></li></ul>
+<div class="page-h"><p class="eyebrow">Research</p><h1>Frequently asked questions</h1></div>
+<div class="inshort"><span class="k">In short</span><p>Short answers to common questions about what the results do and don't show.</p></div>
+<div class="prose" id="content">
+
+<div class="faq">
+<details class="adv" id="q-forgot"><summary>Did the AI forget the user's values?</summary>
+<p>The data cannot show that. What was observed is about decisions, not memory: after six AI handoffs, decisions became much less sensitive to the user's stated priority and resembled decisions made without an explicit priority. In Study 4 (Gemini 2.5 Pro, 12 constructed scenarios), the final choice after six handoffs matched the stated priority in 27 of 96 decisions, chose the opposite in 35 and declined (UNCLEAR) in 34; told directly, it matched in 48 of 48. Counting only pairs where both opposite priorities got their own option, 24 of 24 were sensitive when told directly and 6 of 48 after six handoffs. What the handoff texts contained was not analysed, so these results cannot say whether the priority was lost from the text or was present but unused.</p>
+<p>An earlier, smaller pilot (Study 3B, 28 cases) showed the same pattern: <span data-n="s3b.delegated.matched">–</span> of 28 matched after six handoffs, <span data-n="s3b.delegated.opposite">–</span> opposite and <span data-n="s3b.delegated.unclear">–</span> UNCLEAR. In that pilot, many handoffs still referred to the user's goal and then argued for a different framing, or offered a decision framework instead of a recommendation.</p></details>
+<details class="adv" id="q-unclear"><summary>Isn't UNCLEAR sometimes the appropriate response?</summary>
+<p>It can be. A decision-maker that was not told the user's priority may reasonably decline to choose between two options that differ only in what the user values. That is why UNCLEAR is shown as its own outcome, separate from choosing the opposite option, and never counted as a match. In Study 4 the model never declined when the priority was stated (0 of 48 told directly, 0 of 96 with the priority restated). After six handoffs it declined in 35% of decisions, the same range as when no priority was given at all (33% deciding directly, 38% after a six-handoff chain without a priority). This is a descriptive comparison, not a causal one.</p></details>
+<details class="adv" id="q-reminder"><summary>Does reminding the final model fix delegation?</summary>
+<p>In this controlled experiment, restating the priority at the final step restored sensitivity. In Study 4, with the same six handoffs and the priority restated at the final decision, 95 of 96 decisions matched it, and 47 of 48 pairs were sensitive (6 of 48 without the restatement). The earlier, smaller pilot (Study 3B, 28 cases) showed the same pattern: <span data-n="s3b.restored.matched">–</span> of 28 matched with the priority restated.</p>
+<p>This shows the decision-maker follows an instruction placed in front of it; it is not evidence of better decisions. It does not change the handoffs themselves, and it needs the original priority to still be available at the end, which a real delegated workflow may not have.</p></details>
+<details class="adv" id="q-gemini"><summary>Is the evidence from Gemini only?</summary>
+<p>The primary evidence is from Gemini 2.5 Pro (<a href="study4.html">Study 4</a>). An exploratory comparison of three other models (Gemini 3.8 Flash, Claude Sonnet 5.5 and GPT-5.5) on 14 published dilemmas, 5 of them eligible for the priority-match measure, is on the <a href="models.html">Compare models</a> page. All three matched the priority when it was stated directly or restated, and after delegation their choices resembled their own choices without a priority. That comparison uses different items and a different design: it is not pooled with Study 4 and is not a replication of it. A fourth, open-weight model (Qwen) was not run because its pinned provider configuration was unavailable.</p></details>
+<details class="adv" id="q-autonomy"><summary>Can the Auditor detect violations of human autonomy?</summary>
+<p>No. It records observable departures, such as a final choice that differs from the option matching a stated priority. Whether a departure is a problem is a human judgment that depends on context. See <a href="design.html#deviation">a measured deviation is not an unauthorized one</a>.</p></details>
+<details class="adv" id="q-own"><summary>Can I check my own AI workflow?</summary>
+<p>You can inspect a recorded run of it. <a href="trace.html">Review a workflow trace</a> lets you paste a decision, a priority, up to six handoffs and a final answer, all in your browser. It does not run any model, does not store anything, and does not decide for you whether a departure matters. One pasted run supports inspection; it is not a controlled test. The <a href="map.html">Workflow Map</a> describes your workflow's structure, and <code>priority_check</code> tests a deciding step or the kit's fixed reference workflow; none of these evaluates your whole multi-agent system.</p></details>
+<details class="adv" id="q-repro"><summary>Which parts of the research can I reproduce?</summary>
+<p>Study 4, Study 3C and the three-model comparison are shown on private pages generated from their verified records; their raw records are kept in a private repository. For the earlier pilot, from the public files you can recompute every Study 3B count, rate and paired sensitivity, re-parse every final choice from its visible text, and check that Delegated and Restored share the same handoff. Study 1's scores and Study 2's answers are also provided. Confirming that each Study 3B text is exactly what the API returned needs the private hash-chained records, which are not published because they include the model's thinking summaries; their hashes are published. Study 1's texts are checked against its private saved corpus, whose file hashes are published. See <a href="data.html">Data &amp; reproducibility</a>.</p></details>
+</div>
+<h2 id="issues">Feedback</h2>
+<p id="report-issue"><b>Report an issue:</b> the public repository and its issue tracker have not been created yet; this link will be added when they are.</p>
+<p class="label-note">Please do not include sensitive prompts, personal information or API keys in any report.</p>
+</div>
+</main>
+<footer class="foot">
+  <span>Anchor-Preservation Auditor · a research prototype supported by a Cosmos Institute grant · a static site: no backend, no analytics, no model calls.</span> <a href="privacy.html">Privacy &amp; feedback</a>
+  <button type="button" class="link-btn" id="fx-toggle" aria-pressed="true" hidden>Light effects: on</button>
+</footer>
+<script src="assets/data.js"></script>
+<script src="assets/single_turn.js"></script>
+<script src="assets/study3b.js"></script>
+<script src="assets/pages.js"></script>
+<script src="assets/fx.js"></script>
+<script src="assets/research-v3.js"></script>
+</body>
+</html>

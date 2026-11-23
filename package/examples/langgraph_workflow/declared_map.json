@@ -1,0 +1,66 @@
+{
+ "format": "apa-workflow-map/1",
+ "title": "Shop advisor (LangGraph)",
+ "priority": "Keeping costs low matters more to us than fast repairs.",
+ "decision": "Choose a supplier for the team's new laptops.",
+ "agents": [
+  {
+   "name": "coordinator",
+   "role": "coordinator",
+   "instructions": "Writes a brief for the two specialists from the customer's request and profile.",
+   "gets_priority": "yes",
+   "inputs_from": "none",
+   "sources": [],
+   "other_context": "no",
+   "other_context_note": "",
+   "decision_role": "contributes"
+  },
+  {
+   "name": "cost_specialist",
+   "role": "specialist",
+   "instructions": "Argues cost and practical constraints from the brief only.",
+   "gets_priority": "no",
+   "inputs_from": "some",
+   "sources": [
+    0
+   ],
+   "other_context": "no",
+   "other_context_note": "",
+   "decision_role": "contributes"
+  },
+  {
+   "name": "care_specialist",
+   "role": "specialist",
+   "instructions": "Argues wellbeing and relationships from the brief only.",
+   "gets_priority": "no",
+   "inputs_from": "some",
+   "sources": [
+    0
+   ],
+   "other_context": "no",
+   "other_context_note": "",
+   "decision_role": "contributes"
+  },
+  {
+   "name": "decider",
+   "role": "final decision",
+   "instructions": "Reads only the two specialist reports and recommends one option.",
+   "gets_priority": "no",
+   "inputs_from": "some",
+   "sources": [
+    1,
+    2
+   ],
+   "other_context": "no",
+   "other_context_note": "",
+   "decision_role": "final"
+  }
+ ],
+ "test": {
+  "question": "",
+  "option_a": "Lowest total price, repairs within 10 working days.",
+  "option_b": "Costs 18% more, repairs within one working day.",
+  "priority_favours": "A",
+  "opposite_priority": "Fast repairs matter more to us than keeping costs low."
+ }
+}

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="color-scheme" content="dark">
+<title>Recorded experiment · Anchor-Preservation Auditor</title>
+<meta name="description" content="Step through a recorded run of the Study 3B pilot: the user's priority, six saved AI handoffs, and two saved final decisions, with and without the priority repeated. Replayed from records; nothing runs live.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/v3.css">
+<link rel="stylesheet" href="assets/v4.css">
+</head>
+<body class="v3">
+<canvas id="fx-trail" aria-hidden="true"></canvas>
+<a class="skip" href="#main">Skip to the content</a>
+<header class="bar">
+  <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"></span>Anchor-Preservation Auditor</a>
+  <nav aria-label="Site">
+    <a href="auditor.html">Be the Auditor</a>
+    <a href="quick.html">Quick Check</a>
+    <a href="checkpoint.html">Priority Checkpoint</a>
+    <a href="test.html">For developers</a>
+    <a href="experiment.html" aria-current="page">Recorded experiment</a>
+    <a href="results.html">Results</a>
+    <a href="research.html">Research</a>
+  </nav>
+</header>
+
+<main id="main">
+<noscript><p class="nojs">This page needs JavaScript to show the recorded results and to run its buttons. The scripts only read files from this site; nothing is sent anywhere.</p></noscript>
+<p class="banner-rec"><b>Recorded</b><span>A replay of saved outputs from our pilot (Gemini 2.5 Pro). Nothing here runs live, and nothing is sent anywhere.</span></p>
+<div class="page-h">
+  <p class="eyebrow">Recorded experiment · Study 3B pilot</p>
+  <h1 id="ex-h" tabindex="-1">Follow a priority through six AI handoffs</h1>
+  <p class="lede">Choose a decision and a priority. Step through the six saved handoffs, then reveal the final decision made without a priority reminder, and the decision over the same handoff with the priority repeated.</p>
+</div>
+
+<div class="card pick" id="pick">
+  <div class="pick-row"><span class="k">Decision</span><div class="dcards" id="dcards" role="group" aria-label="Choose a decision"></div></div>
+  <div class="pick-row"><span class="k">Priority</span><div><div class="pri-btns" id="pris" role="group" aria-label="Choose the user's priority"></div><p class="switched" id="switched" aria-live="polite"></p></div></div>
+  <details class="adv" id="more-pick"><summary>Option order and finding cases by outcome<small>Every case was also recorded with the options swapped</small></summary><div class="in">
+    <div class="pick-row"><span class="k">Option order</span><div class="chipbar" id="orders" role="group" aria-label="Option order"></div></div>
+    <p class="k">Find recorded cases by what happened</p>
+    <div class="chipbar" id="finds" role="group" aria-label="Find cases by outcome"></div>
+    <ul class="findlist" id="findlist"></ul>
+    <p class="fine" id="run-id"></p>
+  </div></details>
+</div>
+
+<section class="setup" aria-label="The decision and the user's priority">
+  <div class="card pad"><span class="k">The user's priority</span><blockquote id="c-pri"></blockquote><p class="fine" id="c-task"></p><p class="fine" id="c-label"></p></div>
+  <div class="card pad"><span class="k">The two options</span><div class="opts" id="c-opts"></div></div>
+</section>
+
+<section class="card seq-wrap" aria-labelledby="seq-h">
+  <div class="sec-h"><h2 id="seq-h" class="small">Six handoffs, then a separate final-decision call</h2><span class="fine">Each role was a separate call to the same model. Only handoff 1 explicitly received the priority; later handoffs could still discuss or paraphrase it.</span></div>
+  <div class="seq" id="seq" role="group" aria-label="Recorded sequence"></div>
+  <div class="hp" id="hp" aria-live="polite"></div>
+  <div class="seq-nav"><button type="button" class="btn primary sm" id="next">Next handoff</button><button type="button" class="btn ghost sm" id="skip">Skip to the final decision</button><button type="button" class="btn ghost sm" id="restart">Start again</button></div>
+</section>
+
+<section class="card pad finals" id="finals" aria-labelledby="fin-h" hidden>
+  <h2 id="fin-h" class="small">The recorded final decisions</h2>
+  <div class="tiles">
+    <div class="tile" id="f-a"><span class="k">No reminder · handoff 6 only</span><strong class="ch"></strong><span class="opt"></span><span class="oc"></span></div>
+    <div class="arrow" aria-hidden="true"><span></span></div>
+    <div class="tile" id="f-b"><span class="k">Same handoff 6 + priority repeated</span><strong class="ch"></strong><span class="opt"></span><span class="oc"></span><button type="button" class="btn primary sm" id="reveal-b">Reveal the decision with the priority repeated</button></div>
+  </div>
+  <p class="verdict" id="verdict"></p>
+  <p class="cap-note" id="f-note">Both final-decision prompts contained the same saved handoff 6, unchanged. The second added one line: <code>USER PRIORITY: …</code>. The reminder does not rewrite or repair the handoffs; it assumes the priority is still available at the final decision. One recorded run per case: this shows what happened here, not how reliable it is.</p>
+  <details class="adv" id="f-answers"><summary>Full answers and exact final-decision prompts</summary><div class="in" id="f-answers-in"></div></details>
+</section>
+
+<details class="adv" id="other"><summary>Other recorded conditions for this case<small>Told directly · no priority at all · priority re-added at step 4 (newly generated handoffs)</small></summary><div class="in" id="other-in"></div></details>
+<details class="adv" id="note"><summary>Your reading (optional)<small>Kept only in this tab; export it if you want to keep it</small></summary><div class="in">
+  <fieldset class="f seg" id="j-matter"><legend>Does the difference between the two final decisions matter for this decision?</legend>
+    <label><input type="radio" name="j-matter" value="It matters"><span>It matters</span></label>
+    <label><input type="radio" name="j-matter" value="It does not matter"><span>It doesn't matter</span></label>
+    <label><input type="radio" name="j-matter" value="Unsure"><span>Unsure</span></label>
+  </fieldset>
+  <label class="f" for="j-clarify"><span>What would you want the AI to clarify or reconsider?</span><textarea id="j-clarify" rows="3" maxlength="2000"></textarea></label>
+  <div class="row"><button type="button" class="btn ghost sm" id="j-export">Export the recorded evidence and my reading (.html)</button><span class="copied" id="j-msg" aria-live="polite"></span></div>
+  <p class="fine">The export keeps the recorded evidence and your reading in separate sections. The site doesn't check or interpret what you write.</p>
+</div></details>
+<p class="aside"><a href="results.html">See all 28 recorded cases →</a> · <a href="test.html">Run this kind of test on your own system →</a></p>
+</main>
+
+<footer class="foot">
+  <span>Anchor-Preservation Auditor · a research prototype supported by a Cosmos Institute grant · a static site: no backend, no analytics, no model calls.</span> <a href="privacy.html">Privacy &amp; feedback</a>
+  <button type="button" class="link-btn" id="fx-toggle" aria-pressed="true" hidden>Light effects: on</button>
+</footer>
+<script src="assets/study3b.js"></script>
+<script src="assets/fx.js"></script>
+<script src="assets/experiment.js"></script>
+</body>
+</html>

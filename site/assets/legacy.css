@@ -1,0 +1,25 @@
+/* Bridge for the reused research explorers (showcase.js, Study 1 and Study 2) on research.html and for the reused
+   tools on plan.html and trace.html: maps the earlier design tokens onto the v3 palette so their charts, chips
+   and panels render in the same dark identity. Loaded after showcase.css, v2.css and v3.css. */
+:root[data-theme="dark"] {
+  --bg: #080c18; --card: #121a31; --ink: #e8edf7; --dim: #aab4cc; --faint: #8d97b0; --rule: rgba(148, 170, 220, .18); --grid: rgba(148, 170, 220, .12);
+  --accent: #67e8f9; --accent-soft: rgba(103, 232, 249, .2); --sel: rgba(103, 232, 249, .08); --pos: #67e8f9; --neg: #fbbf77;
+  --v1: #67e8f9; --v1-soft: rgba(103, 232, 249, .14); --v2: #a78bfa; --v2-soft: rgba(167, 139, 250, .16);
+  --m: #6ee7a8; --m-bg: rgba(110, 231, 168, .13); --o: #fbbf77; --o-bg: rgba(251, 191, 119, .13); --u: #c3cad8; --u-bg: rgba(195, 202, 216, .12);
+  --warn-bg: rgba(251, 191, 119, .12); --warn-ink: #fbd4a0; --ok-bg: rgba(110, 231, 168, .12); --ok-ink: #9ff0c4;
+}
+body.legacy main { font-size: 16px; }
+body.legacy main h2 { font-size: 1.3rem; }
+body.legacy main h3 { font-size: 1.08rem; }
+body.legacy .chart-card, body.legacy .example-card, body.legacy .turn-panel, body.legacy .st-root .card, body.legacy .glance li,
+body.legacy .ext, body.legacy .audit-step, body.legacy .handoff-row { background: var(--card); border-color: var(--rule); }
+body.legacy .seg-b, body.legacy .nav-b, body.legacy .chip, body.legacy .chips button { color: var(--dim); background: rgba(255, 255, 255, .03); border-color: var(--rule); }
+body.legacy .seg-b[aria-pressed="true"], body.legacy .chips button[aria-pressed="true"] { color: #071022; background: var(--accent); border-color: var(--accent); }
+body.legacy select, body.legacy textarea, body.legacy input[type="text"] { background: rgba(8, 12, 24, .7); color: var(--ink); border: 1px solid var(--rule); border-radius: 8px; }
+body.legacy .disclose > summary, body.legacy details > summary { color: var(--dim); }
+body.legacy details.adv.sec > .in { padding-top: 6px; }
+body.legacy .eyebrow a { color: var(--accent); }
+/* v2.css styles chart rows with ".bar"; keep the v3 site header unaffected */
+header.bar { display: flex; height: auto; overflow: visible; background: none; border-radius: 0; }
+header.bar span { height: auto; }
+header.bar .brand-mark { display: inline-block; height: 14px; }

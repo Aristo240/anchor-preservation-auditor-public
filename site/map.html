@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="color-scheme" content="dark">
+<title>Workflow Map · Anchor-Preservation Auditor</title>
+<meta name="description" content="Map where your priority is given to each agent in your workflow, and where it can only arrive through other agents' outputs. Runs in your browser; sends nothing.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/showcase.css">
+<link rel="stylesheet" href="assets/v2.css">
+<link rel="stylesheet" href="assets/v3.css">
+<link rel="stylesheet" href="assets/legacy.css">
+<link rel="stylesheet" href="assets/v4.css">
+<link rel="stylesheet" href="assets/map.css">
+<link rel="stylesheet" href="assets/inspect.css">
+</head>
+<body class="v3 legacy">
+<canvas id="fx-trail" aria-hidden="true"></canvas>
+<a class="skip" href="#main">Skip to the content</a>
+<header class="bar">
+  <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"></span>Anchor-Preservation Auditor</a>
+  <nav aria-label="Site">
+    <a href="auditor.html">Be the Auditor</a>
+    <a href="quick.html">Quick Check</a>
+    <a href="checkpoint.html">Priority Checkpoint</a>
+    <a href="test.html" aria-current="page">For developers</a>
+    <a href="experiment.html">Recorded experiment</a>
+    <a href="results.html">Results</a>
+    <a href="research.html">Research</a>
+  </nav>
+</header>
+<main id="main">
+<noscript><p class="nojs">This page needs JavaScript to run its form. The scripts only read files from this site; nothing is sent anywhere.</p></noscript>
+<p class="banner-rec banner-live"><b>Your workflow</b><span>Everything you enter stays in this tab. This page runs no AI and reads only the structure you describe.</span></p>
+<div class="page-h"><p class="eyebrow">For developers · step 1 of 3</p><h1>Map your workflow</h1></div>
+<div class="legacy-tool">
+<p class="lede">Describe the agents in your workflow and what each one receives. The map shows where your priority is given directly, where it can only arrive inside another agent's output, and what is still unspecified.</p>
+<p class="label-note"><b>What this does:</b> applies fixed, visible rules to the structure you declare. <b>What it does not do:</b> run your agents, read model behaviour, or decide that a priority was lost because its words don't appear. A map is a description of <b>your</b> workflow's structure, not a behavioural evaluation of it: it shows where to test, not what a test would find. Nothing is uploaded or stored; it is gone on reload unless you export it.</p>
+<ol class="wf-journey" aria-label="The three steps">
+  <li class="on"><b>1 · Map</b> where the priority is given</li>
+  <li><b>2 · Test</b> whether the decision changes with it: <a href="test.html">For developers</a></li>
+  <li><b>3 · Inspect and compare</b> the results: <a href="inspect.html">Inspect and compare</a></li>
+</ol>
+<div class="start-box" id="m-start">
+  <p class="lab">Start with</p>
+  <div class="cta">
+    <button type="button" class="btn" id="m-example">The study's six-handoff workflow</button>
+    <button type="button" class="btn ghost" id="m-own">My own workflow</button>
+    <label class="btn ghost m-file" for="m-import">Open a map file (.json)</label>
+    <input type="file" id="m-import" accept="application/json,.json" class="visually-hidden">
+  </div>
+  <p class="fine">The example is the structure of the recorded pilot (Study 3B): six handoffs, then a separate final-decision call, with one real recorded case's decision and priority. Opening a file reads it in this tab only.</p>
+</div>
+<p class="err" id="m-err" role="alert"></p>
+
+<form id="map-form" class="form-grid" autocomplete="off" novalidate>
+  <section aria-labelledby="m-s1">
+    <h2 id="m-s1">Your priority</h2>
+    <label for="m-priority">The user's stated priority<span class="hint">In the user's words, for example "Keeping costs low matters more to us than fast repairs."</span><textarea id="m-priority" maxlength="2000"></textarea></label>
+    <label for="m-decision">The decision the workflow makes (optional)<textarea id="m-decision" maxlength="4000"></textarea></label>
+    <label for="m-title">A short name for this map (optional)<input type="text" id="m-title" maxlength="200"></label>
+  </section>
+  <section aria-labelledby="m-s2">
+    <h2 id="m-s2">Your agents, in order</h2>
+    <p class="small">For each agent, answer what it receives. If you aren't sure, say so: the map will list it as a question rather than guess.</p>
+    <div id="m-agents"></div>
+    <div class="no-print"><button type="button" class="btn ghost" id="m-add">Add an agent</button> <span class="hint" id="m-add-hint"></span></div>
+  </section>
+</form>
+
+<section class="wf-out" id="m-out" aria-labelledby="m-out-h">
+  <h2 id="m-out-h"><span class="act-tag">Structural mapping</span> The map</h2>
+  <ul class="wf-legend" aria-label="Legend">
+    <li><span class="wf-badge x-explicit">● Given directly</span> the agent receives the priority itself</li>
+    <li><span class="wf-badge x-via">◐ Only through outputs</span> it can arrive only inside earlier outputs or other context</li>
+    <li><span class="wf-badge x-none">○ No declared route</span> as described, nothing could carry it there</li>
+    <li><span class="wf-badge x-unknown">? Not specified</span> answer the questions below</li>
+  </ul>
+  <ol class="wf-flow" id="m-flow"></ol>
+  <div id="m-findings"></div>
+  <div id="m-recorded"></div>
+  <div class="no-print wf-actions">
+    <button type="button" class="btn" id="m-export-json">Save the map (.json)</button>
+    <button type="button" class="btn ghost" id="m-export-report">Save a readable report (.html)</button>
+  </div>
+  <p class="fine">The .json file can be opened again here, or in <a href="trace.html">Review a trace</a> to start reviewing a recorded run of this workflow.</p>
+</section>
+
+<section class="wf-obs" id="m-obs-sec" aria-labelledby="m-obs-h">
+  <h2 id="m-obs-h"><span class="act-tag">Trace inspection</span> Declared versus observed</h2>
+  <p>The map above is what you <b>declare</b>. A trace recorded from one execution of your workflow shows what each agent's model request actually contained, and what framework state it could read. Put them side by side to find routes you didn't intend.</p>
+  <p class="label-note"><b>What this can show:</b> where the priority's exact words were present, and where a recorded request contains another agent's output. <b>What it can't show:</b> that the priority's meaning was absent. It may be paraphrased, or your instrumentation may not capture everything. Anything not captured is shown as unknown. One trace is one execution: inspection, not a behavioural test. The trace is read in this tab only.</p>
+  <div class="cta">
+    <label class="btn ghost m-file" for="m-trace">Open an execution trace (.json)</label>
+    <input type="file" id="m-trace" accept="application/json,.json" class="visually-hidden">
+    <button type="button" class="btn ghost" id="m-obs-example">Illustrative technical example: a LangGraph system, fake model (its declared map and one recorded execution)</button>
+  </div>
+  <p class="fine">Traces come from <code>priority_check workflow</code> runs (save one execution's trace on <a href="inspect.html">Inspect and compare</a>) or from your own instrumentation in the format <code>apa-trace/1</code>. The example is a four-agent LangGraph system run with an offline fake model.</p>
+  <p class="err" id="m-obs-err" role="alert"></p>
+  <div id="m-obs" hidden>
+    <div class="r-tablewrap"><table class="r-table" id="m-obs-table"><thead><tr><th scope="col">Agent</th><th scope="col">Declared</th><th scope="col">Observed in the recorded execution</th></tr></thead><tbody></tbody></table></div>
+    <h3>Discrepancies and gaps</h3>
+    <ul id="m-obs-disc"></ul>
+    <p class="small" id="m-obs-caveat"></p>
+  </div>
+</section>
+
+<section class="wf-test" aria-labelledby="m-t-h">
+  <h2 id="m-t-h"><span class="act-tag">Behavioural evaluation</span> Next: test whether the final decision changes with the priority</h2>
+  <p>A map can't show whether the decision uses the priority. A test can: ask the same decision with the priority and with the opposite priority, with and without it repeated at the deciding step.</p>
+  <ul>
+    <li><b>Your whole workflow, as it runs:</b> connect it with a small adapter and run <code>priority_check workflow</code>. It runs YOUR system with the priority, with the opposite priority and without it, in both option orders, with fresh state each time, and scores the final decision. Conditions your system can't support are reported as not supported. See the kit's <code>docs/WORKFLOW_ADAPTER.md</code> and the LangGraph example.</li>
+    <li><b>Your own deciding step:</b> <a href="test.html">For developers</a> gives you the two prompts to run by hand (with and without one line repeating the priority). The <code>priority_check run</code> command automates the same comparison with your own adapter.</li>
+    <li><b>Our reference workflow on your decision:</b> fill in the two options below and save a scenario file for <code>priority_check chain</code>. It runs <b>our fixed six-handoff reference workflow</b> (advisor → critic → summarizer, twice), <b>not your own agents</b>, even if your map above has a different structure. Its result tells you how that reference workflow behaves with a model on your decision, not how your system behaves.</li>
+    <li><b>A recorded run of your own workflow:</b> paste its handoffs into <a href="trace.html">Review a trace</a>. That supports inspection; on its own it is not a controlled experiment.</li>
+  </ul>
+  <form id="test-form" class="form-grid" autocomplete="off" novalidate>
+    <label for="t-question">The decision to test<span class="hint">Leave empty to use the decision above.</span><textarea id="t-question" maxlength="4000"></textarea></label>
+    <label for="t-a">Option A<input type="text" id="t-a" maxlength="600"></label>
+    <label for="t-b">Option B<input type="text" id="t-b" maxlength="600"></label>
+    <fieldset id="t-fav"><legend>Which option does your priority favour?</legend>
+      <label><input type="radio" name="t-fav" value="A"> Option A</label>
+      <label><input type="radio" name="t-fav" value="B"> Option B</label>
+    </fieldset>
+    <label for="t-opp">The opposite priority<span class="hint">The same trade-off the other way round, so each option has a priority that favours it.</span><textarea id="t-opp" maxlength="2000"></textarea></label>
+    <label for="t-runs">Repetitions (runs per case)<span class="hint">The same calls repeated, to see run-to-run variation. 1 to 20. Repeats are samples of this one scenario, not more scenarios.</span><input type="number" id="t-runs" min="1" max="20" step="1" value="3" inputmode="numeric"></label>
+    <p class="small" id="t-calls" aria-live="polite"></p>
+  </form>
+  <div class="no-print wf-actions"><button type="button" class="btn" id="t-export">Save the scenario (.json) for priority_check workflow or chain</button></div>
+  <p class="err" id="t-err" role="alert"></p>
+  <div id="t-cmd" hidden>
+    <p class="small"><b>To test your own workflow</b> (the main path): write a small adapter for it (see <a href="test.html#kit-box">the developer guide</a>), then run, change your workflow, run again into <code>results_v2</code>, and compare:</p>
+    <pre class="wf-cmd" id="t-cmd-wf"></pre>
+    <pre class="wf-cmd" id="t-cmd-cmp"></pre>
+    <p class="small"><b>Or, without an adapter:</b> this command runs our fixed six-handoff reference workflow on your decision, not your own agents. Move the saved scenario file into the <code>priority_check_kit</code> folder (or write its full path after <code>--scenario</code>), then run this in that folder: a dry run with the built-in fake model (no key, no cost; its output is not evidence about any model):</p>
+    <pre class="wf-cmd" id="t-cmd-fake"></pre>
+    <p class="small">Then open the output folder's <code>summary.json</code> and <code>records.jsonl</code> in <a href="inspect.html">Inspect and compare</a>. A real model run needs your own key, <code>--i-accept-costs</code>, <code>--max-calls</code> equal to the planned count and an exact pinned model id; see the kit's README. The page never makes model calls itself.</p>
+  </div>
+</section>
+</div>
+</main>
+<footer class="foot">
+  <span>Anchor-Preservation Auditor · a research prototype supported by a Cosmos Institute grant · a static site: no backend, no analytics, no model calls.</span> <a href="privacy.html">Privacy &amp; feedback</a>
+  <button type="button" class="link-btn" id="fx-toggle" aria-pressed="true" hidden>Light effects: on</button>
+</footer>
+<script src="assets/study3b.js"></script>
+<script src="assets/wfmap.js"></script>
+<script src="assets/example_workflow.js"></script>
+<script src="assets/map.js"></script>
+<script src="assets/fx.js"></script>
+</body>
+</html>

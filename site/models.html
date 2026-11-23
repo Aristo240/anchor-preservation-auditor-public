@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="color-scheme" content="dark">
+<title>Three-model comparison · Anchor-Preservation Auditor</title>
+<meta name="description" content="Three-model comparison on 14 published dilemmas: results from verified private runs (numbers only).">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/showcase.css">
+<link rel="stylesheet" href="assets/v2.css">
+<link rel="stylesheet" href="assets/v3.css">
+<link rel="stylesheet" href="assets/legacy.css">
+<link rel="stylesheet" href="assets/v4.css">
+<link rel="stylesheet" href="assets/map.css">
+<link rel="stylesheet" href="assets/inspect.css">
+<link rel="stylesheet" href="assets/study4.css">
+</head>
+<body class="v3 legacy" data-page="models">
+<canvas id="fx-trail" aria-hidden="true"></canvas>
+<a class="skip" href="#main">Skip to the content</a>
+<header class="bar">
+  <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"></span>Anchor-Preservation Auditor</a>
+  <nav aria-label="Site">
+    <a href="auditor.html">Be the Auditor</a>
+    <a href="quick.html">Quick Check</a>
+    <a href="checkpoint.html">Priority Checkpoint</a>
+    <a href="test.html">For developers</a>
+    <a href="experiment.html">Recorded experiment</a>
+    <a href="results.html" aria-current="page">Results</a>
+    <a href="research.html">Research</a>
+  </nav>
+</header>
+<main id="main">
+<noscript><p class="nojs">This page needs JavaScript to show the results. Nothing is sent anywhere.</p></noscript>
+<div class="page-h"><p class="eyebrow">Research · cross-model (exploratory)</p><h1>Three-model comparison on 14 published dilemmas</h1></div>
+<div class="legacy-tool">
+<div id="x-status" role="status"></div>
+<section id="x-out" hidden>
+  <h2>Arms</h2><p class="small" id="x-scope"></p>
+  <div class="r-tablewrap"><table class="r-table" id="x-arms"></table></div>
+  <h3>Two things to read before the table</h3>
+  <ul class="small" id="x-notes"></ul>
+  <h3>Priority match per condition</h3>
+  <p class="small">Classes are analysed apart and never combined (clean_paired, exploratory). Each model is its own arm; results are never pooled across models. Rates are descriptive.</p>
+  <div class="r-tablewrap"><table class="r-table" id="x-cells"></table></div>
+  <h3>Delegation change and default reversion</h3>
+  <div class="r-tablewrap"><table class="r-table" id="x-derived"></table></div>
+  <h3>Interpretation limits</h3>
+  <ul class="small">
+    <li>Exploratory and descriptive: one run per item; 5 clean items (10 cases per model, condition and direction) and 9 exploratory items.</li>
+    <li>Family-bootstrap intervals rest on very few clusters.</li>
+    <li>Each provider was called through its own API with its own reasoning setting; the models are compared side by side, never pooled.</li>
+    <li>Different items and design from Study 4: not a replication. No open-weight model (Qwen: not run, pinned provider configuration unavailable).</li>
+  </ul>
+  <h3>Provenance</h3><p class="fine x-hash" id="x-prov"></p>
+</section>
+</div>
+</main>
+<footer class="foot">
+  <span>Anchor-Preservation Auditor · a research prototype supported by a Cosmos Institute grant · a static site: no backend, no analytics, no model calls.</span> <a href="privacy.html">Privacy &amp; feedback</a>
+  <button type="button" class="link-btn" id="fx-toggle" aria-pressed="true" hidden>Light effects: on</button>
+</footer>
+<script src="assets/extra_results.js"></script>
+<script src="assets/extra-results-page.js"></script>
+<script src="assets/fx.js"></script>
+</body>
+</html>

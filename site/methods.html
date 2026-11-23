@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="color-scheme" content="dark">
+<title>How this was tested · Anchor-Preservation Auditor</title>
+<meta name="description" content="How the studies were run: Study 4 (primary), Study 3C and the three-model comparison (exploratory), and the earlier Study 1, Study 2 and Study 3B pilot protocols.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/v3.css">
+<link rel="stylesheet" href="assets/v4.css">
+</head>
+<body class="v3">
+<canvas id="fx-trail" aria-hidden="true"></canvas>
+<a class="skip" href="#main">Skip to the content</a>
+<header class="bar">
+  <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"></span>Anchor-Preservation Auditor</a>
+  <nav aria-label="Site">
+    <a href="auditor.html">Be the Auditor</a>
+    <a href="quick.html">Quick Check</a>
+    <a href="checkpoint.html">Priority Checkpoint</a>
+    <a href="test.html">For developers</a>
+    <a href="experiment.html">Recorded experiment</a>
+    <a href="results.html">Results</a>
+    <a href="research.html" aria-current="page">Research</a>
+  </nav>
+</header>
+<main id="main">
+<noscript><p class="nojs">This page needs JavaScript to show the recorded results and to run its buttons. The scripts only read files from this site; nothing is sent anywhere.</p></noscript>
+<ul class="subnav" aria-label="Research pages"><li><a href="research.html">Overview & studies</a></li><li><a href="methods.html" aria-current="page">How it was tested</a></li><li><a href="design.html">Design decisions & limits</a></li><li><a href="faq.html">FAQ</a></li><li><a href="data.html">Data & reproducibility</a></li></ul>
+<div class="page-h"><p class="eyebrow">Research</p><h1>How this was tested</h1></div>
+<div class="inshort"><span class="k">In short</span><p>The primary study, Study 4, recorded Gemini 2.5 Pro's final decisions on 12 constructed scenarios told directly, after six handoffs, and with the priority restated at the final step, beside no-priority baselines. Two exploratory studies support it: Study 3C (decisions after each handoff, on the 28 saved pilot cases) and a comparison of three other models on 14 published dilemmas. The earlier studies (1, 2 and the Study 3B pilot) also used Gemini 2.5 Pro. Every role, advisor, critic, summarizer or final decision-maker, was a separate call to the same model, and everything is reported from recorded outputs.</p></div>
+<nav class="toc" aria-label="On this page"><a href="#study4">Study 4 (primary)</a><a href="#study3c">Study 3C (exploratory)</a><a href="#models">Three-model comparison (exploratory)</a><a href="#setup">Setup of the earlier studies</a><a href="#study2">Study 2: does a stated priority change a single choice?</a><a href="#study1">Study 1: does the priority stay visible as advice is handed on?</a><a href="#study3b">Earlier development pilot (Study 3B)</a></nav>
+<div class="prose" id="content">
+<p class="lede">One primary study, two exploratory supporting studies and the earlier pilots, all reported from recorded outputs. This page explains how each was run. For the reasoning behind the design, see <a href="design.html">Design decisions &amp; limitations</a>.</p>
+<details class="adv sec" id="study4" open><summary>Study 4 (primary): does the final decision still follow the priority after six handoffs?</summary>
+<div class="in prose">
+<p><b>Model and materials.</b> Gemini 2.5 Pro. 12 constructed scenarios from one template family, each under 2 opposite priorities and in 2 option orders. Each case was run through 2 independent handoff chains.</p>
+<p><b>Conditions.</b></p>
+<ol>
+  <li><b>Direct:</b> the final decision-maker gets the task, the options and the priority.</li>
+  <li><b>Delegated:</b> six handoffs (advisor, critic, summarizer, twice); the priority is given only at the start, and the final decision-maker gets the sixth handoff but not the priority.</li>
+  <li><b>Restored:</b> the same as Delegated, with the priority restated at the final step.</li>
+  <li><b>T1 decision:</b> a decision made after the first handoff.</li>
+  <li><b>No-priority baselines:</b> 72 direct decisions with no priority (3 draws per scenario and option order) and 48 decisions after a six-handoff chain built without a priority.</li>
+</ol>
+<p><b>Size.</b> 1,320 planned units, all completed.</p>
+<p><b>Parsing.</b> A strict first-line parser reads <code>FIRST CHOICE: A</code>, <code>B</code> or <code>UNCLEAR</code>. A tolerant parser was prespecified as a sensitivity analysis; it gave no differences (the two agree on all 456 decisions).</p>
+<p><b>Unit and measure.</b> The unit is scenario × option order × chain. A unit is <i>paired-sensitive</i> when both opposite priorities got their own option. Matching a single decision is reported separately and is weaker evidence.</p>
+<p><b>Primary estimates.</b> P1 (Direct − Delegated) and P2 (Restored − Delegated) in the paired-sensitive share, averaged over the 12 scenarios, with 95% percentile bootstrap intervals over scenarios (B = 10,000, seed 20261113). With about 12 scenario clusters, the intervals are descriptive. Results: P1 +0.875 [0.750, 0.979], P2 +0.854 [0.729, 0.958]; an independent recomputation with separate code reproduced both. See <a href="study4.html">Study 4 results</a>.</p>
+<p><b>Run deviation.</b> The primary key was refused (HTTP 404), and the run used the investigator's fallback key in the same run directory; this deviation is documented and was ratified. 3 failed attempts (1 refused key, 2 network failures) were acknowledged and retried with the same prompt, and their worst-case cost was counted.</p>
+</div></details>
+<details class="adv sec" id="study3c"><summary>Study 3C (exploratory): where along the chain does the decision change?</summary>
+<div class="in prose">
+<p>Gemini 2.5 Pro. The 28 saved Study 3B cases were decided after each handoff: decision probes after T1–T5, with T6 being the decision recorded in Study 3B, plus a T6 replicate asked again in the Study 3C session (same outcome as the recorded T6 in 23 of 28 cases). Exploratory. Each role occupies one early and one late position across only 7 scenarios, so role and position are confounded and no claim is made about roles. It measures decision sensitivity at each checkpoint, not the point at which a priority was forgotten. See <a href="study3c.html">Study 3C results</a>.</p>
+</div></details>
+<details class="adv sec" id="models"><summary>Three-model comparison (exploratory): Gemini 3.8 Flash, Claude Sonnet 5.5, GPT-5.5</summary>
+<div class="in prose">
+<p>14 published dilemmas: 5 <code>clean_paired</code> items (eligible for the priority-match measure) and 9 exploratory items, analysed apart. Each item was run under 2 priority directions × 2 option orders × 5 conditions (direct, delegated, restored, no priority direct, no priority after a chain): 68 calls per item and 952 per model, all verified. One run per item; a strict first-line parser; different request APIs per provider. Each model is its own arm and results are never pooled across models or with Study 4; this is not a replication. A fourth, open-weight model (Qwen) was not run because its pinned provider configuration was unavailable. See <a href="models.html">Compare models</a>.</p>
+</div></details>
+<details class="adv sec" id="setup"><summary>Setup of the earlier studies (Study 1, Study 2, Study 3B pilot)</summary>
+<div class="in prose">
+<p>A user states a priority in plain words: which of two values matters more to them for this choice. The AI then advises, or chooses between two options. Each “agent” is a separate call to the same model, with a different role instruction (advisor, critic, summarizer, or final decision-maker). No agent is a separately trained model. Study 2 is a single turn with no handoffs; Studies 1 and 3B pass advice through six handoffs. Each of these earlier studies used <code>gemini-2.5-pro</code> through the same backend settings: temperature 0.2, top-k 1, no system prompt.</p>
+<h2 id="provenance">How the records were kept</h2>
+<p><b>Study 1</b> comes from a saved corpus of workflows and rater scores (generated in August 2026). The site's build records the SHA-256 of every input file and checks every displayed text, score and prompt against that corpus; it does not use a call-by-call ledger. <b>Studies 2 and 3B</b> were run later with a hash-chained ledger: each call was logged before and after it was made, each raw response was saved with its hash, and the numbers shown are rebuilt from the validated ledger. Study 3B's results were also recomputed independently from the raw records.</p>
+</div></details>
+<details class="adv sec" id="study2"><summary>Earlier study, Study 2: does a stated priority change a single choice?</summary>
+<div class="in prose">
+<p>35 constructed two-option decisions in four value pairs. Each was asked with no priority (three repetitions in each of two option orders) and once under each of two opposing priorities, in both orders. The answer's first line had to be <code>FIRST CHOICE: A</code>, <code>B</code> or <code>UNCLEAR</code>. Whether a choice matches a priority follows from how the decision was built; no AI rater is involved. Result: <span data-n="s2.pr">–</span> of <span data-n="s2.prN">–</span> priority answers matched.</p>
+</div></details>
+<details class="adv sec" id="study1"><summary>Earlier study, Study 1: does the priority stay visible as advice is handed on?</summary>
+<div class="in prose">
+<p>45 open-ended workplace dilemmas × 8 stated values = 360 workflows, each with six handoffs (advisor → critic → summarizer, twice). Only the first advisor explicitly received the priority; later steps could still discuss or paraphrase it. Each text was scored for how strongly it expressed each of ten values, from −1 (opposed) to +2 (dominant), by an automated rater (Gemini 2.5 Pro with a fixed rubric, median of three ratings), and compared with three matched runs that had no priority. The extra measured expression of the stated value fell from <span data-n="s1.t1">–</span> at T1 to <span data-n="s1.t6">–</span> at T6. This measures <em>expression in text</em>, not decisions, and the rater has not been validated against human judgment.</p>
+<p id="s1-posthoc">This matched with-versus-without comparison was specified after the preregistered analysis, whose hypotheses used a different comparison. Treat it as a post-hoc estimate.</p>
+</div></details>
+<details class="adv sec" id="study3b"><summary>Earlier development pilot (Study 3B, 28 cases): does the priority still decide the final choice after delegation?</summary>
+<div class="in prose">
+<table class="dl-table" id="names"><caption class="fine cap">Names used on the main pages and in the research documentation</caption>
+<thead><tr><th scope="col">On the main pages</th><th scope="col">Formal name (documentation, data files)</th></tr></thead>
+<tbody><tr><td>Told directly</td><td>Direct (<code>direct</code>)</td></tr>
+<tr><td>Handoff only</td><td>Delegated (<code>delegated</code>)</td></tr>
+<tr><td>Priority repeated at the final decision</td><td>Restored (<code>restored</code>)</td></tr>
+<tr><td>Priority re-added at step 4</td><td>T4 re-anchored (<code>reanchored</code>)</td></tr>
+<tr><td>Handoff 1 … Handoff 6</td><td>T1 … T6</td></tr></tbody></table>
+<p>A development pilot on 7 of the Study 2 decisions, each under 2 opposing priorities and in 2 option orders (28 cases). For every case:</p>
+<ol>
+  <li><b>Direct:</b> the final decision-maker gets the task, the options and the priority.</li>
+  <li><b>Handoff chain:</b> an advisor gets the task and the priority; then critic, summarizer, advisor, critic, summarizer pass the advice on (T1–T6). Only T1 explicitly receives the priority; later handoffs can still discuss or paraphrase it.</li>
+  <li><b>Delegated:</b> the final decision-maker gets the task, the options and T6, but not the original priority as a separate instruction.</li>
+  <li><b>Restored:</b> the same prompt as Delegated with the same saved T6, plus one added line: the user's priority.</li>
+  <li><b>T4 re-anchored:</b> keep the saved T1–T3; regenerate T4 with the priority inserted (“What they have told you matters to them: …”); regenerate T5 and T6 normally; the final decision-maker gets this new T6, but not the priority as a separate instruction. Because T4–T6 are newly generated, its comparison with Delegated also includes ordinary generation variability.</li>
+  <li><b>No-priority baseline</b> (exploratory): task and options only, once per decision and option order.</li>
+</ol>
+<p>378 calls in total, under a $15 cap (actual cost about $7.11). The plan, prompts and analysis were frozen before the first call; outcomes were sealed until a written declaration was signed; the frozen analysis and an independent recomputation from the raw records agreed in all 140 row-wise comparisons. That number counts comparisons, not separate calls: the 28 cases × 4 conditions (112 recorded final decisions), plus each case compared with the no-priority answer for its decision and option order (28 comparisons that reuse the 14 unique no-priority answers; there were 14 no-priority calls, not 28). The public decisions file holds 126 unique recorded rows: 112 final decisions and 14 no-priority answers.</p>
+<p><b>Outcomes.</b> Each final answer is parsed from its first line and classified as <i>matched</i> (chose the option built to match the stated priority), <i>opposite</i> (chose the other option) or <i>UNCLEAR</i>. Delegated: <span data-n="s3b.delegated.matched">–</span> matched, <span data-n="s3b.delegated.opposite">–</span> opposite, <span data-n="s3b.delegated.unclear">–</span> UNCLEAR. Restored: <span data-n="s3b.restored.matched">–</span> matched. T4 re-anchored: <span data-n="s3b.reanchored.matched">–</span> matched, <span data-n="s3b.reanchored.opposite">–</span> opposite, <span data-n="s3b.reanchored.unclear">–</span> UNCLEAR.</p>
+<p><b>Paired priority sensitivity.</b> For each decision and option order, a condition is <i>sensitive</i> only if both opposing priorities produced their own matching option, so the choice actually followed the priority when it flipped. Sensitive scenario-orders (of 14): Direct <span data-n="s3b.sens.direct">–</span>, Delegated <span data-n="s3b.sens.delegated">–</span>, Restored <span data-n="s3b.sens.restored">–</span>, T4 re-anchored <span data-n="s3b.sens.reanchored">–</span>. These are descriptive; with 7 scenarios there is no hypothesis test.</p>
+<p><b>Reading single cases.</b> Each case was run once, so a single changed choice is an observed difference, not proof of a reliable causal effect. Matching a stated priority is not the same as making the best decision.</p>
+<p><b>The value-name diagnostic</b> (exploratory, specified before unsealing). Whether each T6 contains the prioritized value's name as a whole word: Delegated <span data-n="s3b.named.delegated">–</span> of 28, T4 re-anchored <span data-n="s3b.named.reanchored">–</span> of 28. It is a literal word match, not a semantic classifier, and it is not a validated predictor of the choice.</p>
+<p class="small">The full protocol, freeze record and analysis code are not public yet. <a href="data.html">Data &amp; reproducibility</a> lists what can be recomputed from the published data now, and will link the code once a public repository is approved.</p>
+</div></details>
+</div>
+</main>
+<footer class="foot">
+  <span>Anchor-Preservation Auditor · a research prototype supported by a Cosmos Institute grant · a static site: no backend, no analytics, no model calls.</span> <a href="privacy.html">Privacy &amp; feedback</a>
+  <button type="button" class="link-btn" id="fx-toggle" aria-pressed="true" hidden>Light effects: on</button>
+</footer>
+<script src="assets/data.js"></script>
+<script src="assets/single_turn.js"></script>
+<script src="assets/study3b.js"></script>
+<script src="assets/pages.js"></script>
+<script src="assets/fx.js"></script>
+<script src="assets/research-v3.js"></script>
+</body>
+</html>

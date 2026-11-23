@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- No network access of any kind: scripts and styles load only from this
+     folder, and connect-src 'none' blocks fetch/XHR/WebSocket outright. -->
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="color-scheme" content="dark">
+<title>Priority Checkpoint · Anchor-Preservation Auditor</title>
+<meta name="description" content="Write a short decision brief to paste into any AI chat: the decision, what matters most to you, a constraint, and how the AI should handle a different view. Nothing is saved or sent.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/v3.css">
+<link rel="stylesheet" href="assets/auditor.css">
+<link rel="stylesheet" href="assets/v4.css">
+<script src="assets/redirects.js"></script>
+</head>
+<body class="v3">
+<canvas id="fx-trail" aria-hidden="true"></canvas>
+<a class="skip" href="#main">Skip to the content</a>
+<header class="bar">
+  <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"></span>Anchor-Preservation Auditor</a>
+  <nav aria-label="Site">
+    <a href="auditor.html">Be the Auditor</a>
+    <a href="quick.html">Quick Check</a>
+    <a href="checkpoint.html" aria-current="page">Priority Checkpoint</a>
+    <a href="test.html">For developers</a>
+    <a href="experiment.html">Recorded experiment</a>
+    <a href="results.html">Results</a>
+    <a href="research.html">Research</a>
+  </nav>
+</header>
+
+<main id="main" class="cpk">
+<noscript><p class="nojs">This page needs JavaScript to show the recorded results and to run its buttons. The scripts only read files from this site; nothing is sent anywhere.</p></noscript>
+<p class="eyebrow">For your own AI chats · optional</p>
+<h1 id="cpk-h">Priority Checkpoint</h1>
+<p class="lede">Before you ask an AI for help with a decision, write down what matters to you. Paste the brief into the chat. In a long conversation or a tool with several AI steps, paste it again before you ask for the final recommendation.</p>
+
+<p class="eyebrow">Step 1 · Before you ask</p>
+<div class="cpk-grid">
+  <div class="card form cpk-form" role="group" aria-labelledby="cpk-fields">
+    <h2 id="cpk-fields" class="bta-q2">Your decision</h2>
+    <label class="f" for="cp-decision"><span>The decision you want help with</span><input id="cp-decision" type="text" autocomplete="off" placeholder="e.g. Choose between two job offers"></label>
+    <label class="f" for="cp-matters"><span>What matters most in this decision</span><small>In your own words. It's fine to say what matters less, too.</small><input id="cp-matters" type="text" autocomplete="off" placeholder="e.g. Learning and professional growth matter more to me than prestige."></label>
+    <label class="f" for="cp-constraint"><span>An important constraint <em class="opt-l">optional</em></span><input id="cp-constraint" type="text" autocomplete="off" placeholder="e.g. I want to stay in my current city."></label>
+    <fieldset class="f seg" id="cp-mode"><legend>If the AI thinks something else should matter more</legend>
+      <label><input type="radio" name="cp-mode" value="ask" checked><span>Ask me before changing the criteria</span></label>
+      <label><input type="radio" name="cp-mode" value="flag"><span>Say so, but keep my criteria</span></label>
+    </fieldset>
+    <button type="button" class="link-btn" id="cp-example">Fill in an example</button>
+  </div>
+
+  <div class="card pad cpk-out" aria-labelledby="cpk-out-h">
+    <h2 id="cpk-out-h" class="bta-q2">Your brief <span class="fine">· you can edit it</span></h2>
+    <label class="f" for="cp-brief"><span class="vh">Your brief</span><textarea id="cp-brief" rows="9" spellcheck="true"></textarea></label>
+    <p class="fine" id="cp-edited" hidden>You've edited the brief, so it no longer updates from the fields. <button type="button" class="link-btn" id="cp-regen">Rebuild it from the fields</button></p>
+    <div class="actions">
+      <button type="button" class="btn primary" id="cp-copy">Copy the brief</button>
+      <button type="button" class="btn ghost" id="cp-dl">Save as a text file</button>
+    </div>
+    <p class="copied" id="cp-msg" aria-live="polite"></p>
+    <p class="fine untested" id="cp-untested">Untested: our studies did not test this brief. It can't make an AI follow it, and a different view from the AI may be worth considering.</p>
+  </div>
+</div>
+
+<details class="adv standing" id="si-box"><summary>Optional: one standing instruction for every decision<small>Copy it once; edit it as you like</small></summary><div class="in">
+  <label class="f" for="si-text"><span class="vh">Standing instruction</span><textarea id="si-text" rows="5">When I ask for help making a decision, briefly restate the priorities and constraints I gave you. Compare the options against them. If you think another consideration deserves more weight, explain why and ask before replacing my original criteria. In the final recommendation, show how the choice relates to what I said matters most.</textarea></label>
+  <div class="actions"><button type="button" class="btn ghost" id="si-copy">Copy the instruction</button><button type="button" class="link-btn" id="si-reset">Restore the original wording</button></div>
+  <p class="copied" id="si-msg" aria-live="polite"></p>
+  <p class="fine">Paste it at the start of an AI conversation. Some assistants also let you save standing or custom instructions; not all do, and saved instructions may not apply in every conversation. It can't make an AI follow it, and our study didn't test this wording. It asks the AI to raise other considerations openly, not to avoid them.</p>
+</div></details>
+
+<section class="rcpt" aria-labelledby="rc-h">
+  <p class="eyebrow">Step 2 · After the AI answers · optional</p>
+  <h2 id="rc-h" class="bta-q2">Your Priority Receipt</h2>
+  <p class="fine">Record what the AI recommended and check it against what you said mattered. You make every judgment: this page doesn't read, analyse or score the AI's answer. Then save the record, or ask a follow-up question.</p>
+  <div class="rcpt-grid">
+    <div class="card form" role="group" aria-labelledby="rc-h">
+      <p class="rcpt-crit" id="rc-crit"></p>
+      <p class="fine" id="rc-brief-src"></p>
+      <label class="f" for="rc-ai"><span>What the AI recommended</span><small>Paste its answer or summarise it in your own words.</small><textarea id="rc-ai" rows="5"></textarea></label>
+      <fieldset class="f seg" id="rc-addr"><legend>Did the answer say how its recommendation relates to what matters most to you?</legend>
+        <label><input type="radio" name="rc-addr" value="yes"><span>Yes</span></label>
+        <label><input type="radio" name="rc-addr" value="partly"><span>Partly</span></label>
+        <label><input type="radio" name="rc-addr" value="no"><span>No</span></label>
+        <label><input type="radio" name="rc-addr" value="unsure"><span>Not sure</span></label>
+      </fieldset>
+      <fieldset class="f seg" id="rc-change"><legend>Did it bring in a consideration you didn't give?</legend>
+        <label><input type="radio" name="rc-change" value="no"><span>No</span></label>
+        <label><input type="radio" name="rc-change" value="added"><span>Yes, alongside mine</span></label>
+        <label><input type="radio" name="rc-change" value="replaced"><span>Yes, instead of mine</span></label>
+        <label><input type="radio" name="rc-change" value="unsure"><span>Not sure</span></label>
+      </fieldset>
+      <fieldset class="f seg" id="rc-open" hidden><legend>Did it say so openly?</legend>
+        <label><input type="radio" name="rc-open" value="yes"><span>Yes</span></label>
+        <label><input type="radio" name="rc-open" value="no"><span>No</span></label>
+        <label><input type="radio" name="rc-open" value="unsure"><span>Not sure</span></label>
+      </fieldset>
+      <fieldset class="f seg" id="rc-new" hidden><legend>What do you think of the new consideration?</legend>
+        <label><input type="radio" name="rc-new" value="accept"><span>It should count too</span></label>
+        <label><input type="radio" name="rc-new" value="consider"><span>I'd like to hear why first</span></label>
+        <label><input type="radio" name="rc-new" value="reject"><span>Keep my original criteria</span></label>
+      </fieldset>
+      <fieldset class="f seg" id="rc-cons" hidden><legend>Does the recommendation respect your constraint?</legend>
+        <label><input type="radio" name="rc-cons" value="yes"><span>Yes</span></label>
+        <label><input type="radio" name="rc-cons" value="no"><span>No</span></label>
+        <label><input type="radio" name="rc-cons" value="unsure"><span>Not sure</span></label>
+      </fieldset>
+      <label class="f" for="rc-note"><span>Your note <em class="opt-l">optional</em></span><input id="rc-note" type="text" autocomplete="off" placeholder="e.g. It focused on salary, which I said matters less."></label>
+      <button type="button" class="link-btn" id="rc-example">Fill in an example</button>
+    </div>
+    <div class="card pad">
+      <label class="f" for="rc-q"><span>A follow-up question for the AI <span class="fine">· you can edit it</span></span><textarea id="rc-q" rows="6"></textarea></label>
+      <p class="fine untested" id="rc-untested">Untested: our studies did not test these follow-up questions. The AI's reply is not evidence of how it reached its recommendation.</p>
+      <p class="fine" id="rc-edited" hidden>You've edited the question, so it no longer updates from your answers. <button type="button" class="link-btn" id="rc-regen">Rebuild it</button></p>
+      <div class="actions"><button type="button" class="btn primary" id="rc-copyq">Copy the question</button></div>
+      <h3 class="bta-q2">Your decision record</h3>
+      <p class="fine">One file with your brief, the AI's recommendation, your own review and the follow-up question. It's created in this tab and saved only where you choose.</p>
+      <div class="actions"><button type="button" class="btn ghost" id="rc-md">Save as Markdown</button><button type="button" class="btn ghost" id="rc-txt">Save as text</button></div>
+      <details class="adv"><summary>Preview the record</summary><div class="in"><pre class="text-box mono" id="rc-preview"></pre></div></details>
+      <p class="copied" id="rc-msg" aria-live="polite"></p>
+    </div>
+  </div>
+</section>
+
+<section class="cpk-why" aria-labelledby="cpk-why-h">
+  <h2 id="cpk-why-h" class="bta-q2">Why a checkpoint?</h2>
+  <p>When AI steps pass work along, the person's own words may not reach the step that makes the final recommendation. In our recorded pilot, the final step got the previous AI step's output but not the person's priority as a separate instruction. Its choice fitted that priority in <b id="cpk-n1">–</b> cases; with the same output plus the priority repeated, in <b id="cpk-n2">–</b>. That was one model, seven constructed decisions and one run each. It doesn't show that a reminder always works, or that the choices were better.</p>
+  <p class="aside"><a href="auditor.html">See what happened in the recorded runs →</a></p>
+  <details class="adv"><summary>What this brief can and can't do</summary><div class="in prose"><ul>
+    <li>It makes your priorities explicit, so you can see whether the answer uses them and notice when it doesn't.</li>
+    <li>It can't ensure that an AI follows it, and it doesn't make a decision better. Sometimes you'll want the AI to question your priorities; the brief asks it to do that openly, so you can decide.</li>
+    <li>Nothing you type is saved, sent or analysed. It stays on this page until you close or reload it.</li>
+  </ul></div></details>
+</section>
+</main>
+
+<footer class="foot">
+  <span>Anchor-Preservation Auditor · a research prototype supported by a Cosmos Institute grant · a static site: no backend, no analytics, no model calls.</span> <a href="privacy.html">Privacy &amp; feedback</a>
+  <button type="button" class="link-btn" id="fx-toggle" aria-pressed="true" hidden>Light effects: on</button>
+</footer>
+<script src="assets/study3b.js"></script>
+<script src="assets/fx.js"></script>
+<script src="assets/checkpoint.js"></script>
+</body>
+</html>
